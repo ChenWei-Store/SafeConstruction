@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sp_50">50sp</dimen>
+    <dimen name="sp_30">30sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_10">10sp</dimen>
+    <dimen name="sp_8">8sp</dimen>
+
+
+    <dimen name="horizontal_margin_4">4dp</dimen>
+    <dimen name="horizontal_margin_6">6dp</dimen>
+    <dimen name="horizontal_margin_8">8dp</dimen>
+    <dimen name="horizontal_margin_10">10dp</dimen>
+    <dimen name="horizontal_margin_12">12dp</dimen>
+    <dimen name="horizontal_margin_14">14dp</dimen>
+    <dimen name="horizontal_margin_16">16dp</dimen>
+    <dimen name="horizontal_margin_18">18dp</dimen>
+    <dimen name="horizontal_margin_20">20dp</dimen>
+    <dimen name="horizontal_margin_22">22dp</dimen>
+    <dimen name="horizontal_margin_24">24dp</dimen>
+    <dimen name="horizontal_margin_26">26dp</dimen>
+    <dimen name="horizontal_margin_28">28dp</dimen>
+    <dimen name="horizontal_margin_30">30dp</dimen>
+    <dimen name="horizontal_margin_34">34dp</dimen>
+    <dimen name="horizontal_margin_44">44dp</dimen>
+    <dimen name="horizontal_margin_46">46dp</dimen>
+    <dimen name="horizontal_margin_50">50dp</dimen>
+    <dimen name="horizontal_margin_60">60dp</dimen>
+
+    <dimen name="vertical_margin_4">4dp</dimen>
+    <dimen name="vertical_margin_6">6dp</dimen>
+    <dimen name="vertical_margin_8">8dp</dimen>
+    <dimen name="vertical_margin_10">10dp</dimen>
+    <dimen name="vertical_margin_12">12dp</dimen>
+    <dimen name="vertical_margin_14">14dp</dimen>
+    <dimen name="vertical_margin_16">16dp</dimen>
+    <dimen name="vertical_margin_20">20dp</dimen>
+    <dimen name="vertical_margin_24">24dp</dimen>
+    <dimen name="vertical_margin_26">26dp</dimen>
+    <dimen name="vertical_margin_30">30dp</dimen>
+    <dimen name="vertical_margin_32">32dp</dimen>
+    <dimen name="vertical_margin_36">36dp</dimen>
+    <dimen name="vertical_margin_38">38dp</dimen>
+    <dimen name="vertical_margin_40">40dp</dimen>
+    <dimen name="vertical_margin_52">52dp</dimen>
+    <dimen name="vertical_margin_80">80dp</dimen>
+
+    <dimen name="btn_height_50">50dp</dimen>
+
+    <dimen name="corner_60">60dp</dimen>
+    <dimen name="corner_28">28dp</dimen>
+    <dimen name="corner_26">26dp</dimen>
+    <dimen name="corner_24">24dp</dimen>
+    <dimen name="corner_20">20dp</dimen>
+    <dimen name="corner_18">18dp</dimen>
+    <dimen name="corner_16">16dp</dimen>
+    <dimen name="corner_14">14dp</dimen>
+    <dimen name="corner_10">10dp</dimen>
+
+
+</resources>
