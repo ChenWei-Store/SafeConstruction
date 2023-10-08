@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">SafeConstruction</string>
     <string name="loading">加载中。。。</string>
+    <string name="version">v%1$s</string>
+    <string name="login_title">平安施工&#160;智慧工程</string>
+    <string name="login">登录</string>
+    <string name="login_hint">请输入手机号或用户名</string>
+    <string name="pwd_hint">请输入密码</string>
+    <string name="home">首页</string>
+    <string name="mine">个人中心</string>
+    <string name="take_photos_of_hidden_dangers">隐患随手拍</string>
+    <string name="rectification_and_reply">整改与回复</string>
+    <string name="routine_inspection">巡查记录</string>
+    <string name="video_surveillance">视频监控</string>
+    <string name="attendance_management">考勤管理</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="update_version">版本更新</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="logout">退出登录</string>
+
 </resources>

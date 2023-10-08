@@ -33,7 +33,9 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         doBeforeSetContentView()
         binding = getViewBinding(layoutInflater)
-        AdaptScreenUtil.setCustomDensity(this, application, BuildConfig.DESIGN_WIDTH_DP)
+        if (BuildConfig.DESIGN_WIDTH_DP > 0){
+            AdaptScreenUtil.setCustomDensity(this, application, BuildConfig.DESIGN_WIDTH_DP)
+        }
         binding?.let {
             setContentView(it.root)
         }
