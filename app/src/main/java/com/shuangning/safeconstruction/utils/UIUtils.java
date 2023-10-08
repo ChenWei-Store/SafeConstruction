@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.shuangning.safeconstruction.base.BaseApplication;
 
@@ -124,4 +125,15 @@ public class UIUtils {
     public static int getScreenHegith() {
         return getDisplayMetrics().heightPixels;
     }
+
+    /**
+     * TODO:新增
+     */
+    public static Drawable getTintDrawable(Context ctx, int drawableId, int tintColorId){
+        Drawable drawable = getDrawable(drawableId);
+        // 设置图片为绿色
+        DrawableCompat.setTint(drawable, getColor(tintColorId));
+        return drawable;
+    }
+
 }

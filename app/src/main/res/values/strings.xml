@@ -17,5 +17,9 @@
     <string name="update_version">版本更新</string>
     <string name="clear_cache">清除缓存</string>
     <string name="logout">退出登录</string>
+    <string name="scan">扫一扫</string>
+    <string name="clock_in">打卡</string>
+    <string name="my_application">我的应用</string>
+    <string name="platform_name">智慧工程云平台</string>
 
 </resources>

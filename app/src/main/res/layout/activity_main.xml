@@ -45,11 +45,10 @@
         app:layout_constraintEnd_toEndOf="@id/view_left"
         app:layout_constraintTop_toTopOf="@id/view_left"
         android:layout_marginTop="@dimen/vertical_margin_4"
-        app:tint="@color/c_0A8BD6"
         android:src="@drawable/main_tab_home"/>
 
     <TextView
-        android:id="@+id/tv_upload_info"
+        android:id="@+id/tv_home"
         style="@style/CommonTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,16 +56,15 @@
         app:layout_constraintEnd_toEndOf="@id/view_left"
         app:layout_constraintTop_toBottomOf="@id/iv_left"
         android:layout_marginTop="@dimen/vertical_margin_4"
+        android:textColor="@color/main_tab_color"
         android:textSize="@dimen/sp_12"
-        android:textColor="@color/c_0A8BD6"
-        android:textStyle="bold"
         android:text="@string/home"/>
     <View
         android:id="@+id/view_center"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toEndOf="@id/view_left"
-        app:layout_constraintEnd_toStartOf="@id/view_end"
+        app:layout_constraintEnd_toStartOf="@id/view_right"
         app:layout_constraintTop_toTopOf="@id/view_tab_bottom"
         app:layout_constraintBottom_toBottomOf="@id/view_tab_bottom" />
 
@@ -79,9 +77,8 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_tab"
         android:src="@drawable/main_tab_add"/>
 
-
     <View
-        android:id="@+id/view_end"
+        android:id="@+id/view_right"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toEndOf="@id/view_center"
@@ -94,21 +91,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vertical_margin_4"
-        app:layout_constraintStart_toStartOf="@id/view_end"
-        app:layout_constraintEnd_toEndOf="@id/view_end"
-        app:layout_constraintTop_toTopOf="@id/view_end"
+        app:layout_constraintStart_toStartOf="@id/view_right"
+        app:layout_constraintEnd_toEndOf="@id/view_right"
+        app:layout_constraintTop_toTopOf="@id/view_right"
         android:src="@drawable/main_tab_mine"/>
 
     <TextView
-        android:id="@+id/tv_apply_loans"
+        android:id="@+id/tv_mine"
         style="@style/CommonTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/view_end"
-        app:layout_constraintEnd_toEndOf="@id/view_end"
+        app:layout_constraintStart_toStartOf="@id/view_right"
+        app:layout_constraintEnd_toEndOf="@id/view_right"
         app:layout_constraintTop_toBottomOf="@id/iv_right"
         android:layout_marginTop="@dimen/vertical_margin_4"
         android:textSize="@dimen/sp_12"
-        android:textColor="@color/c_222"
+        android:textColor="@color/main_tab_color"
         android:text="@string/mine"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

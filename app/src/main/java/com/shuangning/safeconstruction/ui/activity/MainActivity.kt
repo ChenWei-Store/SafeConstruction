@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityMainBinding
+import com.shuangning.safeconstruction.ui.fragment.HomeFragment
 import com.shuangning.safeconstruction.ui.fragment.MineFragment
+import com.shuangning.safeconstruction.utils.UIUtils
 
 /**
  * Created by Chenwei on 2023/10/7.
  */
 class MainActivity: BaseActivity<ActivityMainBinding>() {
     private val mineFragment = MineFragment()
+    private val homeFragment = HomeFragment()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityMainBinding? {
         return ActivityMainBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        switchFragment(mineFragment, R.id.fl_container)
+        switchFragment(homeFragment, R.id.fl_container)
+        setSelected(true)
     }
 
     override fun initData() {
@@ -30,8 +34,34 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initListener() {
+        binding?.viewLeft?.setOnClickListener {
+            switchFragment(homeFragment, R.id.fl_container)
+            setSelected(true)
+        }
+        binding?.viewRight?.setOnClickListener {
+            switchFragment(mineFragment, R.id.fl_container)
+            setSelected(false)
+        }
     }
 
     override fun observeViewModel() {
+    }
+
+    fun setSelected(isHomeSelected: Boolean){
+        binding?.tvHome?.isSelected = isHomeSelected
+        binding?.tvMine?.isSelected = !isHomeSelected
+        val homeTintColor = if (isHomeSelected){
+            R.color.c_0A8BD6
+        }else{
+            R.color.c_222
+        }
+        val mineTintColor = if (isHomeSelected){
+            R.color.c_222
+        }else{
+            R.color.c_0A8BD6
+        }
+        binding?.ivLeft?.setImageDrawable(UIUtils.getTintDrawable(this, R.drawable.main_tab_home, homeTintColor))
+        binding?.ivRight?.setImageDrawable(UIUtils.getTintDrawable(this, R.drawable.main_tab_mine, mineTintColor))
+
     }
 }
