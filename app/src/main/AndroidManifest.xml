@@ -50,6 +50,12 @@
         <activity android:name=".ui.activity.MainActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.TakePhotosOfDangersActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.TakePhotosOfDangersStatusActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
     </application>
 
 </manifest>

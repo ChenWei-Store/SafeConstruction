@@ -1,9 +1,5 @@
 package com.shuangning.safeconstruction.base.adapter
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil.ItemCallback
-import androidx.recyclerview.widget.ListAdapter
-
 
 /**
  * Created by Chenwei on 2023/9/13.

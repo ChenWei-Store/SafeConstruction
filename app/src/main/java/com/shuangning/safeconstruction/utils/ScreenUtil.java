@@ -110,7 +110,7 @@ public class ScreenUtil {
      *
      * @return
      */
-    public static int getActionBarHeight(Activity activity) {
+    public static int getActionBarHeight() {
         TypedValue tv = new TypedValue();
         if (BaseApplication.appContext.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(

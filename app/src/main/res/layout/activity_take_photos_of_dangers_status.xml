@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.shuangning.safeconstruction.base.widget.TitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorColor="@color/main_color">
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_to_be_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_be_received" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_to_be_processed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_be_processed" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_processed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/processed" />
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
