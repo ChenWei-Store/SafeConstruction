@@ -55,6 +55,7 @@ object ActivityUtils {
         }
     }
     fun finishActivity(){
+        activities[activities.size - 1].finish()
 //        if(activities.size == 0){
 //            return
 //        }

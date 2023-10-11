@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction.manager
 import android.content.Context
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
+import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersStatusActivity
 import com.shuangning.safeconstruction.ui.adapter.TakePhotosOfDangersStatusAdapter
 import com.shuangning.safeconstruction.utils2.ActivityUtils
@@ -21,5 +22,9 @@ object StartActivityManager {
     }
     fun startToTakePhotosOfDangersStatus(ctx: Context,){
         ActivityUtils.start(ctx, TakePhotosOfDangersStatusActivity::class.java)
+    }
+
+    fun startToTakePhotosOfDangersDetail(ctx: Context,){
+        ActivityUtils.start(ctx, TakePhotosOfDangersDetailsActivity::class.java)
     }
 }

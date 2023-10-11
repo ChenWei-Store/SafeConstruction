@@ -9,6 +9,7 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 data class HomeBean(
     val imageId: Int = 0,
     val titleId: Int = 0,
+    val functionId: Int = 0,
     override var type: Int = CONTENT,
 ): ItemViewType(type)
 

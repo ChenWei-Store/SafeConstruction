@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divider">
+
+    <com.shuangning.safeconstruction.base.widget.TitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_problem_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:text="@string/problem_title"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/view_problem_title"
+        app:layout_constraintStart_toStartOf="@id/view_problem_title"
+        app:layout_constraintTop_toTopOf="@id/view_problem_title" />
+
+    <TextView
+        android:id="@+id/tv_time_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="2021-12-07 17:52 炎月"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/view_problem_title"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_title"
+        app:layout_constraintTop_toTopOf="@id/view_problem_title" />
+
+    <View
+        android:id="@+id/view_problem_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/c_fff"
+        app:layout_constraintBottom_toBottomOf="@id/view_line5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_problem_title" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="封闭段还可以打开吗"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toTopOf="@id/view_problem_detail" />
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+
+    <TextView
+        android:id="@+id/tv_department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/department"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/iv" />
+
+    <TextView
+        android:id="@+id/tv_department_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="xxx部门"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_department" />
+
+    <View
+        android:id="@+id/view_line1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_department"
+        app:layout_constraintTop_toBottomOf="@id/tv_department" />
+
+    <TextView
+        android:id="@+id/tv_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/team"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/view_line1" />
+
+    <TextView
+        android:id="@+id/tv_team_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="xxx组"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_team" />
+
+    <View
+        android:id="@+id/view_line2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_team"
+        app:layout_constraintTop_toBottomOf="@id/tv_team" />
+
+    <TextView
+        android:id="@+id/tv_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/tel"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/view_line2" />
+
+    <TextView
+        android:id="@+id/tv_tel_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="13631xxxxxx"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_tel" />
+
+    <View
+        android:id="@+id/view_line3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_tel"
+        app:layout_constraintTop_toBottomOf="@id/tv_tel" />
+
+    <TextView
+        android:id="@+id/tv_check_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/check_item"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/view_line3" />
+
+    <TextView
+        android:id="@+id/tv_check_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="xxx项目"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_check_item" />
+
+    <View
+        android:id="@+id/view_line4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_check_item"
+        app:layout_constraintTop_toBottomOf="@id/tv_check_item" />
+
+    <TextView
+        android:id="@+id/tv_reference_clause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/reference_clause"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/view_line4" />
+
+    <TextView
+        android:id="@+id/tv_reference_clause_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:text="xxx条款"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_problem_detail"
+        app:layout_constraintTop_toBottomOf="@id/tv_reference_clause" />
+
+    <View
+        android:id="@+id/view_line5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_reference_clause"
+        app:layout_constraintTop_toBottomOf="@id/tv_reference_clause_detail" />
+
+    <View
+        android:id="@+id/view_receive_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_line5" />
+
+    <TextView
+        android:id="@+id/tv_receive_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:text="@string/receive_problem"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/view_receive_title"
+        app:layout_constraintStart_toStartOf="@id/view_receive_title"
+        app:layout_constraintTop_toTopOf="@id/view_receive_title" />
+
+    <TextView
+        android:id="@+id/tv_time_name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="2021-12-07 17:52 炎月"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/view_receive_title"
+        app:layout_constraintEnd_toEndOf="@id/view_receive_title"
+        app:layout_constraintTop_toTopOf="@id/view_receive_title" />
+
+    <View
+        android:id="@+id/view_receive_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/c_fff"
+        app:layout_constraintBottom_toBottomOf="@id/view_line7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_receive_title" />
+
+    <TextView
+        android:id="@+id/tv_receive_or_not"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/receive_or_not"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_receive_detail"
+        app:layout_constraintTop_toTopOf="@id/view_receive_detail" />
+
+    <TextView
+        android:id="@+id/tv_receive_or_not_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="不接收"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_receive_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_receive_or_not" />
+
+    <View
+        android:id="@+id/view_line6"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_receive_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_receive_or_not"
+        app:layout_constraintTop_toBottomOf="@id/tv_receive_or_not" />
+
+    <TextView
+        android:id="@+id/tv_receive_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginTop="@dimen/vertical_margin_12"
+        android:text="@string/receive_remark"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toStartOf="@id/view_receive_detail"
+        app:layout_constraintTop_toBottomOf="@id/view_line6" />
+
+    <TextView
+        android:id="@+id/tv_receive_remark_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:text="备注是xxxxx"
+        android:textColor="@color/c_000"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="@id/view_receive_detail"
+        app:layout_constraintTop_toTopOf="@id/tv_receive_remark" />
+
+    <View
+        android:id="@+id/view_line7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/horizontal_margin_12"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="@id/view_receive_detail"
+        app:layout_constraintStart_toStartOf="@id/tv_receive_remark"
+        app:layout_constraintTop_toBottomOf="@id/tv_receive_remark" />
+</androidx.constraintlayout.widget.ConstraintLayout>

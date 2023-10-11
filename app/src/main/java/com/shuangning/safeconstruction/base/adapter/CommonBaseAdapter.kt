@@ -31,7 +31,7 @@ abstract class CommonBaseAdapter<T: ItemViewType, V: ViewBinding>(val data: Muta
         return data[position].type
     }
     abstract fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): V
-    abstract fun onBindViewHolder(binding: ViewBinding, item: T, position: Int, ctx: Context)
+    abstract fun onBindViewHolder(binding: V, item: T, position: Int, ctx: Context)
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener<T>){
         this.onItemClick = onItemClickListener

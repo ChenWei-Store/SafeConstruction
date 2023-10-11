@@ -70,5 +70,4 @@
         android:textColor="@color/c_999"
         android:textSize="@dimen/sp_12"
         tools:text="提交人：12345"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

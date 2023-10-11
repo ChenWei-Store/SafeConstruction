@@ -2,16 +2,14 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangersStatusContent
-import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangersTitle
-import com.shuangning.safeconstruction.databinding.ActivityTakePhotosOfDangersBinding
 import com.shuangning.safeconstruction.databinding.ActivityTakePhotosOfDangersStatusBinding
+import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.TakePhotosOfDangersStatusAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
 
@@ -51,6 +49,8 @@ class TakePhotosOfDangersStatusActivity: BaseActivity<ActivityTakePhotosOfDanger
     override fun initListener() {
         takePhotoOfDangerStatusAdapter?.setOnItemClickListener(object: OnItemClickListener<TakePhotosOfDangersStatusContent>{
             override fun onItemClick(data: TakePhotosOfDangersStatusContent, position: Int) {
+                StartActivityManager.startToTakePhotosOfDangersDetail(this@TakePhotosOfDangersStatusActivity)
+
             }
         })
         binding?.tabLayout?.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{

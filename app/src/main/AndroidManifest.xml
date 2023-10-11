@@ -56,6 +56,13 @@
         <activity android:name=".ui.activity.TakePhotosOfDangersStatusActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.TakePhotosOfDangersDetailsActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.RectificationAndReplyActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+
     </application>
 
 </manifest>

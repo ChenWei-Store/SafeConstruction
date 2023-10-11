@@ -14,15 +14,12 @@ import com.shuangning.safeconstruction.databinding.ItemTakePhotosOfDangerBinding
 class TakePhotosOfDangersAdapter(data: MutableList<TakePhotosOfDangersTitle>):
     CommonBaseAdapter<TakePhotosOfDangersTitle, ItemTakePhotosOfDangerBinding>(data) {
     override fun onBindViewHolder(
-        binding: ViewBinding,
+        binding: ItemTakePhotosOfDangerBinding,
         item: TakePhotosOfDangersTitle,
         position: Int,
         ctx: Context
     ) {
-        val realBinding = (binding as? ItemTakePhotosOfDangerBinding)
-        realBinding?.let {
-            it.tvTitle.text = item.title
-        }
+        binding.tvTitle.text = item.title
     }
 
     override fun getViewBinding(

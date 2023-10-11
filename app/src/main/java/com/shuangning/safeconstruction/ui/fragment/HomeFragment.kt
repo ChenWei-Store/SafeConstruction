@@ -36,7 +36,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 }
                 return 1
             }
-
         }
         binding?.rvHome?.layoutManager = layoutManager
         binding?.rvHome?.adapter = adapter
@@ -47,13 +46,18 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         val items = HomeItemManager.getData()
         data.add(HomeBean(type = HEADER))
         data.addAll(items)
+
     }
 
     override fun initListener() {
         adapter?.setOnItemClickListener(object: OnItemClickListener<HomeBean>{
             override fun onItemClick(data: HomeBean, position: Int) {
                 activity?.apply {
-                    StartActivityManager.startToTakePhotosOfDangers(this)
+                    when(data.functionId){
+                        HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
+                            StartActivityManager.startToTakePhotosOfDangers(this)
+
+                    }
                 }
             }
         })
