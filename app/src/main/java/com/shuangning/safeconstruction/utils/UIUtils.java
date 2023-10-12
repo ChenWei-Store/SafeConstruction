@@ -80,8 +80,8 @@ public class UIUtils {
      * @param dp 需要转换的dp值
      * @return px值
      */
-    public static int dp2px(float dp) {
-        return (int) (getResources().getDisplayMetrics().density * dp + 0.5f);
+    public static float dp2px(float dp) {
+        return getResources().getDisplayMetrics().density * dp + 0.5f;
 //        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 

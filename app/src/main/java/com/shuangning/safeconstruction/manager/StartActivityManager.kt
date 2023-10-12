@@ -1,7 +1,11 @@
 package com.shuangning.safeconstruction.manager
 
 import android.content.Context
+import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
+import com.shuangning.safeconstruction.ui.activity.FinesListActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
+import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyActivity
+import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyDetailActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersStatusActivity
@@ -26,5 +30,21 @@ object StartActivityManager {
 
     fun startToTakePhotosOfDangersDetail(ctx: Context,){
         ActivityUtils.start(ctx, TakePhotosOfDangersDetailsActivity::class.java)
+    }
+
+    fun startToRectificationAndReply(ctx: Context,){
+        ActivityUtils.start(ctx, RectificationAndReplyActivity::class.java)
+    }
+
+    fun startToRectificationAndReplyDetail(ctx: Context,){
+        ActivityUtils.start(ctx, RectificationAndReplyDetailActivity::class.java)
+    }
+
+    fun startToFinesList(ctx: Context,){
+        ActivityUtils.start(ctx, FinesListActivity::class.java)
+    }
+
+    fun startToFinesDetail(ctx: Context,){
+        ActivityUtils.start(ctx, FinesDetailActivity::class.java)
     }
 }

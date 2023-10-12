@@ -62,7 +62,15 @@
         <activity android:name=".ui.activity.RectificationAndReplyActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-
+        <activity android:name=".ui.activity.RectificationAndReplyDetailActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.FinesListActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.FinesDetailActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
     </application>
 
 </manifest>

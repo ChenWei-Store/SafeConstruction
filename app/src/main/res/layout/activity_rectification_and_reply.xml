@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/divider">
     <com.shuangning.safeconstruction.base.widget.TitleView
         android:id="@+id/view_title"
         android:layout_width="match_parent"
@@ -14,19 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorColor="@color/main_color">
+        app:tabIndicatorColor="@color/main_color"
+        android:background="@color/c_fff">
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/to_be_received" />
+            android:text="@string/to_be_rectified" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/to_be_processed" />
+            android:text="@string/to_be_examine" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/processed" />
+            android:text="@string/completed" />
     </com.google.android.material.tabs.TabLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/c_ff3e3d"
         android:textSize="@dimen/sp_16"
-        android:text="@string/to_be_rectified2"
+        android:text="审批中"
         android:paddingTop="@dimen/vertical_margin_4"
         android:paddingBottom="@dimen/vertical_margin_4"
         android:paddingStart="@dimen/horizontal_margin_12"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_line1"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/test_round_bg"
-         />
+        />
     <TextView
         android:id="@+id/tv_content1"
         android:layout_width="wrap_content"
@@ -90,6 +90,18 @@
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999"
         android:text="测试测试测试测试测试"/>
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_icon"
+        android:layout_marginTop="@dimen/vertical_margin_4"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_999"
+        android:text="共100.0元"/>
     <View
         android:id="@+id/view_line2"
         android:layout_width="match_parent"
@@ -97,31 +109,7 @@
         android:background="@color/divider"
         android:layout_marginTop="@dimen/vertical_margin_12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_icon"/>
-    <View
-        android:id="@+id/view_result"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_line2"/>
-    <ImageView
-        android:id="@+id/iv_warning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/view_result"
-        app:layout_constraintBottom_toBottomOf="@id/view_result"
-        app:layout_constraintStart_toStartOf="@id/view_result"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        android:src="@drawable/warning"/>
-    <TextView
-        android:id="@+id/tv_warning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/view_result"
-        app:layout_constraintBottom_toBottomOf="@id/view_result"
-        app:layout_constraintStart_toEndOf="@id/iv_warning"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        android:textSize="@dimen/sp_16"
-        android:textColor="@color/c_ff3e3d"
-        android:text="@string/warning"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_price"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

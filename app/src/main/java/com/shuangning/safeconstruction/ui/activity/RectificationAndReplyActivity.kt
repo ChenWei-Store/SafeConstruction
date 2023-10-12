@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
+import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.databinding.ActivityRectificationAndReplyBinding
+import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
 
@@ -24,9 +26,13 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle(UIUtils.getString(R.string.rectification_and_reply))
         replyAdapter = RectificationAndReplyAdapter(data)
+//        val commonDecoration = CommonDecoration()
+//        commonDecoration.setColor(UIUtils.getColor(R.color.divider))
+//        commonDecoration.setDividerHeight(UIUtils.dp2px(4f))
         binding?.rv?.apply {
             adapter = replyAdapter
             layoutManager = LinearLayoutManager(this@RectificationAndReplyActivity)
+//            addItemDecoration(commonDecoration)
         }
         replyAdapter?.notifyDataSetChanged()
     }
@@ -34,7 +40,7 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
     override fun initData() {
         data.add(ItemViewType())
         data.add(ItemViewType())
-        data.add(ItemViewType())
+//        data.add(ItemViewType())
     }
 
     override fun doBeforeSetContentView() {
@@ -44,6 +50,12 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
     }
 
     override fun initListener() {
+        replyAdapter?.setOnItemClickListener(object: OnItemClickListener<ItemViewType>{
+            override fun onItemClick(data: ItemViewType, position: Int) {
+                StartActivityManager.startToRectificationAndReplyDetail(this@RectificationAndReplyActivity)
+            }
+        })
+
     }
 
     override fun observeViewModel() {

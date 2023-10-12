@@ -41,4 +41,22 @@
     <string name="to_be_rectified2">待整改</string>
     <string name="to_be_examine2">待审核</string>
     <string name="warning">隐患问题已超期，请及时处理</string>
+    <string name="question_operator">问题操作</string>
+    <string name="check_sort">检查分类</string>
+    <string name="rectification_period">整改期限</string>
+    <string name="rectification_person">整改责任人</string>
+    <string name="rectification_requirement">整改要求</string>
+    <string name="reason_analyze">原因分析</string>
+    <string name="rectification_condition">整改情况</string>
+    <string name="subsequent_measurese">后期措施</string>
+    <string name="audit">审核情况</string>
+    <string name="audit_result">审核结果</string>
+    <string name="status">状态：当前问题正在修改</string>
+    <string name="fines_detail">罚款详情</string>
+    <string name="add_fines">添加罚款</string>
+    <string name="price">共%1$s元</string>
+    <string name="fines_list">罚款列表</string>
+    <string name="fines_detail2">罚款\n详情</string>
+
+
 </resources>

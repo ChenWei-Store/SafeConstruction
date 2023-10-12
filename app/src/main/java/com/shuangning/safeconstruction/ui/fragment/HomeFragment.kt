@@ -56,7 +56,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                     when(data.functionId){
                         HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
                             StartActivityManager.startToTakePhotosOfDangers(this)
-
+                        HomeItemManager.RECTIFICATION_AND_REPLY ->
+                            StartActivityManager.startToRectificationAndReply(this)
                     }
                 }
             }
