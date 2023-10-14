@@ -53,7 +53,7 @@ class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
         })
 
         binding?.llBottom?.setOnClickListener {
-
+            StartActivityManager.startToAddFine(this@FinesListActivity)
         }
     }
 

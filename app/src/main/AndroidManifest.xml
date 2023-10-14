@@ -62,7 +62,7 @@
         <activity android:name=".ui.activity.RectificationAndReplyActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-        <activity android:name=".ui.activity.RectificationAndReplyDetailActivity"
+        <activity android:name=".ui.activity.QuestionOperatorActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
         <activity android:name=".ui.activity.FinesListActivity"
@@ -71,6 +71,16 @@
         <activity android:name=".ui.activity.FinesDetailActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.QuestionOperatorDetailActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.AddFinesActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.AddFineItemActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+
     </application>
 
 </manifest>

@@ -57,6 +57,8 @@
     <string name="price">共%1$s元</string>
     <string name="fines_list">罚款列表</string>
     <string name="fines_detail2">罚款\n详情</string>
+    <string name="detail">详情</string>
+    <string name="new_fines">新增罚款</string>
 
 
 </resources>
