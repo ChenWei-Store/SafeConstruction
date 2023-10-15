@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 
 /**
  * Created by Chenwei on 2023/10/14.
@@ -30,6 +31,17 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
     override fun initListener() {
         binding?.viewAddFineItem?.setOnClickListener {
             StartActivityManager.startToAddFineItem(this@AddFinesActivity)
+        }
+
+        binding?.viewFinesUnit?.setOnClickListener {
+            XPopCreateUtils.showFinesListDialog(this@AddFinesActivity, arrayOf("GX-2标", "GX-1标")){
+                    position, text->
+            }
+        }
+        binding?.viewVettingPerson?.setOnClickListener {
+            XPopCreateUtils.showFinesListDialog(this@AddFinesActivity, arrayOf("指挥部", "xxx部")){
+                    position, text->
+            }
         }
     }
 

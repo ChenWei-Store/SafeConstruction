@@ -11,8 +11,7 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.bean.other.SelectTypeBean
 import com.shuangning.safeconstruction.databinding.ActivityRoutineInspectionBinding
 import com.shuangning.safeconstruction.ui.adapter.RoutineInspectionAdapter
-import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
-import com.shuangning.safeconstruction.utils2.XPopCreateUtils
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 
 /**
  * Created by Chenwei on 2023/10/14.

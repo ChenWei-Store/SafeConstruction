@@ -86,6 +86,15 @@
         <activity android:name=".ui.activity.ModifyPasswordActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.AttendanceManagementListActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.AttendanceManagementDetailActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.ScanQrcodeActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
     </application>
 
 </manifest>

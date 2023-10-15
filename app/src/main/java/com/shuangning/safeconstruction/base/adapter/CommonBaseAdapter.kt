@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
  * Created by Chenwei on 2023/10/10.
  */
 abstract class CommonBaseAdapter<T: ItemViewType, V: ViewBinding>(val data: MutableList<T>): RecyclerView.Adapter<BaseViewHolder<V>>() {
-    private var onItemClick: OnItemClickListener<T>? = null
+    protected var onItemClick: OnItemClickListener<T>? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<V> {
         val binding = getViewBinding(LayoutInflater.from(parent.context), parent, viewType)
         return BaseViewHolder(binding)

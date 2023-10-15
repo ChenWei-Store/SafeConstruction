@@ -3,7 +3,7 @@ package com.shuangning.safeconstruction.base.dialog
 import android.content.Context
 import com.lxj.xpopup.core.BasePopupView
 import com.shuangning.safeconstruction.utils2.MyLog
-import com.shuangning.safeconstruction.utils2.XPopCreateUtils
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 
 /**
  * Created by Chenwei on 2023/9/30.

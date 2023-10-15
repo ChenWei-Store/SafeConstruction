@@ -8,6 +8,7 @@ import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.HomeBean
+import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.FragmentHomeBinding
 import com.shuangning.safeconstruction.manager.HomeItemManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
@@ -52,6 +53,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         adapter?.setOnItemClickListener(object: OnItemClickListener<HomeBean>{
             override fun onItemClick(data: HomeBean, position: Int) {
+                if(position == 0){
+                    return
+                }
                 activity?.apply {
                     when(data.functionId){
                         HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
@@ -60,7 +64,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                             StartActivityManager.startToRectificationAndReply(this)
                         HomeItemManager.ROUTINE_INSPCETION ->
                             StartActivityManager.startToRoutineInspectionList(this)
-
+                        HomeItemManager.ATTENDANCE_MANAGEMENT ->
+                            StartActivityManager.startAttendanceManagement(this)
                     }
                 }
             }
@@ -69,5 +74,23 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun observeViewModel() {
+    }
+
+    override fun isRegisterEventbus(): Boolean {
+        return true
+    }
+
+    override fun receiveEvent(code: Int, obj: Any?) {
+        super.receiveEvent(code, obj)
+        when(code){
+            EventCode.START_SCAN_QRCODE->{
+                activity?.apply {
+                    StartActivityManager.startToScanQrcode(this)
+                }
+            }
+            EventCode.START_CLOCK_IN_OUT->{
+
+            }
+        }
     }
 }

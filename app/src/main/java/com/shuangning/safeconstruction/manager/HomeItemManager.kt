@@ -11,7 +11,8 @@ object HomeItemManager {
     const val ATTENDANCE_MANAGEMENT = 1
     const val RECTIFICATION_AND_REPLY = 2
     const val ROUTINE_INSPCETION = 3
-
+    const val SCAN_QRCODE = 4
+    const val CLOCK_IN_OUT = 5
 
     private val attendanceManagement = mutableListOf(R.string.attendance_management, R.drawable.attendance_management_icon, ATTENDANCE_MANAGEMENT)
     //    private val videoSurveillance = mutableListOf(R.string.video_surveillance, R.drawable.video_surveillance)

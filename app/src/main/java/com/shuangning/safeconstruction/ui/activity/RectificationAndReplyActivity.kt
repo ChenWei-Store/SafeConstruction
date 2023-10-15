@@ -14,7 +14,7 @@ import com.shuangning.safeconstruction.databinding.ActivityRectificationAndReply
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
-import com.shuangning.safeconstruction.utils2.XPopCreateUtils
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 
 /**
  * Created by Chenwei on 2023/10/11.
