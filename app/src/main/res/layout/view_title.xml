@@ -21,4 +21,17 @@
         android:textSize="@dimen/sp_16"
         android:textColor="@color/c_fff"
         android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:drawableRight="@drawable/bottom_arrow"
+        android:layout_marginEnd="@dimen/horizontal_margin_16"
+        android:textColor="@color/c_fff"
+        android:textSize="@dimen/sp_14"
+        android:text="全部"
+        android:visibility="gone"/>
 </RelativeLayout>

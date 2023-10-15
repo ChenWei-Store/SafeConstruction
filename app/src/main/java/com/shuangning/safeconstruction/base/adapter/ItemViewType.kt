@@ -6,4 +6,4 @@ package com.shuangning.safeconstruction.base.adapter
 const val HEADER = 0
 const val CONTENT = 1
 const val BOTTOM = 2
-open class ItemViewType(open var type: Int = CONTENT)
+open class ItemViewType(open val type: Int = CONTENT)

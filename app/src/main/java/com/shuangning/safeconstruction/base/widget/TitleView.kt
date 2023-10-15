@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import com.shuangning.safeconstruction.databinding.ViewTitleBinding
 import com.shuangning.safeconstruction.utils.ScreenUtil
@@ -42,5 +43,9 @@ class TitleView @JvmOverloads constructor(
 
     fun setTitleBackgroundColor(@ColorRes color: Int){
         setBackgroundColor(UIUtils.getColor(color))
+    }
+
+    fun setRightText(block: (tv: TextView?)->Unit){
+        block(binding?.tvRight)
     }
 }

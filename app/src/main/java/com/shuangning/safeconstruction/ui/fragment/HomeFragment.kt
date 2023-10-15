@@ -58,6 +58,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                             StartActivityManager.startToTakePhotosOfDangers(this)
                         HomeItemManager.RECTIFICATION_AND_REPLY ->
                             StartActivityManager.startToRectificationAndReply(this)
+                        HomeItemManager.ROUTINE_INSPCETION ->
+                            StartActivityManager.startToRoutineInspectionList(this)
+
                     }
                 }
             }

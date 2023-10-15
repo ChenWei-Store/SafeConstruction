@@ -6,9 +6,11 @@ import com.shuangning.safeconstruction.ui.activity.AddFinesActivity
 import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
 import com.shuangning.safeconstruction.ui.activity.FinesListActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
+import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
 import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorDetailActivity
+import com.shuangning.safeconstruction.ui.activity.RoutineInspectionListActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersStatusActivity
@@ -60,5 +62,13 @@ object StartActivityManager {
 
     fun startToAddFineItem(ctx: Context,){
         ActivityUtils.start(ctx, AddFineItemActivity::class.java)
+    }
+
+    fun startToRoutineInspectionList(ctx: Context,){
+        ActivityUtils.start(ctx, RoutineInspectionListActivity::class.java)
+    }
+
+    fun startToModifyPwdList(ctx: Context,){
+        ActivityUtils.start(ctx, ModifyPasswordActivity::class.java)
     }
 }

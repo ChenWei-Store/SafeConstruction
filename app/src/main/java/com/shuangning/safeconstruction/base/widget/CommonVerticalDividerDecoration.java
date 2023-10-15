@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Chenwei on 2023/10/12.
  */
-public class CommonDecoration extends RecyclerView.ItemDecoration {
+public class CommonVerticalDividerDecoration extends RecyclerView.ItemDecoration {
     private float mDividerHeight = 1; //线的高度
     private Paint mPaint;           //画笔将自己做出来的分割线矩形画出颜色
     private float margin = 0;       //左右偏移量
 
-    public CommonDecoration() {
+    public CommonVerticalDividerDecoration() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);          //抗锯齿
         mPaint.setColor(Color.GRAY);        //默认颜色
@@ -24,19 +24,19 @@ public class CommonDecoration extends RecyclerView.ItemDecoration {
 
     //通过建造者模式来设置三个属性
     //设置左右偏移(默认是设置的一样的，若需要自己更改)
-    public CommonDecoration setMargin(float margin) {
+    public CommonVerticalDividerDecoration setMargin(float margin) {
         this.margin = margin;
         return this;
     }
 
     //设置颜色
-    public CommonDecoration setColor(int color) {
+    public CommonVerticalDividerDecoration setColor(int color) {
         mPaint.setColor(color);
         return this;
     }
 
     //设置分割线高度
-    public CommonDecoration setDividerHeight(float height) {
+    public CommonVerticalDividerDecoration setDividerHeight(float height) {
         this.mDividerHeight = height;
         return this;
     }

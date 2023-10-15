@@ -80,7 +80,12 @@
         <activity android:name=".ui.activity.AddFineItemActivity"
             android:exported="false"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-
+        <activity android:name=".ui.activity.RoutineInspectionListActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.ModifyPasswordActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
     </application>
 
 </manifest>
