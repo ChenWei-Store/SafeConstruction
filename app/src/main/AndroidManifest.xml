@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- 相机权限 -->
 
-    <uses-permission android:name="android.permission.CAMERA" />
+
     <!-- 选用，相机闪光灯权限 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -15,6 +19,28 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <queries package="${applicationId}">
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE">
+
+            </action>
+        </intent>
+    </queries>
     <application
         android:name=".MainApplication"
         android:allowBackup="false"
@@ -94,6 +120,26 @@
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
         <activity android:name=".ui.activity.ScanQrcodeActivity"
             android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.AddContentActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.ProblemReportActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.SelectCauseActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.ClockInOrOutActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+
+        <activity android:name=".ui.activity.SelectCheckListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
     </application>
 

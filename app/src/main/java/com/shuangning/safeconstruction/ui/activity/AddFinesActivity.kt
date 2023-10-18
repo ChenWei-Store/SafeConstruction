@@ -34,12 +34,12 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
         }
 
         binding?.viewFinesUnit?.setOnClickListener {
-            XPopCreateUtils.showFinesListDialog(this@AddFinesActivity, arrayOf("GX-2标", "GX-1标")){
+            XPopCreateUtils.showListCenterDialog(this@AddFinesActivity, arrayOf("GX-2标", "GX-1标")){
                     position, text->
             }
         }
         binding?.viewVettingPerson?.setOnClickListener {
-            XPopCreateUtils.showFinesListDialog(this@AddFinesActivity, arrayOf("指挥部", "xxx部")){
+            XPopCreateUtils.showListCenterDialog(this@AddFinesActivity, arrayOf("指挥部", "xxx部")){
                     position, text->
             }
         }

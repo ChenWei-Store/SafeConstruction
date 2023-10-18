@@ -2,9 +2,12 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.lxj.xpopup.core.BasePopupView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityMainBinding
+import com.shuangning.safeconstruction.manager.StartActivityManager
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.fragment.HomeFragment
 import com.shuangning.safeconstruction.ui.fragment.MineFragment
 import com.shuangning.safeconstruction.utils.UIUtils
@@ -41,6 +44,12 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
         binding?.viewRight?.setOnClickListener {
             switchFragment(mineFragment, R.id.fl_container)
             setSelected(false)
+        }
+
+        binding?.ivCenter?.setOnClickListener {
+            binding?.let {
+                XPopCreateUtils.showAttachAdd(this@MainActivity, it.viewTabBottom)
+            }
         }
     }
 

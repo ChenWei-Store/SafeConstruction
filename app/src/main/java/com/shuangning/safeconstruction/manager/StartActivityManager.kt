@@ -1,19 +1,24 @@
 package com.shuangning.safeconstruction.manager
 
 import android.content.Context
+import com.shuangning.safeconstruction.ui.activity.AddContentActivity
 import com.shuangning.safeconstruction.ui.activity.AddFineItemActivity
 import com.shuangning.safeconstruction.ui.activity.AddFinesActivity
 import com.shuangning.safeconstruction.ui.activity.AttendanceManagementDetailActivity
 import com.shuangning.safeconstruction.ui.activity.AttendanceManagementListActivity
+import com.shuangning.safeconstruction.ui.activity.ClockInOrOutActivity
 import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
 import com.shuangning.safeconstruction.ui.activity.FinesListActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
+import com.shuangning.safeconstruction.ui.activity.ProblemReportActivity
 import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorDetailActivity
 import com.shuangning.safeconstruction.ui.activity.RoutineInspectionListActivity
 import com.shuangning.safeconstruction.ui.activity.ScanQrcodeActivity
+import com.shuangning.safeconstruction.ui.activity.SelectCauseActivity
+import com.shuangning.safeconstruction.ui.activity.SelectCheckListActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersStatusActivity
@@ -84,5 +89,24 @@ object StartActivityManager {
 
     fun startToScanQrcode(ctx: Context,){
         ActivityUtils.start(ctx, ScanQrcodeActivity::class.java)
+    }
+
+    fun startToAddContent(ctx: Context,){
+        ActivityUtils.start(ctx, AddContentActivity::class.java)
+    }
+
+    fun startToProblemReport(ctx: Context,){
+        ActivityUtils.start(ctx, ProblemReportActivity::class.java)
+    }
+
+    fun startToSelectCause(ctx: Context,){
+        ActivityUtils.start(ctx, SelectCauseActivity::class.java)
+    }
+
+    fun startToClockInOut(ctx: Context,){
+        ActivityUtils.start(ctx, ClockInOrOutActivity::class.java)
+    }
+    fun startSelectCheckList(ctx: Context,){
+        ActivityUtils.start(ctx, SelectCheckListActivity::class.java)
     }
 }

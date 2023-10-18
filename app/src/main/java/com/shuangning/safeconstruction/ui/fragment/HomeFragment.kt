@@ -89,7 +89,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 }
             }
             EventCode.START_CLOCK_IN_OUT->{
-
+                activity?.apply {
+                    StartActivityManager.startToClockInOut(this)
+                }
             }
         }
     }

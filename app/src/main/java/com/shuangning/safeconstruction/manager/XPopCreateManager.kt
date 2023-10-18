@@ -3,13 +3,18 @@ package com.shuangning.safeconstruction.manager
 import android.content.Context
 import android.view.View
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.animator.EmptyAnimator
+import com.lxj.xpopup.animator.ScaleAlphaAnimator
+import com.lxj.xpopup.animator.ScrollScaleAnimator
 import com.lxj.xpopup.core.BasePopupView
+import com.lxj.xpopup.enums.PopupAnimation
+import com.lxj.xpopup.enums.PopupPosition
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.bean.other.SelectTypeBean
+import com.shuangning.safeconstruction.ui.dialog.AttachAddDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
 import com.shuangning.safeconstruction.utils.ScreenUtil
-import java.security.AccessController.getContext
 import java.util.Date
 
 
@@ -51,12 +56,13 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showFinesListDialog(ctx: Context, data: Array<String>,
-                          block: (index: Int, text: String)->Unit){
+    fun showListCenterDialog(ctx: Context, data: Array<String>,
+                             block: (index: Int, text: String)->Unit){
         XPopup.Builder(ctx)
             .isDestroyOnDismiss(true)
             .dismissOnBackPressed(true)
             .dismissOnTouchOutside(true)
+            .maxHeight((ScreenUtil.getScreenHeight() * 0.8f).toInt())
             .asCenterList("请选择", data) {
                     position, text ->
                 block(position, text)
@@ -64,9 +70,9 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showYearMonthDialog(ctx: Context){
+    fun showYearMonthDialog(ctx: Context, mode: TimePickerPopup.Mode = TimePickerPopup.Mode.YM){
         val dialog = TimePickerPopup(ctx)
-            .setMode(TimePickerPopup.Mode.YM)
+            .setMode(mode)
             .setTimePickerListener(object: TimePickerListener {
                 override fun onTimeChanged(date: Date?) {
                 }
@@ -80,6 +86,22 @@ object XPopCreateUtils {
             })
         XPopup.Builder(ctx)
             .asCustom(dialog)
-            .show();
+            .show()
+    }
+
+    fun showAttachAdd(ctx: Context, attachView: View,){
+        XPopup.Builder(ctx)
+            .isDestroyOnDismiss(true)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
+            .enableDrag(false)
+            .hasShadowBg(false)
+            .isThreeDrag(false)
+            .customAnimator(EmptyAnimator(attachView, 300))
+            .popupPosition(PopupPosition.Top)
+            .popupWidth(ScreenUtil.getScreenWidth())
+            .atView(attachView)
+            .asCustom(AttachAddDialog(ctx))
+            .show()
     }
 }
