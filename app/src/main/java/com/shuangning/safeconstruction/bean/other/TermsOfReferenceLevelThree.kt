@@ -1,13 +1,13 @@
 package com.shuangning.safeconstruction.bean.other
 
-import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
+import com.shuangning.safeconstruction.base.adapter.LEVEL_THREE
 
 /**
  * Created by Chenwei on 2023/10/18.
  */
-data class SelectCheckHeader(val title: String): ItemViewType(){
+data class TermsOfReferenceLevelThree(val title: String): ItemViewType(){
     override fun getItemType(): Int {
-        return HEADER
+        return LEVEL_THREE
     }
 }

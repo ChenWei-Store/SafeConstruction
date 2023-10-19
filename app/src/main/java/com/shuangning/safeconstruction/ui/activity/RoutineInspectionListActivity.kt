@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.CONTENT
 import com.shuangning.safeconstruction.base.adapter.HEADER
+import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
-import com.shuangning.safeconstruction.bean.other.SelectTypeBean
+import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
+import com.shuangning.safeconstruction.bean.other.HeaderSelectTypeBean
 import com.shuangning.safeconstruction.databinding.ActivityRoutineInspectionBinding
 import com.shuangning.safeconstruction.ui.adapter.RoutineInspectionAdapter
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
@@ -19,7 +21,7 @@ import com.shuangning.safeconstruction.manager.XPopCreateUtils
 class RoutineInspectionListActivity: BaseActivity<ActivityRoutineInspectionBinding>() {
     private var routineInspectionAdapter: RoutineInspectionAdapter?= null
     private val data: MutableList<ItemViewType> = mutableListOf()
-    private val selectTypeData: MutableList<SelectTypeBean> = mutableListOf()
+    private val selectTypeData: MutableList<IItemViewType> = mutableListOf()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityRoutineInspectionBinding? {
         return ActivityRoutineInspectionBinding.inflate(layoutInflater)
     }
@@ -50,12 +52,12 @@ class RoutineInspectionListActivity: BaseActivity<ActivityRoutineInspectionBindi
         data.add(ItemViewType(HEADER))
         data.add(ItemViewType())
 
-        selectTypeData.add(SelectTypeBean(HEADER,))
-        selectTypeData.add(SelectTypeBean(CONTENT, "全部"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "指挥部"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-JL-1标"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-1标"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-2标"))
+        selectTypeData.add(HeaderSelectTypeBean())
+        selectTypeData.add(ContentSelectTypeBean("全部"))
+        selectTypeData.add(ContentSelectTypeBean( "指挥部"))
+        selectTypeData.add(ContentSelectTypeBean("GX-JL-1标"))
+        selectTypeData.add(ContentSelectTypeBean( "GX-1标"))
+        selectTypeData.add(ContentSelectTypeBean( "GX-2标"))
     }
 
 

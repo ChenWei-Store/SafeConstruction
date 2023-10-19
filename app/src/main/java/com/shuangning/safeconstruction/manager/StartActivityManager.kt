@@ -11,6 +11,7 @@ import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
 import com.shuangning.safeconstruction.ui.activity.FinesListActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
+import com.shuangning.safeconstruction.ui.activity.TermsOfReferenceActivity
 import com.shuangning.safeconstruction.ui.activity.ProblemReportActivity
 import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorActivity
@@ -108,5 +109,9 @@ object StartActivityManager {
     }
     fun startSelectCheckList(ctx: Context,){
         ActivityUtils.start(ctx, SelectCheckListActivity::class.java)
+    }
+
+    fun startTermsOfReference(ctx: Context,){
+        ActivityUtils.start(ctx, TermsOfReferenceActivity::class.java)
     }
 }

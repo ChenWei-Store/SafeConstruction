@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
+import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
 import com.shuangning.safeconstruction.base.adapter.LevelType
@@ -20,11 +22,11 @@ import com.shuangning.safeconstruction.databinding.ItemSelectCheckListLevelTwoBi
  * Created by Chenwei on 2023/10/18.
  */
 
-class SelectCheckListAdapter(data: MutableList<LevelType<out Any>>):
-    CommonBaseAdapter<LevelType<out Any>, ViewBinding>(data) {
+class SelectCheckListAdapter(data: MutableList<IItemViewType>):
+    CommonBaseAdapter<IItemViewType, ViewBinding>(data) {
     override fun onBindViewHolder(
         binding: ViewBinding,
-        item: LevelType<out Any>,
+        item: IItemViewType,
         position: Int,
         ctx: Context
     ) {
@@ -35,6 +37,12 @@ class SelectCheckListAdapter(data: MutableList<LevelType<out Any>>):
 
             is ItemSelectCheckListLevelOneBinding->{
                 binding.tv.text = (item as? SelectCheckLevelOne)?.title?:""
+                val resId = if((item as? SelectCheckLevelOne)?.isExpand() == true){
+                    R.drawable.bottom_triangles
+                }else{
+                    R.drawable.right_triangles
+                }
+                binding.iv.setImageResource(resId)
             }
 
             is ItemSelectCheckListLevelTwoBinding->{
@@ -60,4 +68,6 @@ class SelectCheckListAdapter(data: MutableList<LevelType<out Any>>):
             }
         }
     }
+
+
 }

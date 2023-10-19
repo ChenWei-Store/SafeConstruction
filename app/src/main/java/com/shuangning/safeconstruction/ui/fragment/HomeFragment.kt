@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.adapter.HEADER
+import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
-import com.shuangning.safeconstruction.bean.other.HomeBean
+import com.shuangning.safeconstruction.bean.other.HomeContentBean
+import com.shuangning.safeconstruction.bean.other.HomeHeaderBean
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.FragmentHomeBinding
 import com.shuangning.safeconstruction.manager.HomeItemManager
@@ -18,7 +20,7 @@ import com.shuangning.safeconstruction.ui.adapter.HomeAdapter
  * Created by Chenwei on 2023/10/7.
  */
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
-    private var data: MutableList<HomeBean> = mutableListOf()
+    private var data: MutableList<ItemViewType> = mutableListOf()
     private var adapter: HomeAdapter?= null
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -45,19 +47,20 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     override fun initData() {
         val items = HomeItemManager.getData()
-        data.add(HomeBean(type = HEADER))
+        data.add(HomeHeaderBean())
         data.addAll(items)
 
     }
 
     override fun initListener() {
-        adapter?.setOnItemClickListener(object: OnItemClickListener<HomeBean>{
-            override fun onItemClick(data: HomeBean, position: Int) {
+        adapter?.setOnItemClickListener(object: OnItemClickListener<ItemViewType>{
+            override fun onItemClick(data: ItemViewType, position: Int) {
                 if(position == 0){
                     return
                 }
+                val realData = data as? HomeContentBean
                 activity?.apply {
-                    when(data.functionId){
+                    when(realData?.functionId){
                         HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
                             StartActivityManager.startToTakePhotosOfDangers(this)
                         HomeItemManager.RECTIFICATION_AND_REPLY ->

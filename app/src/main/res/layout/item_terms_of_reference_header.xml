@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/c_fff">
+    <View
+        android:id="@+id/view_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/c_f8f8fa"/>
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/magnifiers"
+        android:layout_marginStart="@dimen/horizontal_margin_20"
+        app:layout_constraintBottom_toBottomOf="@id/view_search"
+        app:layout_constraintStart_toStartOf="@id/view_search"
+        app:layout_constraintTop_toTopOf="@id/view_search"/>
+    <EditText
+        style="@style/CommonEditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/horizontal_margin_16"
+        android:layout_marginEnd="@dimen/horizontal_margin_16"
+        app:layout_constraintStart_toEndOf="@id/iv_search"
+        app:layout_constraintEnd_toEndOf="@id/view_search"
+        app:layout_constraintTop_toTopOf="@id/view_search"
+        app:layout_constraintBottom_toBottomOf="@id/view_search"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/c_222"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

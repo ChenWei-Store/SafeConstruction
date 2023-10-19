@@ -10,7 +10,7 @@ import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.bean.other.Photo
+import com.shuangning.safeconstruction.bean.other.AddPhoto
 import com.shuangning.safeconstruction.databinding.ActivityAddContentBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
@@ -43,7 +43,7 @@ class AddContentActivity: BaseActivity<ActivityAddContentBinding>() {
     }
 
     override fun initData() {
-        data.add(Photo(type = ADD_PHOTO))
+        data.add(AddPhoto())
     }
 
     override fun doBeforeSetContentView() {
@@ -65,9 +65,11 @@ class AddContentActivity: BaseActivity<ActivityAddContentBinding>() {
                     index, text->
             }
         }
-
         binding?.viewCheckList?.setOnClickListener {
             StartActivityManager.startSelectCheckList(this@AddContentActivity)
+        }
+        binding?.viewTermsOfReference?.setOnClickListener {
+            StartActivityManager.startTermsOfReference(this@AddContentActivity)
         }
         addPhotoAdapter?.setListener(object: AddPhotoAdapter.OnPhotoActionClickListener{
             override fun onAdd() {

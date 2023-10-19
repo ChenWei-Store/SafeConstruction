@@ -4,14 +4,12 @@ import android.content.Context
 import android.view.View
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.animator.EmptyAnimator
-import com.lxj.xpopup.animator.ScaleAlphaAnimator
-import com.lxj.xpopup.animator.ScrollScaleAnimator
 import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.enums.PopupPosition
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
-import com.shuangning.safeconstruction.bean.other.SelectTypeBean
+import com.shuangning.safeconstruction.base.adapter.IItemViewType
+import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.ui.dialog.AttachAddDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
 import com.shuangning.safeconstruction.utils.ScreenUtil
@@ -44,7 +42,7 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<SelectTypeBean>): BasePopupView{
+    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<IItemViewType>): BasePopupView{
         return XPopup.Builder(ctx)
             .isDestroyOnDismiss(true)
             .popupWidth(ScreenUtil.getScreenWidth())

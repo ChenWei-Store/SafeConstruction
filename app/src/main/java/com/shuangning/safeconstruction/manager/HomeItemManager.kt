@@ -1,7 +1,7 @@
 package com.shuangning.safeconstruction.manager
 
 import com.shuangning.safeconstruction.R
-import com.shuangning.safeconstruction.bean.other.HomeBean
+import com.shuangning.safeconstruction.bean.other.HomeContentBean
 
 /**
  * Created by Chenwei on 2023/10/7.
@@ -20,19 +20,19 @@ object HomeItemManager {
     private val routineInspection = mutableListOf(R.string.routine_inspection, R.drawable.routine_inspection_icon, ROUTINE_INSPCETION)
     private val takePhotosOfDangers = mutableListOf(R.string.take_photos_of_dangers, R.drawable.take_photos_of_hidden_dangers_icon, TAKE_PTOTOS_OF_DANGERS)
     private val datas = mutableListOf(attendanceManagement, rectificationAndReply, routineInspection, takePhotosOfDangers)
-    private val homeContentBeans = mutableListOf<HomeBean>()
+    private val homeContentBeans = mutableListOf<HomeContentBean>()
 
     init {
         datas.forEach{
             val nameId = it[0]
             val iconId = it[1]
             val funcId = it[2]
-            val homeContentBean = HomeBean(iconId, nameId, funcId)
+            val homeContentBean = HomeContentBean(iconId, nameId, funcId)
             homeContentBeans.add(homeContentBean)
         }
     }
 
-    fun getData(): MutableList<HomeBean>{
+    fun getData(): MutableList<HomeContentBean>{
         return homeContentBeans
     }
 }

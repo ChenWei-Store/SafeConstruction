@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.CONTENT
+import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
-import com.shuangning.safeconstruction.bean.other.SelectTypeBean
+import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.databinding.ActivityRectificationAndReplyBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyAdapter
@@ -22,7 +23,7 @@ import com.shuangning.safeconstruction.manager.XPopCreateUtils
 class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyBinding>() {
     private var replyAdapter: RectificationAndReplyAdapter? = null
     private val data: MutableList<ItemViewType> = mutableListOf()
-    private val selectTypeData: MutableList<SelectTypeBean> = mutableListOf()
+    private val selectTypeData: MutableList<IItemViewType> = mutableListOf()
 
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityRectificationAndReplyBinding? {
         return ActivityRectificationAndReplyBinding.inflate(layoutInflater)
@@ -51,11 +52,11 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
         data.add(ItemViewType())
 //        data.add(ItemViewType())
 
-        selectTypeData.add(SelectTypeBean(CONTENT, "全部"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "指挥部"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-JL-1标"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-1标"))
-        selectTypeData.add(SelectTypeBean(CONTENT, "GX-2标"))
+        selectTypeData.add(ContentSelectTypeBean("全部"))
+        selectTypeData.add(ContentSelectTypeBean("指挥部"))
+        selectTypeData.add(ContentSelectTypeBean( "GX-JL-1标"))
+        selectTypeData.add(ContentSelectTypeBean("GX-1标"))
+        selectTypeData.add(ContentSelectTypeBean("GX-2标"))
     }
 
     override fun doBeforeSetContentView() {

@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.core.AttachPopupView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.HEADER
+import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.bean.other.SelectTypeBean
 import com.shuangning.safeconstruction.ui.adapter.SelectTypeAdapter
 import com.shuangning.safeconstruction.utils.ScreenUtil
 
 /**
  * Created by Chenwei on 2023/10/14.
  */
-class SelectTypeDialog(ctx: Context, val data: MutableList<SelectTypeBean>): AttachPopupView(ctx) {
+class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>): AttachPopupView(ctx) {
     private var selectTypeAdapter: SelectTypeAdapter?= null
     override fun onCreate() {
         super.onCreate()
@@ -36,7 +36,7 @@ class SelectTypeDialog(ctx: Context, val data: MutableList<SelectTypeBean>): Att
         val layoutManager = GridLayoutManager(context, 3)
         val decoration: GridSpaceItemDecoration
         if (data.size > 0){
-            val type = data[0].type
+            val type = data[0].getItemType()
             if(type == HEADER){
                 layoutManager.spanSizeLookup = object: SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int =

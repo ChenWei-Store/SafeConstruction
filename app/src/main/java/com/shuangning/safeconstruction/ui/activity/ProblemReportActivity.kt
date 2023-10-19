@@ -11,8 +11,7 @@ import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.bean.other.Photo
-import com.shuangning.safeconstruction.databinding.ActivityAddContentBinding
+import com.shuangning.safeconstruction.bean.other.AddPhoto
 import com.shuangning.safeconstruction.databinding.ActivityProblemReportBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
@@ -45,7 +44,7 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
     }
 
     override fun initData() {
-        data.add(Photo(type = ADD_PHOTO))
+        data.add(AddPhoto())
     }
 
     override fun doBeforeSetContentView() {
@@ -78,6 +77,14 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
 
         binding?.viewRectificationPeriod?.setOnClickListener {
             XPopCreateUtils.showYearMonthDialog(this@ProblemReportActivity, TimePickerPopup.Mode.YMDHM)
+        }
+
+        binding?.viewCheckList?.setOnClickListener {
+            StartActivityManager.startSelectCheckList(this@ProblemReportActivity)
+        }
+
+        binding?.viewPartOfTender?.setOnClickListener {
+            StartActivityManager.startTermsOfReference(this@ProblemReportActivity)
         }
         addPhotoAdapter?.setListener(object: AddPhotoAdapter.OnPhotoActionClickListener{
             override fun onAdd() {
