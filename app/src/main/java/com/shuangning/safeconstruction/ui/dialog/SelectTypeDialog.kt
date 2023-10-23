@@ -21,15 +21,9 @@ class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>): Atta
     private var selectTypeAdapter: SelectTypeAdapter?= null
     override fun onCreate() {
         super.onCreate()
-        setFullWidth()
         initRv()
     }
 
-    private fun setFullWidth(){
-        findViewById<LinearLayout>(R.id.ll).layoutParams.apply {
-            width = ViewGroup.LayoutParams.MATCH_PARENT
-        }
-    }
     private fun initRv(){
         selectTypeAdapter = SelectTypeAdapter(data)
         val rv = findViewById<RecyclerView>(R.id.rv)

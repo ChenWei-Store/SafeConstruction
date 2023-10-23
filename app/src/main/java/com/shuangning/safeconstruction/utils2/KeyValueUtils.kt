@@ -34,7 +34,7 @@ class KeyValueUtils {
         } as T
     }
 
-    fun <T> getWithId(id: String, cryptKey:String? = null, key: String, valueType: T): T{
+    fun <T> getWithId(id: String, key: String, valueType: T, cryptKey:String? = null): T{
         val kv =  MMKV.mmkvWithID(id, MMKV.MULTI_PROCESS_MODE, cryptKey)
         return when(valueType){
             is String -> kv.decodeString(key, "")

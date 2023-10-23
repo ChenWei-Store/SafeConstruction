@@ -77,7 +77,6 @@
         android:textColorHint="@color/c_fff"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/c_fff"
-        android:inputType="textPassword"
         app:layout_constraintTop_toTopOf="@id/view_name_bg"
         app:layout_constraintBottom_toBottomOf="@id/view_name_bg"
         app:layout_constraintStart_toEndOf="@id/iv_name"
@@ -111,10 +110,12 @@
         app:layout_constraintStart_toStartOf="@id/view_pwd_bg"
         android:src="@drawable/password_icon"/>
     <EditText
+        android:id="@+id/et_pwd"
         style="@style/CommonEditTextStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:hint="@string/pwd_hint"
+        android:inputType="textPassword"
         android:textColorHint="@color/c_fff"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/c_fff"
@@ -133,12 +134,14 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="@id/view_bg"
         app:layout_constraintEnd_toEndOf="@id/view_bg"
         app:layout_constraintTop_toBottomOf="@id/view_pwd_bg"
         android:layout_marginTop="@dimen/vertical_margin_36"
+        android:layout_marginStart="@dimen/horizontal_margin_36"
+        android:layout_marginEnd="@dimen/horizontal_margin_36"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/main_color"
         android:text="@string/login"

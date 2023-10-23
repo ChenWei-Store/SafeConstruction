@@ -9,6 +9,7 @@ import com.shuangning.safeconstruction.ui.activity.AttendanceManagementListActiv
 import com.shuangning.safeconstruction.ui.activity.ClockInOrOutActivity
 import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
 import com.shuangning.safeconstruction.ui.activity.FinesListActivity
+import com.shuangning.safeconstruction.ui.activity.LoginActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
 import com.shuangning.safeconstruction.ui.activity.TermsOfReferenceActivity
@@ -29,7 +30,9 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
  * Created by Chenwei on 2023/9/8.
  */
 object StartActivityManager {
-
+    fun startToLogin(ctx: Context,){
+        ActivityUtils.start(ctx, LoginActivity::class.java)
+    }
     fun startToMain(ctx: Context,){
         ActivityUtils.start(ctx, MainActivity::class.java)
     }

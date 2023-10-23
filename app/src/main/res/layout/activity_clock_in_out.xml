@@ -4,15 +4,30 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/c_fff">
+    <com.shuangning.safeconstruction.base.widget.TitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_title"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/iv"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/view"
+        app:layout_constraintEnd_toEndOf="@id/view"
+        app:layout_constraintTop_toTopOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@id/tv_location"
+        app:layout_constraintVertical_chainStyle="packed"
         android:src="@drawable/circle_main_color"/>
 
     <TextView
@@ -24,10 +39,10 @@
         app:layout_constraintTop_toTopOf="@id/iv"
         android:layout_marginTop="@dimen/vertical_margin_36"
         android:textSize="@dimen/sp_20"
-        android:textColor="@color/c_fff"
-        android:text="外勤打卡"/>
+        android:textColor="@color/c_fff" />
 
     <TextView
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/iv"
@@ -35,15 +50,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_clock_in_out"
         android:layout_marginTop="@dimen/vertical_margin_4"
         android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_fff"
-        android:text="18:43:41"/>
+        android:textColor="@color/c_fff" />
 
     <TextView
+        android:id="@+id/tv_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/view"
+        app:layout_constraintEnd_toEndOf="@id/view"
         app:layout_constraintTop_toBottomOf="@id/iv"
+        app:layout_constraintBottom_toBottomOf="@id/view"
         android:layout_marginTop="@dimen/vertical_margin_20"
         android:layout_marginStart="@dimen/horizontal_margin_16"
         android:layout_marginEnd="@dimen/horizontal_margin_16"
@@ -51,7 +67,6 @@
         android:drawablePadding="@dimen/horizontal_margin_4"
         android:gravity="center_horizontal"
         android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_555"
-        android:text="江苏省南京市情怀区朝天宫街道汉中路汉中门广场江苏省南京市情怀区朝天宫街道汉中路汉中门广场"/>
+        android:textColor="@color/c_555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

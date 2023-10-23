@@ -11,7 +11,7 @@
     <color name="blue">#0000FF</color>
 
 
-    <color name="main_color">#256fff</color>
+    <color name="main_color">@color/c_2B88CF</color>
     <color name="sub_main_color">#3F51B5</color>
 
     <color name="c_222">#222222</color>

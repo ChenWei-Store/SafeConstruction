@@ -9,10 +9,11 @@ import com.lxj.xpopup.enums.PopupPosition
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
-import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.ui.dialog.AttachAddDialog
+import com.shuangning.safeconstruction.ui.dialog.CommonConfirmDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
 import com.shuangning.safeconstruction.utils.ScreenUtil
+import java.security.AccessController.getContext
 import java.util.Date
 
 
@@ -87,7 +88,7 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showAttachAdd(ctx: Context, attachView: View,){
+    fun showAttachAdd(ctx: Context, attachView: View){
         XPopup.Builder(ctx)
             .isDestroyOnDismiss(true)
             .dismissOnBackPressed(true)
@@ -95,11 +96,25 @@ object XPopCreateUtils {
             .enableDrag(false)
             .hasShadowBg(false)
             .isThreeDrag(false)
+
             .customAnimator(EmptyAnimator(attachView, 300))
             .popupPosition(PopupPosition.Top)
             .popupWidth(ScreenUtil.getScreenWidth())
             .atView(attachView)
             .asCustom(AttachAddDialog(ctx))
             .show()
+    }
+
+    fun showTipDialog(ctx: Context, title: String, content: String?){
+        XPopup.Builder(ctx)
+            .isDestroyOnDismiss(true)
+            .dismissOnBackPressed(false)
+            .dismissOnTouchOutside(false)
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .popupWidth((ScreenUtil.getScreenWidth() * 0.8f).toInt())
+            .asCustom(CommonConfirmDialog(ctx, title, content))
+            .show()
+
     }
 }

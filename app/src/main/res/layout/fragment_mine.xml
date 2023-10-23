@@ -23,23 +23,23 @@
         android:layout_marginTop="@dimen/horizontal_margin_16"
         android:src="@drawable/header_icon" />
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/iv_header"
         app:layout_constraintStart_toEndOf="@id/iv_header"
         android:layout_marginStart="@dimen/horizontal_margin_12"
         android:textSize="@dimen/sp_16"
-        android:textColor="@color/c_fff"
-        android:text="百盛检查"/>
+        android:textColor="@color/c_fff" />
     <TextView
+        android:id="@+id/tv_department"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/iv_header"
         app:layout_constraintStart_toEndOf="@id/iv_header"
         android:layout_marginStart="@dimen/horizontal_margin_12"
         android:textSize="@dimen/sp_12"
-        android:textColor="@color/c_fff"
-        android:text="指挥部"/>
+        android:textColor="@color/c_fff" />
 
     <View
         android:id="@+id/view_modify_pwd"
@@ -117,6 +117,7 @@
         android:src="@drawable/right_arrow_icon"/>
 
     <TextView
+        android:id="@+id/tv_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/iv_update_version_arrow"
@@ -124,8 +125,7 @@
         app:layout_constraintBottom_toBottomOf="@id/view_update_version"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_16"
-        android:textColor="@color/c_000"
-        android:text="4.9.51"/>
+        android:textColor="@color/c_000" />
 
     <View
         android:id="@+id/view_clear_cache"
