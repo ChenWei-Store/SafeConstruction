@@ -243,7 +243,7 @@ public class FileUtil {
      * @param uri       uri
      * @return          文件路径
      */
-    static String getRealPathFromURI(Context context, Uri uri) {
+    public static String getRealPathFromURI(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         if (cursor == null) {
             return uri.getPath();

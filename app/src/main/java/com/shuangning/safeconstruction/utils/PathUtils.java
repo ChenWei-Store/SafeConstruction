@@ -32,7 +32,7 @@ import java.io.File;
  * 外部存储公开目录:
  * 在Android6.0之前,声明权限不需要动态申请
  * Android 6.0-Android10(包含10)需要声明+动态申请(WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE)
- * Android10已经引入Scoped Storage，可以绕过,Android11必须适配
+ * Android10已经引入Scoped Storage，可以绕过Scoped Storage暂时不适配,Android11必须适配
  * Android11需要声明MANAGE_EXTERNAL_STORAGE并动态申请，使用MediaStore获取数据
  */
 public final class PathUtils {

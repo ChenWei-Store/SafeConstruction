@@ -6,6 +6,7 @@ import com.lxj.xpopup.core.BasePopupView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityMainBinding
+import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.fragment.HomeFragment
@@ -25,6 +26,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         switchFragment(homeFragment, R.id.fl_container)
         setSelected(true)
+        PermissionManager.reqFile(this)
     }
 
     override fun initData() {

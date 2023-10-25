@@ -6,6 +6,8 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.animator.EmptyAnimator
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupPosition
+import com.lxj.xpopup.interfaces.OnCancelListener
+import com.lxj.xpopup.interfaces.OnConfirmListener
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
@@ -115,6 +117,18 @@ object XPopCreateUtils {
             .popupWidth((ScreenUtil.getScreenWidth() * 0.8f).toInt())
             .asCustom(CommonConfirmDialog(ctx, title, content))
             .show()
+    }
 
+    fun showConfirmCancelDialog(ctx: Context, title: String, content: String, block: ()-> Unit){
+        XPopup.Builder(ctx)
+            .autoDismiss(true)
+            .isDestroyOnDismiss(true)
+            .dismissOnBackPressed(false)
+            .dismissOnTouchOutside(false)
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .asConfirm(title, content) {
+            block()
+        }.show()
     }
 }

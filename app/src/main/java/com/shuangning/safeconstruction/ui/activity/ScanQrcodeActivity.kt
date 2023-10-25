@@ -1,42 +1,42 @@
 package com.shuangning.safeconstruction.ui.activity
 
-import android.Manifest
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
+import cn.bingoogolapple.qrcode.core.BGAQRCodeUtil
+import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import com.permissionx.guolindev.PermissionX
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.engine.UriToFileTransformEngine
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.luck.picture.lib.utils.SandboxTransformUtils
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityScanQrcodeBinding
+import com.shuangning.safeconstruction.utils.GlideEngine
+import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils2.MyLog
+
 
 /**
  * Created by Chenwei on 2023/10/15.
  */
 class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.Delegate {
-    private val permissions = arrayListOf(
-        Manifest.permission.CAMERA)
+    private var isOpenFlashLight = false
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityScanQrcodeBinding? {
         return ActivityScanQrcodeBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.zxingview?.setDelegate(this)
-//        binding?.zxingview?.hiddenScanRect()
+        binding?.zxingview?.changeToScanQRCodeStyle() // 切换成扫描二维码样式
+        binding?.zxingview?.setType(BarcodeType.ALL, null) // 识别所有类型的码
     }
 
     override fun initData() {
 
-    }
-    private fun reqPermission(){
-        PermissionX.init(this)
-            .permissions(permissions)
-            .request { allGranted, grantedList, deniedList ->
-                if (!allGranted){
-                    finish()
-                }else{
-                    binding?.zxingview?.startCamera()
-                    binding?.zxingview?.startSpotAndShowRect()
-                }
-            }
     }
     override fun doBeforeSetContentView() {
     }
@@ -45,6 +45,40 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
     }
 
     override fun initListener() {
+        binding?.back?.setOnClickListener {
+            finish()
+        }
+        binding?.flashLight?.setOnClickListener {
+            if (isOpenFlashLight){
+                binding?.zxingview?.closeFlashlight()
+            }else{
+                binding?.zxingview?.openFlashlight()
+            }
+            isOpenFlashLight = !isOpenFlashLight
+        }
+
+        binding?.photo?.setOnClickListener {
+            selectPicture()
+        }
+    }
+
+    private fun selectPicture(){
+        PictureSelector.create(this)
+            .openGallery(SelectMimeType.ofImage())
+            .setImageEngine(GlideEngine.createGlideEngine())
+            .setMaxSelectNum(1)
+            .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                override fun onResult(result: ArrayList<LocalMedia?>) {
+                    result.takeIf {
+                        !it.isNullOrEmpty()
+                    }?.let {
+                        it[0]?.realPath?.apply {
+                            binding?.zxingview?.decodeQRCode(this)
+                        }
+                    }
+                }
+                override fun onCancel() {}
+            })
     }
 
     override fun observeViewModel() {
@@ -52,7 +86,8 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
 
     override fun onStart() {
         super.onStart()
-        reqPermission()
+        binding?.zxingview?.startCamera()
+        binding?.zxingview?.startSpotAndShowRect()
     }
 
     override fun onStop() {
@@ -66,6 +101,13 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
     }
 
     override fun onScanQRCodeSuccess(result: String?) {
+        result?.let{
+            ToastUtil.showCustomToast(it)
+        }?:let {
+            ToastUtil.showCustomToast("解析二维码失败")
+        }
+        binding?.zxingview?.startSpot()
+
     }
 
     override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {

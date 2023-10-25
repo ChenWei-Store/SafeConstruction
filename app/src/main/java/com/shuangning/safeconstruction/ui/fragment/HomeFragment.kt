@@ -1,11 +1,13 @@
 package com.shuangning.safeconstruction.ui.fragment
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.permissionx.guolindev.PermissionX
 import com.shuangning.safeconstruction.base.BaseFragment
-import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.HomeContentBean
@@ -13,8 +15,11 @@ import com.shuangning.safeconstruction.bean.other.HomeHeaderBean
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.FragmentHomeBinding
 import com.shuangning.safeconstruction.manager.HomeItemManager
+import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
+import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.adapter.HomeAdapter
+import com.shuangning.safeconstruction.utils.ToastUtil
 
 /**
  * Created by Chenwei on 2023/10/7.
@@ -22,6 +27,7 @@ import com.shuangning.safeconstruction.ui.adapter.HomeAdapter
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     private var data: MutableList<ItemViewType> = mutableListOf()
     private var adapter: HomeAdapter?= null
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -87,15 +93,22 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         super.receiveEvent(code, obj)
         when(code){
             EventCode.START_SCAN_QRCODE->{
-                activity?.apply {
-                    StartActivityManager.startToScanQrcode(this)
-                }
+                reqCameraPermission()
             }
             EventCode.START_CLOCK_IN_OUT->{
                 activity?.apply {
                     StartActivityManager.startToClockInOut(this)
                 }
             }
+        }
+    }
+
+    private fun reqCameraPermission(){
+        (activity as? FragmentActivity)?.apply {
+            PermissionManager.requestCamera(this){
+                StartActivityManager.startToScanQrcode(this)
+            }
+
         }
     }
 }
