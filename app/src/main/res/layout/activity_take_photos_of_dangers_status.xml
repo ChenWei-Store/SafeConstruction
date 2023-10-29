@@ -15,20 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorColor="@color/main_color">
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_be_received" />
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_be_processed" />
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/processed" />
-    </com.google.android.material.tabs.TabLayout>
+        app:tabIndicatorColor="@color/main_color" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"

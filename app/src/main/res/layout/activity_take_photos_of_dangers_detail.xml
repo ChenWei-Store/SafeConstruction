@@ -36,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="2021-12-07 17:52 炎月"
         android:textColor="@color/main_color"
         android:textSize="@dimen/sp_14"
         app:layout_constraintBottom_toBottomOf="@id/view_problem_title"
@@ -58,20 +57,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:layout_marginTop="@dimen/vertical_margin_12"
-        android:text="封闭段还可以打开吗"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_16"
         app:layout_constraintStart_toStartOf="@id/view_problem_detail"
         app:layout_constraintTop_toTopOf="@id/view_problem_detail" />
 
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:layout_marginTop="@dimen/vertical_margin_8"
         app:layout_constraintStart_toStartOf="@id/view_problem_detail"
-        app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+        app:layout_constraintTop_toBottomOf="@id/tv_desc"/>
 
     <TextView
         android:id="@+id/tv_department"
@@ -83,14 +82,13 @@
         android:textColor="@color/c_222"
         android:textSize="@dimen/sp_14"
         app:layout_constraintStart_toStartOf="@id/view_problem_detail"
-        app:layout_constraintTop_toBottomOf="@id/iv" />
+        app:layout_constraintTop_toBottomOf="@id/rv" />
 
     <TextView
         android:id="@+id/tv_department_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="xxx部门"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
@@ -123,7 +121,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="xxx组"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
@@ -156,7 +153,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="13631xxxxxx"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
@@ -189,7 +185,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="xxx项目"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_problem_detail"
@@ -223,7 +218,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:layout_marginTop="@dimen/vertical_margin_8"
-        android:text="xxx条款"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintStart_toStartOf="@id/view_problem_detail"
@@ -263,7 +259,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="2021-12-07 17:52 炎月"
         android:textColor="@color/main_color"
         android:textSize="@dimen/sp_14"
         app:layout_constraintBottom_toBottomOf="@id/view_receive_title"
@@ -296,7 +291,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="不接收"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_receive_detail"
@@ -329,7 +323,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:text="备注是xxxxx"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@id/view_receive_detail"

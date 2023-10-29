@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
@@ -14,7 +14,7 @@ import com.shuangning.safeconstruction.databinding.ItemSelectTypeHeaderBinding
 /**
  * Created by Chenwei on 2023/10/14.
  */
-class SelectTypeAdapter(data: MutableList<IItemViewType>): CommonBaseAdapter<IItemViewType, ViewBinding>(data) {
+class SelectTypeMultiAdapter(data: MutableList<IItemViewType>): CommonBaseMultiAdapter<IItemViewType, ViewBinding>(data) {
     override fun onBindViewHolder(
         binding: ViewBinding,
         item: IItemViewType,

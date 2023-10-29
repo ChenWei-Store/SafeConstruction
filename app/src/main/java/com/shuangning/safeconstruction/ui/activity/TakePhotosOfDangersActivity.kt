@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
-import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangersTitle
+import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangers
 import com.shuangning.safeconstruction.databinding.ActivityTakePhotosOfDangersBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.TakePhotosOfDangersAdapter
@@ -18,7 +18,7 @@ import com.shuangning.safeconstruction.utils.UIUtils
  */
 class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBinding>() {
     private var takePhotoOfDangerAdapter:TakePhotosOfDangersAdapter? = null
-    private val data: MutableList<TakePhotosOfDangersTitle> = mutableListOf()
+    private val data: MutableList<TakePhotosOfDangers> = mutableListOf()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityTakePhotosOfDangersBinding? {
         return ActivityTakePhotosOfDangersBinding.inflate(layoutInflater)
     }
@@ -35,9 +35,9 @@ class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBindi
     }
 
     override fun initData() {
-        data.add(TakePhotosOfDangersTitle("GX-1标"))
-        data.add(TakePhotosOfDangersTitle("GX-2标"))
-        data.add(TakePhotosOfDangersTitle("GX-21标"))
+        data.add(TakePhotosOfDangers("GX-1标"))
+        data.add(TakePhotosOfDangers("GX-2标"))
+        data.add(TakePhotosOfDangers("GX-21标"))
     }
 
     override fun doBeforeSetContentView() {
@@ -47,8 +47,8 @@ class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBindi
     }
 
     override fun initListener() {
-        takePhotoOfDangerAdapter?.setOnItemClickListener(object: OnItemClickListener<TakePhotosOfDangersTitle>{
-            override fun onItemClick(data: TakePhotosOfDangersTitle, position: Int) {
+        takePhotoOfDangerAdapter?.setOnItemClickListener(object: OnItemClickListener<TakePhotosOfDangers>{
+            override fun onItemClick(data: TakePhotosOfDangers, position: Int) {
                 StartActivityManager.startToTakePhotosOfDangersStatus(this@TakePhotosOfDangersActivity)
             }
         })

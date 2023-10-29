@@ -1,12 +1,10 @@
 package com.shuangning.safeconstruction.ui.fragment
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.permissionx.guolindev.PermissionX
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
@@ -17,16 +15,15 @@ import com.shuangning.safeconstruction.databinding.FragmentHomeBinding
 import com.shuangning.safeconstruction.manager.HomeItemManager
 import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
-import com.shuangning.safeconstruction.manager.XPopCreateUtils
-import com.shuangning.safeconstruction.ui.adapter.HomeAdapter
-import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.ui.adapter.HomeMultiAdapter
+import com.shuangning.safeconstruction.utils2.MyLog
 
 /**
  * Created by Chenwei on 2023/10/7.
  */
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     private var data: MutableList<ItemViewType> = mutableListOf()
-    private var adapter: HomeAdapter?= null
+    private var adapter: HomeMultiAdapter?= null
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -36,7 +33,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        adapter = HomeAdapter(data)
+        adapter = HomeMultiAdapter(data)
         val layoutManager = GridLayoutManager(activity, 4)
         layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
@@ -91,19 +88,27 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     override fun receiveEvent(code: Int, obj: Any?) {
         super.receiveEvent(code, obj)
+        MyLog.d("receiveEvent:$code")
         when(code){
             EventCode.START_SCAN_QRCODE->{
-                reqCameraPermission()
+                reqCameraPermissionAndStart()
             }
             EventCode.START_CLOCK_IN_OUT->{
-                activity?.apply {
-                    StartActivityManager.startToClockInOut(this)
-                }
+              reqLocationPermissionAndStart()
             }
         }
     }
 
-    private fun reqCameraPermission(){
+    private fun reqLocationPermissionAndStart(){
+        (activity as? FragmentActivity)?.apply {
+            PermissionManager.reqLocation(this){
+                StartActivityManager.startToClockInOut(this)
+            }
+
+        }
+    }
+
+    private fun reqCameraPermissionAndStart(){
         (activity as? FragmentActivity)?.apply {
             PermissionManager.requestCamera(this){
                 StartActivityManager.startToScanQrcode(this)

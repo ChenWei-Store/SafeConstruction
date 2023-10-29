@@ -9,14 +9,14 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.databinding.ActivityFinesBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
-import com.shuangning.safeconstruction.ui.adapter.FinesAdapter
+import com.shuangning.safeconstruction.ui.adapter.FinesMultiAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
 
 /**
  * Created by Chenwei on 2023/10/12.
  */
 class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
-    private var finesAdapter: FinesAdapter?= null
+    private var finesAdapter: FinesMultiAdapter?= null
     private val data: MutableList<ItemViewType> = mutableListOf()
 
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityFinesBinding? {
@@ -26,7 +26,7 @@ class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle(UIUtils.getString(R.string.fines_list))
 
-        finesAdapter = FinesAdapter(data)
+        finesAdapter = FinesMultiAdapter(data)
         binding?.rv?.apply {
             adapter = finesAdapter
             layoutManager = LinearLayoutManager(this@FinesListActivity)

@@ -3,15 +3,15 @@ package com.shuangning.safeconstruction.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.databinding.ItemFineBinding
 
 /**
  * Created by Chenwei on 2023/10/12.
  */
-class FinesAdapter(data: MutableList<ItemViewType>):
-    CommonBaseAdapter<ItemViewType, ItemFineBinding>(data)  {
+class FinesMultiAdapter(data: MutableList<ItemViewType>):
+    CommonBaseMultiAdapter<ItemViewType, ItemFineBinding>(data)  {
     override fun onBindViewHolder(
         binding: ItemFineBinding,
         item: ItemViewType,

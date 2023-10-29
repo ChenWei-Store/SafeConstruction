@@ -15,13 +15,13 @@ import com.shuangning.safeconstruction.bean.other.TermsOfReferenceLevelOne
 import com.shuangning.safeconstruction.bean.other.TermsOfReferenceLevelThree
 import com.shuangning.safeconstruction.bean.other.TermsOfReferenceLevelTwo
 import com.shuangning.safeconstruction.databinding.ActivityTermsOfReferenceBinding
-import com.shuangning.safeconstruction.ui.adapter.TermsOfReferencesAdapter
+import com.shuangning.safeconstruction.ui.adapter.TermsOfReferencesMultiAdapter
 
 /**
  * Created by Chenwei on 2023/10/19.
  */
 class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() {
-    private var termsOfReferencesAdapter: TermsOfReferencesAdapter?= null
+    private var termsOfReferencesAdapter: TermsOfReferencesMultiAdapter?= null
     private var data: MutableList<IItemViewType> = mutableListOf()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityTermsOfReferenceBinding? {
         return ActivityTermsOfReferenceBinding.inflate(layoutInflater)
@@ -29,7 +29,7 @@ class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() 
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("选择常见隐患及条款")
-        termsOfReferencesAdapter = TermsOfReferencesAdapter(data)
+        termsOfReferencesAdapter = TermsOfReferencesMultiAdapter(data)
         binding?.rv?.apply {
             layoutManager = LinearLayoutManager(this@TermsOfReferenceActivity)
             adapter = termsOfReferencesAdapter

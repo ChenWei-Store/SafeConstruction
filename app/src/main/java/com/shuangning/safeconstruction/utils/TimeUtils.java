@@ -190,9 +190,9 @@ public class TimeUtils {
     }
 
     /* 将字符串转为时间戳 */
-    public static String getDateToString(String time) {
+    public static String getDateToString(String time, String format) {
         String re_time = null;
-        SimpleDateFormat sdf = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
         Date d;
         try {
 
@@ -322,6 +322,12 @@ public class TimeUtils {
      */
     public static String getCurrentDate2() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
+    public static String getCurrentDate(String format) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
         return str;

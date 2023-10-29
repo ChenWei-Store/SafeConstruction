@@ -113,7 +113,7 @@ public class ToastUtil {
         View view = LayoutInflater.from(BaseApplication.appContext).inflate(R.layout.toast_custom, null);
         TextView tv = (TextView) view.findViewById(R.id.tv_toast);
         tv.setText(TextUtils.isEmpty(text) ? "" : text);
-        toast2.setDuration(Toast.LENGTH_LONG);
+        toast2.setDuration(Toast.LENGTH_SHORT);
         toast2.setView(view);
         toast2.setGravity(Gravity.CENTER, 0, 0);
         toast2.show();

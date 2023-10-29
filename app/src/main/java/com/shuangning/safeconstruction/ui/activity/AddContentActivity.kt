@@ -10,12 +10,11 @@ import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.bean.other.AddPhoto
+import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.databinding.ActivityAddContentBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
-import com.shuangning.safeconstruction.ui.adapter.ADD_PHOTO
-import com.shuangning.safeconstruction.ui.adapter.AddPhotoAdapter
+import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import java.util.ArrayList
@@ -25,19 +24,19 @@ import java.util.ArrayList
  */
 class AddContentActivity: BaseActivity<ActivityAddContentBinding>() {
     private val data: MutableList<ItemViewType> = mutableListOf()
-    private var addPhotoAdapter: AddPhotoAdapter?= null
+    private var addShowPhotoAdapter: AddShowPhotoMultiAdapter?= null
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddContentBinding? {
         return ActivityAddContentBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("添加内容")
-        addPhotoAdapter = AddPhotoAdapter(data)
+        addShowPhotoAdapter = AddShowPhotoMultiAdapter(data)
         binding?.rvPic?.apply {
             layoutManager = GridLayoutManager(this@AddContentActivity, 4)
             addItemDecoration(GridSpaceItemDecoration(4, ScreenUtil.dp2px(16f),
                 ScreenUtil.dp2px(8f), false))
-            adapter = addPhotoAdapter
+            adapter = addShowPhotoAdapter
         }
 
     }
@@ -71,7 +70,7 @@ class AddContentActivity: BaseActivity<ActivityAddContentBinding>() {
         binding?.viewTermsOfReference?.setOnClickListener {
             StartActivityManager.startTermsOfReference(this@AddContentActivity)
         }
-        addPhotoAdapter?.setListener(object: AddPhotoAdapter.OnPhotoActionClickListener{
+        addShowPhotoAdapter?.setListener(object: AddShowPhotoMultiAdapter.OnPhotoActionClickListener{
             override fun onAdd() {
                 PictureSelector.create(this@AddContentActivity)
                     .openGallery(SelectMimeType.ofImage())
@@ -88,7 +87,10 @@ class AddContentActivity: BaseActivity<ActivityAddContentBinding>() {
 
             override fun onDelete(position: Int) {
                 data.removeAt(position)
-                addPhotoAdapter?.notifyItemRemoved(position)
+                addShowPhotoAdapter?.notifyItemRemoved(position)
+            }
+
+            override fun onImageClick() {
             }
 
         })

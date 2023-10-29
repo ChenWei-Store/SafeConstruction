@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.bean.other.HomeContentBean
@@ -17,7 +17,7 @@ import com.shuangning.safeconstruction.utils2.EventbusUtils
 /**
  * Created by Chenwei on 2023/10/8.
  */
-class HomeAdapter(data: MutableList<ItemViewType>): CommonBaseAdapter<ItemViewType, ViewBinding>(data) {
+class HomeMultiAdapter(data: MutableList<ItemViewType>): CommonBaseMultiAdapter<ItemViewType, ViewBinding>(data) {
     override fun onBindViewHolder(binding: ViewBinding, item: ItemViewType, position: Int, ctx: Context) {
         when(binding){
             is  ItemHomeBinding ->{

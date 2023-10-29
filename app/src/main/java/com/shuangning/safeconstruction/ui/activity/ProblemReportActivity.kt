@@ -2,49 +2,55 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.bean.other.AddPhoto
+import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.databinding.ActivityProblemReportBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
-import com.shuangning.safeconstruction.ui.adapter.ADD_PHOTO
-import com.shuangning.safeconstruction.ui.adapter.AddPhotoAdapter
+import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import java.util.ArrayList
+import java.util.Calendar
+import java.util.Date
 
 /**
  * Created by Chenwei on 2023/10/16.
  */
 class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
     private val data: MutableList<ItemViewType> = mutableListOf()
-    private var addPhotoAdapter: AddPhotoAdapter?= null
+    private var addShowPhotoAdapter: AddShowPhotoMultiAdapter?= null
+    private var selectedCalendar: Calendar = Calendar.getInstance()
+
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityProblemReportBinding? {
         return ActivityProblemReportBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("问题上报")
-        addPhotoAdapter = AddPhotoAdapter(data)
+        addShowPhotoAdapter = AddShowPhotoMultiAdapter(data)
         binding?.rvPic?.apply {
             layoutManager = GridLayoutManager(this@ProblemReportActivity, 4)
             addItemDecoration(GridSpaceItemDecoration(4, ScreenUtil.dp2px(16f),
                 ScreenUtil.dp2px(8f), false))
-            adapter = addPhotoAdapter
+            adapter = addShowPhotoAdapter
         }
 
     }
 
     override fun initData() {
         data.add(AddPhoto())
+        selectedCalendar.time = Date()
     }
 
     override fun doBeforeSetContentView() {
@@ -76,7 +82,17 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
         }
 
         binding?.viewRectificationPeriod?.setOnClickListener {
-            XPopCreateUtils.showYearMonthDialog(this@ProblemReportActivity, TimePickerPopup.Mode.YMDHM)
+            XPopCreateUtils.showYearMonthDialog(this@ProblemReportActivity, TimePickerPopup.Mode.YMDHM, selectedCalendar, object: TimePickerListener{
+                override fun onTimeChanged(date: Date?) {
+                }
+
+                override fun onTimeConfirm(date: Date?, view: View?) {
+                }
+
+                override fun onCancel() {
+                }
+
+            })
         }
 
         binding?.viewCheckList?.setOnClickListener {
@@ -86,7 +102,7 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
         binding?.viewPartOfTender?.setOnClickListener {
             StartActivityManager.startTermsOfReference(this@ProblemReportActivity)
         }
-        addPhotoAdapter?.setListener(object: AddPhotoAdapter.OnPhotoActionClickListener{
+        addShowPhotoAdapter?.setListener(object: AddShowPhotoMultiAdapter.OnPhotoActionClickListener{
             override fun onAdd() {
                 PictureSelector.create(this@ProblemReportActivity)
                     .openGallery(SelectMimeType.ofImage())
@@ -103,7 +119,10 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
 
             override fun onDelete(position: Int) {
                 data.removeAt(position)
-                addPhotoAdapter?.notifyItemRemoved(position)
+                addShowPhotoAdapter?.notifyItemRemoved(position)
+            }
+
+            override fun onImageClick() {
             }
         })
 

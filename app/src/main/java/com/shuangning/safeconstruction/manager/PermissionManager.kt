@@ -59,10 +59,51 @@ object PermissionManager {
     }
 
     fun goSetting(ctx: FragmentActivity){
+        //TODO:确认
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", ctx.packageName, null)
         intent.data = uri
         ctx.startActivity(intent)
+    }
+
+    fun reqLocation(ctx: FragmentActivity, block:()-> Unit) {
+        if (PermissionX.isGranted(ctx, Manifest.permission.ACCESS_FINE_LOCATION) || PermissionX.isGranted(ctx, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            block()
+        } else {
+            XPopCreateUtils.showConfirmCancelDialog(
+                ctx,
+                "",
+                "应用程序需要定位权限进行打卡，请授权"
+            ) {
+                PermissionX.init(ctx)
+                    .permissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                    .request { allGranted, grantedList, deniedList ->
+                        if (!allGranted) {
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                                    ctx,
+                                    Manifest.permission.CAMERA
+                                )
+                            ) {
+                                //是否会弹窗询问
+                                ToastUtil.showCustomToast("必要的权限被拒绝")
+                            } else {
+                                XPopCreateUtils.showConfirmCancelDialog(
+                                    ctx,
+                                    "",
+                                    "定位权限被禁止，正常功能可能无法使用，请授权。"
+                                ) {
+                                    goSetting(ctx)
+                                }
+                            }
+                        } else {
+                            block()
+                        }
+                    }
+            }
+        }
     }
 
 }

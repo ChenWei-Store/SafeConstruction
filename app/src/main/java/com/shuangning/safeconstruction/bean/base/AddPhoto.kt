@@ -1,4 +1,4 @@
-package com.shuangning.safeconstruction.bean.other
+package com.shuangning.safeconstruction.bean.base
 
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.ui.adapter.ADD_PHOTO

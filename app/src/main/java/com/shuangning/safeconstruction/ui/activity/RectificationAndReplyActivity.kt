@@ -6,14 +6,13 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
-import com.shuangning.safeconstruction.base.adapter.CONTENT
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.databinding.ActivityRectificationAndReplyBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
-import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyAdapter
+import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyMultiAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 
@@ -21,7 +20,7 @@ import com.shuangning.safeconstruction.manager.XPopCreateUtils
  * Created by Chenwei on 2023/10/11.
  */
 class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyBinding>() {
-    private var replyAdapter: RectificationAndReplyAdapter? = null
+    private var replyAdapter: RectificationAndReplyMultiAdapter? = null
     private val data: MutableList<ItemViewType> = mutableListOf()
     private val selectTypeData: MutableList<IItemViewType> = mutableListOf()
 
@@ -39,7 +38,7 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
                 )
             }
         }
-        replyAdapter = RectificationAndReplyAdapter(data)
+        replyAdapter = RectificationAndReplyMultiAdapter(data)
         binding?.rv?.apply {
             adapter = replyAdapter
             layoutManager = LinearLayoutManager(this@RectificationAndReplyActivity)

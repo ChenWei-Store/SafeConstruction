@@ -2,14 +2,27 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.TextView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityClockInOutBinding
+import com.shuangning.safeconstruction.utils.TimeUtils
+import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils.archcore.ArchTaskExecutor
+import com.shuangning.safeconstruction.utils2.BaiduLocation
+import java.lang.ref.WeakReference
+import java.util.Date
+import java.util.Timer
+import java.util.TimerTask
 
 /**
  * Created by Chenwei on 2023/10/18.
  */
-class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>() {
+class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLocation.OnLocationResultCallback {
+    private var timer: Timer?= null
+    private var timeTask: TimeTask?= null
+    private var result: BaiduLocation.LocationResult?= null
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityClockInOutBinding? {
         return ActivityClockInOutBinding.inflate(layoutInflater)
     }
@@ -28,7 +41,11 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>() {
             binding?.iv?.setBackgroundResource(R.drawable.circle_main_color)
             binding?.tvClockInOut?.text = "考勤打卡"
         }
-        binding?.tvLocation?.text = "江苏省南京市情怀区朝天宫街道汉中路汉中门广场江苏省南京市情怀区朝"
+        result?.let {
+            binding?.tvLocation?.text =  "${it.province + it.city +
+                    it.district + it.town + it.street + it.locationDescribe}"
+
+        }
         binding?.tvTime?.text = "18:43:41"
     }
     override fun initData() {
@@ -41,8 +58,65 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>() {
     }
 
     override fun initListener() {
+        binding?.iv?.setOnClickListener {
+            //TODO:打卡接口
+            ToastUtil.showCustomToast("打卡成功")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LoadingManager.startLoading(this)
+        startTimer()
+        BaiduLocation.start(this)
+    }
+
+    private fun startTimer(){
+        binding?.tvTime?.let {
+            if (timeTask == null){
+                timeTask = TimeTask(it)
+            }
+            if (timer == null){
+                timer = Timer()
+            }
+            timer?.schedule(timeTask, 0, 1000)
+        }
+
+    }
+    override fun onStop() {
+        super.onStop()
+        timeTask?.cancel()
+        timer?.cancel()
+        timeTask = null
+        timer = null
+        BaiduLocation.stop()
+        LoadingManager.stopLoading()
     }
 
     override fun observeViewModel() {
+    }
+
+    class TimeTask: TimerTask {
+        private var tvRef: WeakReference<TextView>?= null
+        constructor(tv: TextView){
+            tvRef = WeakReference(tv)
+        }
+        override fun run() {
+            if (tvRef == null || tvRef?.get() == null){
+                return
+            }
+            val time = TimeUtils.parseTime(Date(), TimeUtils.HH_mm_ss)
+            ArchTaskExecutor.getInstance().postToMainThread {
+                tvRef?.get()?.text = time
+            }
+        }
+    }
+
+    override fun onLocationResult(isSuccess: Boolean, result: BaiduLocation.LocationResult?) {
+        LoadingManager.stopLoading()
+        if (isSuccess && result != null) {
+            this.result = result
+            showUI()
+        }
     }
 }

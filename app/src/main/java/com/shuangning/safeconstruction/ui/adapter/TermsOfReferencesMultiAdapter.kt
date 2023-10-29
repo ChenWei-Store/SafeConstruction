@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.R
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
@@ -22,8 +22,8 @@ import com.shuangning.safeconstruction.databinding.ItemTermsOfReferenceLevelTwoB
  * Created by Chenwei on 2023/10/18.
  */
 
-class TermsOfReferencesAdapter(data: MutableList<IItemViewType>):
-    CommonBaseAdapter<IItemViewType, ViewBinding>(data) {
+class TermsOfReferencesMultiAdapter(data: MutableList<IItemViewType>):
+    CommonBaseMultiAdapter<IItemViewType, ViewBinding>(data) {
     override fun onBindViewHolder(
         binding: ViewBinding,
         item: IItemViewType,

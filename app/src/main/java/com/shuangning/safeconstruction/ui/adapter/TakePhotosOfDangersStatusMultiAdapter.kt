@@ -3,17 +3,19 @@ package com.shuangning.safeconstruction.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.R
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangersStatusContent
 import com.shuangning.safeconstruction.databinding.ItemTakePhotosOfDangersStatusBinding
+import com.shuangning.safeconstruction.ui.activity.PRECESSED
+import com.shuangning.safeconstruction.ui.activity.TO_BE_PROCESSED
+import com.shuangning.safeconstruction.ui.activity.TO_BE_RECEIVED
 
 /**
  * Created by Chenwei on 2023/10/10.
  */
-class TakePhotosOfDangersStatusAdapter(data: MutableList<TakePhotosOfDangersStatusContent>):
-    CommonBaseAdapter<TakePhotosOfDangersStatusContent, ItemTakePhotosOfDangersStatusBinding>(data) {
+class TakePhotosOfDangersStatusMultiAdapter(data: MutableList<TakePhotosOfDangersStatusContent>):
+    CommonBaseMultiAdapter<TakePhotosOfDangersStatusContent, ItemTakePhotosOfDangersStatusBinding>(data) {
     override fun onBindViewHolder(
         binding: ItemTakePhotosOfDangersStatusBinding,
         item: TakePhotosOfDangersStatusContent,
@@ -22,9 +24,9 @@ class TakePhotosOfDangersStatusAdapter(data: MutableList<TakePhotosOfDangersStat
     ) {
         binding.tvTime.text = item.time
         binding.tvStatus.text = when(item.status){
-            1-> "待接收"
-            2->"待处理"
-            3->"已处理"
+            TO_BE_RECEIVED-> "待接收"
+            TO_BE_PROCESSED ->"待处理"
+            PRECESSED ->"已处理"
             else -> {
                 ""
             }

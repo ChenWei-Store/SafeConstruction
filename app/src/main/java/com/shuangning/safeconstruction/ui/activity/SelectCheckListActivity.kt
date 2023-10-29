@@ -3,26 +3,24 @@ package com.shuangning.safeconstruction.ui.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bin.david.form.data.form.IForm
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IExpandable
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
 import com.shuangning.safeconstruction.base.adapter.LEVEL_TWO
-import com.shuangning.safeconstruction.base.adapter.LevelType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.SelectCheckHeader
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelOne
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelTwo
 import com.shuangning.safeconstruction.databinding.ActivitySelectCheckListBinding
-import com.shuangning.safeconstruction.ui.adapter.SelectCheckListAdapter
+import com.shuangning.safeconstruction.ui.adapter.SelectCheckListMultiAdapter
 
 /**
  * Created by Chenwei on 2023/10/18.
  */
 class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
-    private var selectCheckListAdapter: SelectCheckListAdapter?= null
+    private var selectCheckListAdapter: SelectCheckListMultiAdapter?= null
     private var data: MutableList<IItemViewType> = mutableListOf()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivitySelectCheckListBinding? {
         return ActivitySelectCheckListBinding.inflate(layoutInflater)
@@ -30,7 +28,7 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("选择常见隐患及条款")
-        selectCheckListAdapter = SelectCheckListAdapter(data)
+        selectCheckListAdapter = SelectCheckListMultiAdapter(data)
         binding?.rv?.apply {
             layoutManager = LinearLayoutManager(this@SelectCheckListActivity)
             adapter = selectCheckListAdapter

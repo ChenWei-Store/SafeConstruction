@@ -12,16 +12,14 @@ class NoScrollRecyclerview @JvmOverloads constructor(
     ctx: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0): RecyclerView(ctx, attrs, defStyleAttr) {
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return false
-    }
+
 
     override fun onInterceptTouchEvent(e: MotionEvent?): Boolean {
         return false
     }
 
     override fun onTouchEvent(e: MotionEvent?): Boolean {
-        return super.onTouchEvent(e)
+        return false
     }
 
 }

@@ -6,16 +6,17 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.animator.EmptyAnimator
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupPosition
-import com.lxj.xpopup.interfaces.OnCancelListener
-import com.lxj.xpopup.interfaces.OnConfirmListener
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
+import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
+import com.shuangning.safeconstruction.bean.other.DepartmentBean
 import com.shuangning.safeconstruction.ui.dialog.AttachAddDialog
+import com.shuangning.safeconstruction.ui.dialog.AttachListDepartmentDialog
 import com.shuangning.safeconstruction.ui.dialog.CommonConfirmDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
 import com.shuangning.safeconstruction.utils.ScreenUtil
-import java.security.AccessController.getContext
+import java.util.Calendar
 import java.util.Date
 
 
@@ -71,20 +72,11 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showYearMonthDialog(ctx: Context, mode: TimePickerPopup.Mode = TimePickerPopup.Mode.YM){
+    fun showYearMonthDialog(ctx: Context, mode: TimePickerPopup.Mode, selectedDate: Calendar, listener: TimePickerListener){
         val dialog = TimePickerPopup(ctx)
             .setMode(mode)
-            .setTimePickerListener(object: TimePickerListener {
-                override fun onTimeChanged(date: Date?) {
-                }
-
-                override fun onTimeConfirm(date: Date?, view: View?) {
-                }
-
-                override fun onCancel() {
-                }
-
-            })
+            .setDefaultDate(selectedDate)
+            .setTimePickerListener(listener)
         XPopup.Builder(ctx)
             .asCustom(dialog)
             .show()
@@ -98,7 +90,6 @@ object XPopCreateUtils {
             .enableDrag(false)
             .hasShadowBg(false)
             .isThreeDrag(false)
-
             .customAnimator(EmptyAnimator(attachView, 300))
             .popupPosition(PopupPosition.Top)
             .popupWidth(ScreenUtil.getScreenWidth())
@@ -130,5 +121,20 @@ object XPopCreateUtils {
             .asConfirm(title, content) {
             block()
         }.show()
+    }
+
+    fun showAttachDepartment(ctx: Context, attachView: View, data: MutableList<DepartmentBean>,
+                             month: Int, department: String, listener: OnItemClickListener<DepartmentBean>){
+        XPopup.Builder(ctx)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .customAnimator(EmptyAnimator(attachView, 300))
+            .popupPosition(PopupPosition.Bottom)
+            .popupWidth(ScreenUtil.getScreenWidth())
+            .atView(attachView)
+            .asCustom(AttachListDepartmentDialog(ctx, data, month, department, listener))
+            .show()
     }
 }

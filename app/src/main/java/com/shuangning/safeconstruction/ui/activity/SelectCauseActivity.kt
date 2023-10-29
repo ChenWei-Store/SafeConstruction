@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.bean.other.SelectCauseBean
 import com.shuangning.safeconstruction.databinding.ActivitySelectCauseBinding
-import com.shuangning.safeconstruction.ui.adapter.SelectCauseAdapter
+import com.shuangning.safeconstruction.ui.adapter.SelectCauseMultiAdapter
 
 /**
  * Created by Chenwei on 2023/10/18.
  */
 class SelectCauseActivity: BaseActivity<ActivitySelectCauseBinding>() {
-    private var selectCauseAdapter: SelectCauseAdapter?= null
+    private var selectCauseAdapter: SelectCauseMultiAdapter?= null
     private var data: MutableList<SelectCauseBean> = mutableListOf()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivitySelectCauseBinding? {
         return ActivitySelectCauseBinding.inflate(layoutInflater)
@@ -20,7 +20,7 @@ class SelectCauseActivity: BaseActivity<ActivitySelectCauseBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("原因选择")
-        selectCauseAdapter = SelectCauseAdapter(data)
+        selectCauseAdapter = SelectCauseMultiAdapter(data)
         binding?.rv?.apply {
             layoutManager = LinearLayoutManager(this@SelectCauseActivity, LinearLayoutManager.VERTICAL, false)
             adapter = selectCauseAdapter

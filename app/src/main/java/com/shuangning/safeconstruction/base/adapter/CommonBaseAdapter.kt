@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 /**
  * Created by Chenwei on 2023/10/10.
  */
-abstract class CommonBaseAdapter<T: IItemViewType, V: ViewBinding>(val data: MutableList<T>): RecyclerView.Adapter<BaseViewHolder<V>>() {
+abstract class CommonBaseAdapter<T, V: ViewBinding>(var data: MutableList<T>): RecyclerView.Adapter<BaseViewHolder<V>>() {
     protected var onItemClick: OnItemClickListener<T>? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<V> {
         val binding = getViewBinding(LayoutInflater.from(parent.context), parent, viewType)
@@ -28,9 +28,7 @@ abstract class CommonBaseAdapter<T: IItemViewType, V: ViewBinding>(val data: Mut
         onBindViewHolder(holder.binding, item, position, holder.binding.root.context)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return data[position].getItemType()
-    }
+
     abstract fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): V
     abstract fun onBindViewHolder(binding: V, item: T, position: Int, ctx: Context)
 
@@ -73,6 +71,20 @@ abstract class CommonBaseAdapter<T: IItemViewType, V: ViewBinding>(val data: Mut
             expandable.setExpandStatus(false)
             notifyDataSetChanged()
         }
+    }
+
+    fun refreshData(newData: MutableList<T>){
+        data = mutableListOf()
+        data.addAll(newData)
+        notifyDataSetChanged()
+    }
+
+    fun appendData(newData: MutableList<T>){
+        var result = mutableListOf<T>()
+        result.addAll(data)
+        result.addAll(newData)
+        data = result
+        notifyDataSetChanged()
     }
 
 

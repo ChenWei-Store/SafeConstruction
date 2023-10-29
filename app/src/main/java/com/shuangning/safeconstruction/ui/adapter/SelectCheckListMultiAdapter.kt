@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.R
-import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
-import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
-import com.shuangning.safeconstruction.base.adapter.LevelType
 import com.shuangning.safeconstruction.bean.other.SelectCheckHeader
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelOne
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelTwo
@@ -22,8 +20,8 @@ import com.shuangning.safeconstruction.databinding.ItemSelectCheckListLevelTwoBi
  * Created by Chenwei on 2023/10/18.
  */
 
-class SelectCheckListAdapter(data: MutableList<IItemViewType>):
-    CommonBaseAdapter<IItemViewType, ViewBinding>(data) {
+class SelectCheckListMultiAdapter(data: MutableList<IItemViewType>):
+    CommonBaseMultiAdapter<IItemViewType, ViewBinding>(data) {
     override fun onBindViewHolder(
         binding: ViewBinding,
         item: IItemViewType,

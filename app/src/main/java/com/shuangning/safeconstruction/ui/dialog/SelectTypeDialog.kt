@@ -1,8 +1,6 @@
 package com.shuangning.safeconstruction.ui.dialog
 
 import android.content.Context
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,21 +9,21 @@ import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
-import com.shuangning.safeconstruction.ui.adapter.SelectTypeAdapter
+import com.shuangning.safeconstruction.ui.adapter.SelectTypeMultiAdapter
 import com.shuangning.safeconstruction.utils.ScreenUtil
 
 /**
  * Created by Chenwei on 2023/10/14.
  */
 class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>): AttachPopupView(ctx) {
-    private var selectTypeAdapter: SelectTypeAdapter?= null
+    private var selectTypeAdapter: SelectTypeMultiAdapter?= null
     override fun onCreate() {
         super.onCreate()
         initRv()
     }
 
     private fun initRv(){
-        selectTypeAdapter = SelectTypeAdapter(data)
+        selectTypeAdapter = SelectTypeMultiAdapter(data)
         val rv = findViewById<RecyclerView>(R.id.rv)
         val layoutManager = GridLayoutManager(context, 3)
         val decoration: GridSpaceItemDecoration

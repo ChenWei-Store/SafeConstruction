@@ -14,21 +14,18 @@
     <!--闪光灯-->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!--下面是相关存储权限-->
     <!-- 声明即可，不需要授权-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"/>
     <!-- 声明即可，不需要授权-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"/>
         android:maxSdkVersion="32"/>
     <!--Android 13添加的细化权限,访问其他应用已经创建的媒体文件需要申请-->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
@@ -38,12 +35,27 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
         android:minSdkVersion = "33"/>
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
+    <!-- 修改系统权限-->
+<!--    <uses-permission android:name="android.permission.WRITE_SETTINGS"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
     
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
-
+    <!-- 百度定位需要权限-->
+    <!-- 这个权限用于进行网络定位（大致位置信息）-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问系统接口提供的卫星定位信息（精确位置信息）-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>-->
+    <!-- 访问网络，网络定位需要上网-->
+<!--    <uses-permission android:name="android.permission.INTERNET"></uses-permission>-->
 
     <queries package="${applicationId}">
         <intent>
@@ -157,6 +169,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+
+
+
+
+        <!--百度定位需要的-->
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote" />
     </application>
 
 </manifest>
