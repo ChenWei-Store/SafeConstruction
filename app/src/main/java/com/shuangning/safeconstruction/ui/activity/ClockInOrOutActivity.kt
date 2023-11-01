@@ -44,9 +44,9 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
         result?.let {
             binding?.tvLocation?.text =  "${it.province + it.city +
                     it.district + it.town + it.street + it.locationDescribe}"
-
         }
         binding?.tvTime?.text = "18:43:41"
+        binding?.tvTitle?.text="高淳至宣城高速公路江苏段工程项目"
     }
     override fun initData() {
     }

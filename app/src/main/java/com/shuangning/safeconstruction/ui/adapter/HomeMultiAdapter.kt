@@ -8,11 +8,16 @@ import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.bean.other.HomeContentBean
+import com.shuangning.safeconstruction.bean.other.HomeHeaderBean
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.ItemHomeBinding
 import com.shuangning.safeconstruction.databinding.ItemHomeHeaderBinding
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.EventbusUtils
+import com.shuangning.safeconstruction.utils2.ImageLoader
+import com.youth.banner.adapter.BannerImageAdapter
+import com.youth.banner.holder.BannerImageHolder
+import com.youth.banner.indicator.CircleIndicator
 
 /**
  * Created by Chenwei on 2023/10/8.
@@ -29,12 +34,25 @@ class HomeMultiAdapter(data: MutableList<ItemViewType>): CommonBaseMultiAdapter<
 
             }
             is ItemHomeHeaderBinding ->{
+                val headerBean = item as? HomeHeaderBean
+                headerBean?.let {
+                    binding.tvProject.text = it.projectName
+                    binding.banner.setAdapter(object: BannerImageAdapter<String>(it.bannerUrls) {
+                        override fun onBindView(holder: BannerImageHolder?, data: String?,
+                                                position: Int, size: Int) {
+                            data ?: return
+                            holder ?: return
+                            ImageLoader.loadUrl(ctx, data, holder.imageView)
+                        }
+                    }).setIndicator(CircleIndicator(ctx))
+                }
                 binding.viewLeft.setOnClickListener {
                     EventbusUtils.post(EventCode.START_SCAN_QRCODE, null)
                 }
                 binding.viewRight.setOnClickListener {
                     EventbusUtils.post(EventCode.START_CLOCK_IN_OUT, null)
                 }
+
             }
         }
     }

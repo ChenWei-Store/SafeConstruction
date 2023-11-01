@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jaeger.library.StatusBarUtil
+import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
@@ -16,6 +18,7 @@ import com.shuangning.safeconstruction.manager.HomeItemManager
 import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.HomeMultiAdapter
+import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.MyLog
 
 /**
@@ -33,6 +36,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        StatusBarUtil.setColor(activity, UIUtils.getColor(R.color.white))
         adapter = HomeMultiAdapter(data)
         val layoutManager = GridLayoutManager(activity, 4)
         layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
@@ -49,10 +53,13 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initData() {
+        val urls = mutableListOf<String>()
+        urls.add("https://img2.baidu.com/it/u=1993631557,3277239874&fm=253&fmt=auto&app=138&f=PNG?w=889&h=500")
+        urls.add("https://img1.baidu.com/it/u=994926169,1520033403&fm=253&fmt=auto&app=138&f=PNG?w=553&h=275")
+        urls.add("https://img0.baidu.com/it/u=2668993312,2284395540&fm=253&fmt=auto&app=138&f=PNG?w=500&h=262")
         val items = HomeItemManager.getData()
-        data.add(HomeHeaderBean())
+        data.add(HomeHeaderBean(projectName="高淳至宣城高速公路江苏段工程项目", bannerUrls = urls))
         data.addAll(items)
-
     }
 
     override fun initListener() {

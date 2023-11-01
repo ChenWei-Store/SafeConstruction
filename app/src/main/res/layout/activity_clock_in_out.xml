@@ -19,15 +19,26 @@
         app:layout_constraintTop_toBottomOf="@id/view_title"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/c_555"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@id/iv"/>
     <ImageView
         android:id="@+id/iv"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginTop="@dimen/vertical_margin_20"
         app:layout_constraintStart_toStartOf="@id/view"
         app:layout_constraintEnd_toEndOf="@id/view"
-        app:layout_constraintTop_toTopOf="@id/view"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintBottom_toTopOf="@id/tv_location"
-        app:layout_constraintVertical_chainStyle="packed"
         android:src="@drawable/circle_main_color"/>
 
     <TextView
@@ -69,4 +80,24 @@
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_555" />
 
+    <View
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="超出管理员指定的打卡范围"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/c_222"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/outside_the_scope"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        app:layout_constraintStart_toStartOf="@id/view_bottom"
+        app:layout_constraintEnd_toEndOf="@id/view_bottom"
+        app:layout_constraintTop_toTopOf="@id/view_bottom"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

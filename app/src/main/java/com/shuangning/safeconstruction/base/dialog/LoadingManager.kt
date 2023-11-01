@@ -25,5 +25,6 @@ object LoadingManager {
         if (dialog?.isShow == true) {
             dialog?.dismiss()
         }
+        dialog = null
     }
 }

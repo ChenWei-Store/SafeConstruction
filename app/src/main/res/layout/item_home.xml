@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_marginTop="@dimen/vertical_margin_12"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="40dp"

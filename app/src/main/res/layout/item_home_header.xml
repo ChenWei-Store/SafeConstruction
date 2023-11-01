@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -16,6 +17,39 @@
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_16"
         android:text="@string/platform_name" />
+
+    <TextView
+        android:id="@+id/tv_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_16"
+        android:layout_marginEnd="@dimen/horizontal_margin_16"
+        android:layout_marginTop="@dimen/vertical_margin_24"
+        android:drawableLeft="@drawable/location"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        android:gravity="start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_555" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginStart="@dimen/horizontal_margin_16"
+        android:layout_marginEnd="@dimen/horizontal_margin_16"
+        android:layout_marginTop="@dimen/vertical_margin_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_project"
+        app:banner_radius="16dp"
+        app:banner_indicator_gravity="right"
+        app:banner_indicator_marginBottom="12dp"
+        app:banner_indicator_marginRight="30dp"
+        app:banner_indicator_selected_color="@color/main_color"
+        app:banner_indicator_normal_width="@dimen/horizontal_margin_8"
+        app:banner_indicator_selected_width="@dimen/horizontal_margin_8"/>
+
     <View
         android:id="@+id/view_left"
         android:layout_width="0dp"
@@ -23,7 +57,7 @@
         android:layout_marginTop="@dimen/vertical_margin_20"
         app:layout_constraintEnd_toStartOf="@id/view_right"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/banner"
         app:layout_constraintHorizontal_weight="1"/>
     <View
         android:id="@+id/view_right"
@@ -32,7 +66,7 @@
         android:layout_marginTop="@dimen/vertical_margin_20"
         app:layout_constraintStart_toEndOf="@id/view_left"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/banner"
         app:layout_constraintHorizontal_weight="1"/>
     <ImageView
         android:id="@+id/iv_left"
@@ -76,7 +110,7 @@
     <View
         android:id="@+id/view_divider"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="16dp"
         android:layout_alignParentBottom="true"
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
