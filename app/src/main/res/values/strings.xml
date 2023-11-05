@@ -10,6 +10,7 @@
     <string name="mine">个人中心</string>
     <string name="take_photos_of_dangers">隐患随手拍</string>
     <string name="rectification_and_reply">整改与回复</string>
+    <string name="group_education">班组教育</string>
     <string name="routine_inspection">巡查记录</string>
     <string name="video_surveillance">视频监控</string>
     <string name="attendance_management">考勤管理</string>
@@ -59,6 +60,10 @@
     <string name="fines_detail2">罚款\n详情</string>
     <string name="detail">详情</string>
     <string name="new_fines">新增罚款</string>
-
+    <string name="group_education_tip">
+        1.班前交底会语言采用普通话，时长不低于120s。\n
+        2.班组人员规范系带安全帽，穿反光衣，队列整齐，班组长必须检查组员劳保用品穿戴情况。\n
+        3.班组长点名问好，用扩音喇叭，队员喊到名字答“到”,声音清晰洪亮。\n
+        4.全体进行安全口号宣誓，誓言内容：“不安全不生产、不交底不上岗、不检查不施工、无防护不干活”（必须）等。</string>
 
 </resources>

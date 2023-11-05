@@ -1,8 +1,12 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.GridLayoutManager
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
@@ -15,6 +19,8 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
 import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.databinding.ActivityProblemReportBinding
+import com.shuangning.safeconstruction.extension.prepareStartForResult
+import com.shuangning.safeconstruction.manager.FROM_PROBLEM_REPORT
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
@@ -27,10 +33,13 @@ import java.util.Date
 /**
  * Created by Chenwei on 2023/10/16.
  */
-class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
+class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>(),
+    ActivityResultCallback<ActivityResult> {
     private val data: MutableList<ItemViewType> = mutableListOf()
     private var addShowPhotoAdapter: AddShowPhotoMultiAdapter?= null
     private var selectedCalendar: Calendar = Calendar.getInstance()
+    private lateinit var launcher: ActivityResultLauncher<Intent>
+
 
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityProblemReportBinding? {
         return ActivityProblemReportBinding.inflate(layoutInflater)
@@ -45,7 +54,7 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
                 ScreenUtil.dp2px(8f), false))
             adapter = addShowPhotoAdapter
         }
-
+        launcher = prepareStartForResult(this)
     }
 
     override fun initData() {
@@ -127,10 +136,13 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>() {
         })
 
         binding?.viewCauseAnalysis?.setOnClickListener {
-            StartActivityManager.startToSelectCause(this@ProblemReportActivity)
+            launcher.launch(MultiSelectActivity.getIntent(this@ProblemReportActivity, FROM_PROBLEM_REPORT))
         }
     }
 
     override fun observeViewModel() {
+    }
+
+    override fun onActivityResult(result: ActivityResult) {
     }
 }

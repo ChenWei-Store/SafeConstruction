@@ -152,7 +152,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-        <activity android:name=".ui.activity.SelectCauseActivity"
+        <activity android:name=".ui.activity.MultiSelectActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
@@ -170,9 +170,19 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
 
+        <activity android:name=".ui.activity.GroupEducationListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
 
-
-
+        <activity android:name=".ui.activity.AddGroupEducationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.GroupEducationDetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
         <!--百度定位需要的-->
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote" />
     </application>

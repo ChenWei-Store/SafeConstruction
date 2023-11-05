@@ -9,7 +9,7 @@ import com.shuangning.safeconstruction.manager.StartActivityManager
 /**
  * Created by Chenwei on 2023/10/17.
  */
-class AttachAddDialog(val ctx: Context): AttachPopupView(ctx)  {
+open class AttachAddDialog(val ctx: Context): AttachPopupView(ctx)  {
     override fun onCreate() {
         super.onCreate()
         R.id.view_left.onClick(this){

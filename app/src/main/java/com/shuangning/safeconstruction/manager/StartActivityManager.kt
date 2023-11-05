@@ -1,14 +1,17 @@
 package com.shuangning.safeconstruction.manager
 
 import android.content.Context
+import androidx.activity.ComponentActivity
 import com.shuangning.safeconstruction.ui.activity.AddContentActivity
 import com.shuangning.safeconstruction.ui.activity.AddFineItemActivity
 import com.shuangning.safeconstruction.ui.activity.AddFinesActivity
+import com.shuangning.safeconstruction.ui.activity.AddGroupEducationActivity
 import com.shuangning.safeconstruction.ui.activity.AttendanceManagementDetailActivity
 import com.shuangning.safeconstruction.ui.activity.AttendanceManagementListActivity
 import com.shuangning.safeconstruction.ui.activity.ClockInOrOutActivity
 import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
 import com.shuangning.safeconstruction.ui.activity.FinesListActivity
+import com.shuangning.safeconstruction.ui.activity.GroupEducationListActivity
 import com.shuangning.safeconstruction.ui.activity.LoginActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
@@ -19,7 +22,7 @@ import com.shuangning.safeconstruction.ui.activity.QuestionOperatorActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorDetailActivity
 import com.shuangning.safeconstruction.ui.activity.RoutineInspectionListActivity
 import com.shuangning.safeconstruction.ui.activity.ScanQrcodeActivity
-import com.shuangning.safeconstruction.ui.activity.SelectCauseActivity
+import com.shuangning.safeconstruction.ui.activity.MultiSelectActivity
 import com.shuangning.safeconstruction.ui.activity.SelectCheckListActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
@@ -29,6 +32,11 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
 /**
  * Created by Chenwei on 2023/9/8.
  */
+const val FROM_WHERE = "From_where"
+const val NONE = 0
+const val FROM_TAKE_PHOTO_OF_DANAGE = 1
+const val FROM_GROUP_EDUCATION = 2
+const val FROM_PROBLEM_REPORT = 3
 object StartActivityManager {
     fun startToLogin(ctx: Context,){
         ActivityUtils.start(ctx, LoginActivity::class.java)
@@ -37,8 +45,10 @@ object StartActivityManager {
         ActivityUtils.start(ctx, MainActivity::class.java)
     }
 
-    fun startToTakePhotosOfDangers(ctx: Context,){
-        ActivityUtils.start(ctx, TakePhotosOfDangersActivity::class.java)
+    fun startToTakePhotosOfDangers(ctx: Context, fromWhere: Int){
+        ActivityUtils.start(ctx, TakePhotosOfDangersActivity::class.java){
+            putExtra(FROM_WHERE, fromWhere)
+        }
     }
     fun startToTakePhotosOfDangersStatus(ctx: Context,){
         ActivityUtils.start(ctx, TakePhotosOfDangersStatusActivity::class.java)
@@ -103,8 +113,10 @@ object StartActivityManager {
         ActivityUtils.start(ctx, ProblemReportActivity::class.java)
     }
 
-    fun startToSelectCause(ctx: Context,){
-        ActivityUtils.start(ctx, SelectCauseActivity::class.java)
+    fun startToMultiSelectForResult(ctx: ComponentActivity, fromWhere: Int){
+        ActivityUtils.start(ctx, MultiSelectActivity::class.java){
+            putExtra(FROM_WHERE, fromWhere)
+        }
     }
 
     fun startToClockInOut(ctx: Context,){
@@ -116,5 +128,12 @@ object StartActivityManager {
 
     fun startTermsOfReference(ctx: Context,){
         ActivityUtils.start(ctx, TermsOfReferenceActivity::class.java)
+    }
+
+    fun startGroupEducationList(ctx: Context,){
+        ActivityUtils.start(ctx, GroupEducationListActivity::class.java)
+    }
+    fun startAddGroupEducation(ctx: Context,){
+        ActivityUtils.start(ctx, AddGroupEducationActivity::class.java)
     }
 }

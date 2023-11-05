@@ -9,6 +9,8 @@ import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangers
 import com.shuangning.safeconstruction.databinding.ActivityTakePhotosOfDangersBinding
+import com.shuangning.safeconstruction.manager.FROM_TAKE_PHOTO_OF_DANAGE
+import com.shuangning.safeconstruction.manager.FROM_WHERE
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.TakePhotosOfDangersAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
@@ -19,12 +21,17 @@ import com.shuangning.safeconstruction.utils.UIUtils
 class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBinding>() {
     private var takePhotoOfDangerAdapter:TakePhotosOfDangersAdapter? = null
     private val data: MutableList<TakePhotosOfDangers> = mutableListOf()
+    private var fromWhere = NONE
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityTakePhotosOfDangersBinding? {
         return ActivityTakePhotosOfDangersBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding?.viewTitle?.setTitle(UIUtils.getString(R.string.take_photos_of_dangers))
+        if (fromWhere == FROM_TAKE_PHOTO_OF_DANAGE){
+            binding?.viewTitle?.setTitle(UIUtils.getString(R.string.take_photos_of_dangers))
+        }else{
+            binding?.viewTitle?.setTitle(UIUtils.getString(R.string.group_education))
+        }
         takePhotoOfDangerAdapter = TakePhotosOfDangersAdapter(data)
         binding?.rv?.apply {
             adapter = takePhotoOfDangerAdapter
@@ -38,6 +45,7 @@ class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBindi
         data.add(TakePhotosOfDangers("GX-1标"))
         data.add(TakePhotosOfDangers("GX-2标"))
         data.add(TakePhotosOfDangers("GX-21标"))
+        fromWhere = intent?.getIntExtra(FROM_WHERE, FROM_TAKE_PHOTO_OF_DANAGE)?:FROM_TAKE_PHOTO_OF_DANAGE
     }
 
     override fun doBeforeSetContentView() {
@@ -49,7 +57,11 @@ class TakePhotosOfDangersActivity: BaseActivity<ActivityTakePhotosOfDangersBindi
     override fun initListener() {
         takePhotoOfDangerAdapter?.setOnItemClickListener(object: OnItemClickListener<TakePhotosOfDangers>{
             override fun onItemClick(data: TakePhotosOfDangers, position: Int) {
-                StartActivityManager.startToTakePhotosOfDangersStatus(this@TakePhotosOfDangersActivity)
+                if (fromWhere == FROM_TAKE_PHOTO_OF_DANAGE){
+                    StartActivityManager.startToTakePhotosOfDangersStatus(this@TakePhotosOfDangersActivity)
+                }else{
+                    StartActivityManager.startGroupEducationList(this@TakePhotosOfDangersActivity)
+                }
             }
         })
 

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -127,13 +128,18 @@ public class UIUtils {
     }
 
     /**
-     * TODO:新增
+     * 给图片设置tint
      */
-    public static Drawable getTintDrawable(Context ctx, int drawableId, int tintColorId){
+    public static Drawable setTintDrawable(Context ctx, int drawableId, int tintColorId){
         Drawable drawable = getDrawable(drawableId);
         // 设置图片为绿色
         DrawableCompat.setTint(drawable, getColor(tintColorId));
         return drawable;
     }
 
+    public static void setTextLeftDrawable(TextView tv, int resId){
+        Drawable drawable = getDrawable(resId);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        tv.setCompoundDrawables(drawable, null, null, null);
+    }
 }

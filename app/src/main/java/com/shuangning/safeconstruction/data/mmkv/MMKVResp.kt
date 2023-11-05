@@ -10,6 +10,7 @@ import com.shuangning.safeconstruction.utils2.KeyValueUtils
 const val APP_CONFIG = "appConfig"
 const val LOGIN_NAME = "loginName"
 const val PWD = "pwd"
+const val GROUP_EDUCATION_TIP_STATUS = "group_education_status"
 class MMKVResp {
     private var keyValueUtils: KeyValueUtils = KeyValueUtils()
     init {
@@ -26,6 +27,16 @@ class MMKVResp {
         val userName = keyValueUtils.getWithId(APP_CONFIG, key = LOGIN_NAME, valueType = "")
         val pwd = keyValueUtils.getWithId(APP_CONFIG, key = PWD, valueType = "")
         return UserInfo(userName, pwd)
+    }
+
+    fun putGroupEducationTipStatus(isHide: Boolean){
+        keyValueUtils.putAllWithId(APP_CONFIG) {
+            putBoolean(GROUP_EDUCATION_TIP_STATUS, isHide)
+        }
+    }
+
+    fun getGroupEducationTipStatus(): Boolean{
+       return keyValueUtils.getWithId(APP_CONFIG, key = GROUP_EDUCATION_TIP_STATUS, valueType = false)
     }
 
     fun clear(){

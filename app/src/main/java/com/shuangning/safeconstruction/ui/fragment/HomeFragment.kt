@@ -14,9 +14,11 @@ import com.shuangning.safeconstruction.bean.other.HomeContentBean
 import com.shuangning.safeconstruction.bean.other.HomeHeaderBean
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.FragmentHomeBinding
+import com.shuangning.safeconstruction.manager.FROM_GROUP_EDUCATION
 import com.shuangning.safeconstruction.manager.HomeItemManager
 import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
+import com.shuangning.safeconstruction.manager.FROM_TAKE_PHOTO_OF_DANAGE
 import com.shuangning.safeconstruction.ui.adapter.HomeMultiAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.MyLog
@@ -72,13 +74,18 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 activity?.apply {
                     when(realData?.functionId){
                         HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
-                            StartActivityManager.startToTakePhotosOfDangers(this)
+                            StartActivityManager.startToTakePhotosOfDangers(this,
+                                FROM_TAKE_PHOTO_OF_DANAGE)
                         HomeItemManager.RECTIFICATION_AND_REPLY ->
                             StartActivityManager.startToRectificationAndReply(this)
                         HomeItemManager.ROUTINE_INSPCETION ->
                             StartActivityManager.startToRoutineInspectionList(this)
                         HomeItemManager.ATTENDANCE_MANAGEMENT ->
                             StartActivityManager.startAttendanceManagement(this)
+                        HomeItemManager.GROUP_EDUCATION ->
+                            StartActivityManager.startToTakePhotosOfDangers(this,
+                                FROM_GROUP_EDUCATION)
+
                     }
                 }
             }

@@ -17,7 +17,6 @@ import com.shuangning.safeconstruction.ui.dialog.CommonConfirmDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectTypeDialog
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import java.util.Calendar
-import java.util.Date
 
 
 /**
@@ -46,15 +45,40 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<IItemViewType>): BasePopupView{
-        return XPopup.Builder(ctx)
-            .isDestroyOnDismiss(true)
-            .popupWidth(ScreenUtil.getScreenWidth())
-            .popupHeight((ScreenUtil.getScreenHeight() * 5.5 / 10.0f ).toInt())
+    fun commonShowAttach(ctx: Context, attachView: View, position: PopupPosition, popupView: BasePopupView){
+        XPopup.Builder(ctx)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
             .enableDrag(false)
             .isThreeDrag(false)
+            .customAnimator(EmptyAnimator(attachView, 300))
+            .popupPosition(position)
+            .popupWidth(ScreenUtil.getScreenWidth())
             .atView(attachView)
-            .asCustom(SelectTypeDialog(ctx, data))
+            .asCustom(popupView)
+            .show()
+    }
+
+    fun showConfirmCancelDialog(ctx: Context, title: String, content: String, block: ()-> Unit){
+        XPopup.Builder(ctx)
+            .autoDismiss(true)
+            .isDestroyOnDismiss(true)
+            .dismissOnBackPressed(false)
+            .dismissOnTouchOutside(false)
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .asConfirm(title, content) {
+                block()
+            }.show()
+    }
+
+    fun showYearMonthDialog(ctx: Context, mode: TimePickerPopup.Mode, selectedDate: Calendar, listener: TimePickerListener){
+        val dialog = TimePickerPopup(ctx)
+            .setMode(mode)
+            .setDefaultDate(selectedDate)
+            .setTimePickerListener(listener)
+        XPopup.Builder(ctx)
+            .asCustom(dialog)
             .show()
     }
 
@@ -72,13 +96,31 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showYearMonthDialog(ctx: Context, mode: TimePickerPopup.Mode, selectedDate: Calendar, listener: TimePickerListener){
-        val dialog = TimePickerPopup(ctx)
-            .setMode(mode)
-            .setDefaultDate(selectedDate)
-            .setTimePickerListener(listener)
+    fun showLisBottomDialog(ctx: Context, data: Array<String>,
+                             block: (index: Int, text: String)->Unit){
         XPopup.Builder(ctx)
-            .asCustom(dialog)
+            .isDestroyOnDismiss(true)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
+            .maxHeight((ScreenUtil.getScreenHeight() * 0.8f).toInt())
+            .asBottomList("请选择", data) {
+                    position, text ->
+                block(position, text)
+            }
+            .show()
+    }
+    /**
+     * 下面的是自定义弹窗
+     */
+    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<IItemViewType>): BasePopupView{
+        return XPopup.Builder(ctx)
+            .isDestroyOnDismiss(true)
+            .popupWidth(ScreenUtil.getScreenWidth())
+            .popupHeight((ScreenUtil.getScreenHeight() * 5.5 / 10.0f ).toInt())
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .atView(attachView)
+            .asCustom(SelectTypeDialog(ctx, data))
             .show()
     }
 
@@ -110,18 +152,7 @@ object XPopCreateUtils {
             .show()
     }
 
-    fun showConfirmCancelDialog(ctx: Context, title: String, content: String, block: ()-> Unit){
-        XPopup.Builder(ctx)
-            .autoDismiss(true)
-            .isDestroyOnDismiss(true)
-            .dismissOnBackPressed(false)
-            .dismissOnTouchOutside(false)
-            .enableDrag(false)
-            .isThreeDrag(false)
-            .asConfirm(title, content) {
-            block()
-        }.show()
-    }
+
 
     fun showAttachDepartment(ctx: Context, attachView: View, data: MutableList<DepartmentBean>,
                              month: Int, department: String, listener: OnItemClickListener<DepartmentBean>){
