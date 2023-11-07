@@ -1,4 +1,4 @@
-package com.shuangning.safeconstruction.utils2.net.calladapter
+package com.shuangning.safeconstruction.utils2.net.calladapter.httpResult
 
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
@@ -39,5 +39,19 @@ class ResultCallAdapterFactory(val onNetCallback: NetworkClient.OnNetCallback?):
             delegate,
             onNetCallback
         )
+    }
+
+    class ResultCallAdapter(
+        val dataType: Type,
+        val retrofit: Retrofit,
+        val delegate: CallAdapter<*, *>,
+        val onNetCallback: NetworkClient.OnNetCallback?,): CallAdapter<Any, Call<Any>>  {
+        override fun responseType(): Type {
+            return delegate.responseType()
+        }
+
+        override fun adapt(call: Call<Any>): Call<Any> {
+            return ResultCall(call, dataType as ParameterizedType, onNetCallback)
+        }
     }
 }

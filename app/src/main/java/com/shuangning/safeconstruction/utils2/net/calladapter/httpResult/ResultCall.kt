@@ -1,4 +1,4 @@
-package com.shuangning.safeconstruction.utils2.net.calladapter
+package com.shuangning.safeconstruction.utils2.net.calladapter.httpResult
 
 import com.shuangning.safeconstruction.utils2.net.ErrorCode
 import com.shuangning.safeconstruction.utils2.net.HttpResult
@@ -55,13 +55,10 @@ class ResultCall(
                 if (body == null){
                     //可能接口没返回body
                     callback.onResponse(this@ResultCall, Response.success(body))
-//                    val error = NetworkException(ErrorCode.NULL_BODY, "body == null")
-//                    callback.onFailure(this@ResultCall, error)
-//                    onNetCallback?.onOtherError(error)
                     return
                 }
                 if (body is HttpResult<*>) {
-                    if (body.code == 200){
+                    if (body.code == 1000){
                         callback.onResponse(this@ResultCall, Response.success(body))
                     }else{
                         onNetCallback?.onCodeError(body.code, body.message)
@@ -79,7 +76,6 @@ class ResultCall(
                 onNetCallback?.onOtherError(t)
                 callback.onFailure(this@ResultCall, t)
             }
-
         })
     }
 }

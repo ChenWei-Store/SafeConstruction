@@ -2,18 +2,24 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import com.shuangning.safeconstruction.base.BaseActivity
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityLoginBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
+import com.shuangning.safeconstruction.ui.viewmodel.LoginViewModel
 import com.shuangning.safeconstruction.utils.APPUtils
 import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils2.MyLog
 
 /**
  * Created by Chenwei on 2023/10/7.
  */
 class LoginActivity: BaseActivity<ActivityLoginBinding>() {
+    private val viewModel by viewModels<LoginViewModel>()
+    private var pwd: String = ""
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityLoginBinding? {
         return ActivityLoginBinding.inflate(layoutInflater)
     }
@@ -42,6 +48,14 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun observeViewModel() {
+        viewModel.loginResult.observe(this){
+            LoadingManager.stopLoading()
+            it?.let {
+                UserInfoManager.setUserInfo(it.username, pwd)
+                StartActivityManager.startToMain(LoginActivity@this)
+                finish()
+            }
+        }
     }
 
     private fun startToLogin(){
@@ -55,8 +69,8 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
             XPopCreateUtils.showTipDialog(this, "提示", "请输入密码")
             return
         }
-        UserInfoManager.setUserInfo(name, pwd)
-        StartActivityManager.startToMain(LoginActivity@this)
-        finish()
+        LoadingManager.startLoading(this)
+        this.pwd = pwd
+        viewModel.login(name, pwd)
     }
 }

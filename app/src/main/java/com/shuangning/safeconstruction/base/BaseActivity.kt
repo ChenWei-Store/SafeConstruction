@@ -15,6 +15,8 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
 import com.shuangning.safeconstruction.utils2.AdaptScreenUtil
 import com.shuangning.safeconstruction.utils2.EventbusUtils
 import com.shuangning.safeconstruction.bean.base.MessageEvent
+import com.shuangning.safeconstruction.constants.EventCode
+import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.utils.DeviceUtils
 import com.shuangning.safeconstruction.utils2.MyLog
 import org.greenrobot.eventbus.Subscribe
@@ -110,11 +112,12 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
     public fun onEventComming(event: MessageEvent?){
         event?.let {
             MyLog.d("onEventComming code: ${event.eventCode}")
-//            if (EventCode.LOGIN == event.eventCode){
-//                StartActivityManager.startToLogin(this)
-//            }else{
+            if (EventCode.LOGIN == event.eventCode){
+                ActivityUtils.finishAllActivities()
+                StartActivityManager.startToLogin(this)
+            }else{
                 receiveEvent(event.eventCode, event.obj)
-//            }
+            }
         }
     }
 

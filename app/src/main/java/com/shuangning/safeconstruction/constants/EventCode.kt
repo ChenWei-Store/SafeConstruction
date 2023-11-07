@@ -9,5 +9,6 @@ object EventCode {
     const val GROUP_EDUCATION_SEARCH = 2
     const val GROUP_EDUCATION_SCREENING = 3
     const val GROUP_EDUCATION_STATUS = 4
+    const val LOGIN = 999
 
 }

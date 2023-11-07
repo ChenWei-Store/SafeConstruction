@@ -1,9 +1,11 @@
 package com.shuangning.safeconstruction.utils2
 
 import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.JsonReaderSkipNullValuesWrapper
+import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 /**
@@ -11,7 +13,9 @@ import java.lang.reflect.Type
  * TODO:
  */
 object JsonUtils {
-    fun get() = Moshi.Builder().build()
+    fun get() = Moshi.Builder()
+        .add(DefaultIfNullFactory())
+        .build()
 
     /**
      * 对象转json，适合简单类型
@@ -55,5 +59,50 @@ object JsonUtils {
         json,
         Types.newParameterizedType(MutableMap::class.java, K::class.java, V::class.java)
     ) ?: mutableMapOf()
+
+    /**
+     * 如果解析时json中一个成员变量为null，则跳过不解析，需要在实体类中设置默认值
+     */
+    class DefaultIfNullFactory : JsonAdapter.Factory {
+        override fun create(
+            type: Type,
+            annotations: MutableSet<out Annotation>,
+            moshi: Moshi
+        ): JsonAdapter<*>? {
+            val delegate = moshi.nextAdapter<Any>(this, type, annotations)
+            if (!annotations.isEmpty()) return null
+            if (type === Boolean::class.javaPrimitiveType) return delegate
+            if (type === Byte::class.javaPrimitiveType) return delegate
+            if (type === Char::class.javaPrimitiveType) return delegate
+            if (type === Double::class.javaPrimitiveType) return delegate
+            if (type === Float::class.javaPrimitiveType) return delegate
+            if (type === Int::class.javaPrimitiveType) return delegate
+            if (type === Long::class.javaPrimitiveType) return delegate
+            if (type === Short::class.javaPrimitiveType) return delegate
+            if (type === Boolean::class.java) return delegate
+            if (type === Byte::class.java) return delegate
+            if (type === Char::class.java) return delegate
+            if (type === Double::class.java) return delegate
+            if (type === Float::class.java) return delegate
+            if (type === Int::class.java) return delegate
+            if (type === Long::class.java) return delegate
+            if (type === Short::class.java) return delegate
+            if (type === String::class.java) return delegate
+            return object : JsonAdapter<Any>() {
+                override fun fromJson(reader: JsonReader): Any? {
+                    return if (reader.peek() == JsonReader.Token.BEGIN_OBJECT) {
+                        delegate.fromJson(JsonReaderSkipNullValuesWrapper(reader))
+                    } else {
+                        delegate.fromJson(reader)
+                    }
+                }
+                override fun toJson(writer: JsonWriter, value: Any?) {
+                    return delegate.toJson(writer, value)
+                }
+            }
+        }
+    }
+
+
 
 }

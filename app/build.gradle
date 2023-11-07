@@ -25,9 +25,11 @@ android {
         debug{
             buildConfigField("Integer","DESIGN_WIDTH_DP","-1")
             buildConfigField("String","BAIDU_LBS_AK","\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
+            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
         }
         release {
             buildConfigField("String","BAIDU_LBS_AK","\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
+            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

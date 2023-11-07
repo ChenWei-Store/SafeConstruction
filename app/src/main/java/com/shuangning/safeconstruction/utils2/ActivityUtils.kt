@@ -56,6 +56,7 @@ object ActivityUtils {
     }
     fun finishActivity(){
         activities[activities.size - 1].finish()
+        activities.removeAt(activities.size - 1)
 //        if(activities.size == 0){
 //            return
 //        }

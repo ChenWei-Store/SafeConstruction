@@ -3,8 +3,9 @@ package com.shuangning.safeconstruction.utils2.net
 import com.shuangning.safeconstruction.BuildConfig
 import com.shuangning.safeconstruction.utils.PathUtils
 import com.shuangning.safeconstruction.utils2.MyLog
-import com.shuangning.safeconstruction.utils2.net.calladapter.ResultCallAdapterFactory
-import com.shuangning.safeconstruction.utils2.net.interceptor.HeaderInterceptor
+import com.shuangning.safeconstruction.utils2.net.calladapter.httpResult.ResultCallAdapterFactory
+import com.shuangning.safeconstruction.utils2.net.calladapter.string2Result.String2ResultCallAdapterFactory
+import com.shuangning.safeconstruction.utils2.net.convert.StringResponseConvertFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,7 +27,7 @@ class NetworkClient {
     private var baseUrl = ""
     private val servicesMap = mutableMapOf<String, Any>()
     private var retrofit: Retrofit? = null
-    fun init(baseUrl: String, callback:OnNetCallback){
+    fun init(baseUrl: String, callback:OnNetCallback?){
         this.baseUrl = baseUrl
         this.callback = callback
     }
@@ -40,7 +41,11 @@ class NetworkClient {
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
+                //ConverterFactory按添加顺序先后执行，第一个返回null，
+                // 则执行第二个ConverterFactory，如果第一个执行了，则不继续执行
+                .addConverterFactory(StringResponseConvertFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(String2ResultCallAdapterFactory(callback))
                 .addCallAdapterFactory(ResultCallAdapterFactory(callback))
                 .build()
         }
@@ -53,7 +58,7 @@ class NetworkClient {
             .readTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
             .connectTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
             .cache(cache)
-            .addInterceptor(HeaderInterceptor(callback))
+//            .addInterceptor(HeaderInterceptor(callback))
             .addInterceptor(HttpLoggingInterceptor(MyHttpLogger()).apply {
                 level = if(BuildConfig.DEBUG){
                     HttpLoggingInterceptor.Level.BODY
