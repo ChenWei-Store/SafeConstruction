@@ -10,6 +10,7 @@ import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.TakePhotosOfDangersStatusContent
 import com.shuangning.safeconstruction.databinding.ActivityTakePhotosOfDangersStatusBinding
+import com.shuangning.safeconstruction.extension.newTab
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.TakePhotosOfDangersStatusMultiAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
@@ -41,9 +42,9 @@ class TakePhotosOfDangersStatusActivity: BaseActivity<ActivityTakePhotosOfDanger
         }
         takePhotoOfDangerStatusAdapter?.notifyDataSetChanged()
         binding?.tabLayout?.apply {
-            addTab(newTab(this, R.string.to_be_received, toBeReceivedData.size), true)
-            addTab(newTab(this, R.string.to_be_processed, toBeProcessedData.size))
-            addTab(newTab(this, R.string.processed, processedData.size))
+            addTab(newTab(R.string.to_be_received, toBeReceivedData.size), true)
+            addTab(newTab( R.string.to_be_processed, toBeProcessedData.size))
+            addTab(newTab( R.string.processed, processedData.size))
         }
     }
 
@@ -59,12 +60,6 @@ class TakePhotosOfDangersStatusActivity: BaseActivity<ActivityTakePhotosOfDanger
 
     private fun getCurData(position: Int): MutableList<TakePhotosOfDangersStatusContent>{
         return dataMap.getOrDefault(selectedIndex, mutableListOf())
-    }
-
-    private fun newTab(tabLayout: TabLayout, tabTextId: Int, number: Int): Tab{
-        val tab = tabLayout.newTab()
-        tab.text = String.format(getString(tabTextId), number.toString())
-        return tab
     }
 
     override fun initData() {

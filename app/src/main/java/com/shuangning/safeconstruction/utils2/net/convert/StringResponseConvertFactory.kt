@@ -1,6 +1,6 @@
 package com.shuangning.safeconstruction.utils2.net.convert
 
-import com.shuangning.safeconstruction.utils2.net.String2Result
+import com.shuangning.safeconstruction.utils2.net.HttpResult
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -17,7 +17,7 @@ class StringResponseConvertFactory: Converter.Factory() {
         retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
         //直接用type，由于包含泛型时，不匹配
-        if (getRawType(type) != String2Result::class.java){
+        if (getRawType(type) != HttpResult::class.java){
             //类型不匹配，执行下一个converfactory
             return null
         }

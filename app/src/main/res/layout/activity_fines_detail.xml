@@ -29,6 +29,7 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:src="@drawable/status"/>
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/iv_status"
@@ -37,7 +38,7 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_ff3e3d"
-        android:text="审批中 处理人：  监理"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/tv_safe"
@@ -51,8 +52,9 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_555"
-        android:text="测试测试测试测试"/>
+        android:text=""/>
     <TextView
+        android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +62,7 @@
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_ff3e3d"
-        android:text="100.0"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line1"
         android:layout_width="match_parent"
@@ -82,6 +84,7 @@
         android:textColor="@color/c_555"
         android:text="受检单位"/>
     <TextView
+        android:id="@+id/tv_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +92,7 @@
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_ff3e3d"
-        android:text="南京交通工程有限公司"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line2"
         android:layout_width="match_parent"
@@ -100,7 +103,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_money"
+        android:id="@+id/tv_money_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_line2"
@@ -111,14 +114,15 @@
         android:textColor="@color/c_555"
         android:text="累计金额"/>
     <TextView
+        android:id="@+id/tv_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_money"
+        app:layout_constraintTop_toTopOf="@id/tv_money_title"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_ff3e3d"
-        android:text="100.0"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line3"
         android:layout_width="match_parent"
@@ -129,7 +133,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_vetting"
+        android:id="@+id/tv_vetting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_line3"
@@ -140,14 +144,15 @@
         android:textColor="@color/c_555"
         android:text="是否审批"/>
     <TextView
+        android:id="@+id/tv_vetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_vetting"
+        app:layout_constraintTop_toTopOf="@id/tv_vetting_title"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="是"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line4"
         android:layout_width="match_parent"
@@ -157,7 +162,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_vetting"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
-        android:id="@+id/tv_check_person"
+        android:id="@+id/tv_check_person_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_line4"
@@ -168,14 +173,15 @@
         android:textColor="@color/c_555"
         android:text="检查人"/>
     <TextView
+        android:id="@+id/tv_check_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_check_person"
+        app:layout_constraintTop_toTopOf="@id/tv_check_person_title"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="监理"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line5"
         android:layout_width="match_parent"
@@ -186,7 +192,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_check_unit"
+        android:id="@+id/tv_check_unit_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_line5"
@@ -197,14 +203,15 @@
         android:textColor="@color/c_555"
         android:text="检查单位"/>
     <TextView
+        android:id="@+id/tv_check_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_check_unit"
+        app:layout_constraintTop_toTopOf="@id/tv_check_unit_title"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="江苏润通项目管理有限公司"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line6"
         android:layout_width="match_parent"

@@ -33,6 +33,11 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun initData() {
+        val isLogin = UserInfoManager.getLogin()
+        if (isLogin){
+            StartActivityManager.startToMain(this)
+            finish()
+        }
     }
 
     override fun doBeforeSetContentView() {
@@ -51,9 +56,12 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
         viewModel.loginResult.observe(this){
             LoadingManager.stopLoading()
             it?.let {
+                UserInfoManager.setToken(it.token)
+                UserInfoManager.setLogin(true)
                 UserInfoManager.setUserInfo(it.username, pwd)
                 StartActivityManager.startToMain(LoginActivity@this)
                 finish()
+                ToastUtil.showCustomToast("登录成功")
             }
         }
     }

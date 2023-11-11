@@ -46,7 +46,7 @@ class NetworkClient {
                 .addConverterFactory(StringResponseConvertFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(String2ResultCallAdapterFactory(callback))
-                .addCallAdapterFactory(ResultCallAdapterFactory(callback))
+//                .addCallAdapterFactory(ResultCallAdapterFactory(callback))
                 .build()
         }
         return this

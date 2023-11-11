@@ -42,7 +42,11 @@
     <color name="c_E7E7E7">#E7E7E7</color>
     <color name="c_C8EBFF">#C8EBFF</color>
     <color name="c_0A8DE5">#0A8DE5</color>
+    <color name="c_c8ebff">#c8ebff</color>
     <color name="c_13ce7f">#13ce7f</color>
+    <color name="c_eeb159">#44b159</color>
+    <color name="c_008500">#008500</color>
+    <color name="c_67e667">#67e667</color>
     <color name="c_00cdcc">#00cdcc</color>
     <color name="c_ff3e3d">#ff3e3d</color>
     <color name="c_ffe7e3">#ffe7e3</color>

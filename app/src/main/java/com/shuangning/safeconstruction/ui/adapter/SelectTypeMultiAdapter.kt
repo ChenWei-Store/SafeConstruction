@@ -27,7 +27,10 @@ class SelectTypeMultiAdapter(data: MutableList<IItemViewType>): CommonBaseMultiA
            }
            is ItemSelctTypeContentBinding->{
                val data = item as? ContentSelectTypeBean
-               binding.btn.text = data?.title
+               data?.apply {
+                   binding.btn.text = title
+                   binding.btn.isSelected = isSelected
+               }
            }
        }
     }

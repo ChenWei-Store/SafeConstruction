@@ -21,19 +21,15 @@ class RoutineInspectionListActivity: BaseActivity<ActivityRoutineInspectionBindi
     private var routineInspectionAdapter: RoutineInspectionMultiAdapter?= null
     private val data: MutableList<ItemViewType> = mutableListOf()
     private val selectTypeData: MutableList<IItemViewType> = mutableListOf()
+    private var rightText: String?= null
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityRoutineInspectionBinding? {
         return ActivityRoutineInspectionBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("巡查记录")
-        binding?.viewTitle?.setRightText {
-            it?.visibility = View.VISIBLE
-            it?.setOnClickListener {
-                XPopCreateUtils.showSelectTypeView(this@RoutineInspectionListActivity,
-                    binding?.viewTitle!!, selectTypeData
-                )
-            }
+        rightText?.let {
+            binding?.viewTitle?.setRightText(it)
         }
         routineInspectionAdapter = RoutineInspectionMultiAdapter(data)
         binding?.rv?.apply {
@@ -52,11 +48,12 @@ class RoutineInspectionListActivity: BaseActivity<ActivityRoutineInspectionBindi
         data.add(ItemViewType())
 
         selectTypeData.add(HeaderSelectTypeBean())
-        selectTypeData.add(ContentSelectTypeBean("全部"))
+        selectTypeData.add(ContentSelectTypeBean("全部", true))
         selectTypeData.add(ContentSelectTypeBean( "指挥部"))
         selectTypeData.add(ContentSelectTypeBean("GX-JL-1标"))
         selectTypeData.add(ContentSelectTypeBean( "GX-1标"))
         selectTypeData.add(ContentSelectTypeBean( "GX-2标"))
+        rightText = "全部"
     }
 
 
@@ -67,6 +64,18 @@ class RoutineInspectionListActivity: BaseActivity<ActivityRoutineInspectionBindi
     }
 
     override fun initListener() {
+        binding?.viewTitle?.setRightTextListener {
+            XPopCreateUtils.showSelectTypeView(this@RoutineInspectionListActivity,
+                binding?.viewTitle!!, selectTypeData
+            ){
+                val item = selectTypeData[it]
+                if (item is ContentSelectTypeBean) {
+                    rightText = item.title
+                    binding?.viewTitle?.setRightText(item.title)
+                }
+            }
+
+        }
     }
 
     override fun observeViewModel() {

@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.tabs.TabLayout
 
 
 /**
@@ -49,4 +50,19 @@ fun EditText.setHintTextSizecColor(hint: String, hintTextSize: Int){
 
 fun ComponentActivity.prepareStartForResult(callback: ActivityResultCallback<ActivityResult>): ActivityResultLauncher<Intent> {
     return registerForActivityResult(ActivityResultContracts.StartActivityForResult(), callback)
+}
+
+/**
+ * tablayout创建tab，tab展示内容有数量 eg:待处理(3)
+ *
+ * @param number 为-1时，不展示数量
+ */
+fun TabLayout.newTab(tabTextId: Int, number: Int): TabLayout.Tab {
+    val tab = newTab()
+    if(number > -1){
+        tab.text = String.format(context.getString(tabTextId), number.toString())
+    }else{
+        tab.text = context.getString(tabTextId)
+    }
+    return tab
 }

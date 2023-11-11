@@ -8,14 +8,16 @@ import com.lxj.xpopup.core.AttachPopupView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
+import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
+import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.ui.adapter.SelectTypeMultiAdapter
 import com.shuangning.safeconstruction.utils.ScreenUtil
 
 /**
  * Created by Chenwei on 2023/10/14.
  */
-class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>): AttachPopupView(ctx) {
+class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>, val block: (index: Int)-> Unit): AttachPopupView(ctx) {
     private var selectTypeAdapter: SelectTypeMultiAdapter?= null
     override fun onCreate() {
         super.onCreate()
@@ -46,6 +48,21 @@ class SelectTypeDialog(ctx: Context, val data: MutableList<IItemViewType>): Atta
             rv.addItemDecoration(decoration)
             rv.adapter = selectTypeAdapter
         }
+        selectTypeAdapter?.setOnItemClickListener(object: OnItemClickListener<IItemViewType>{
+            override fun onItemClick(data: IItemViewType, position: Int) {
+                if (data.getItemType() == HEADER){
+                    return
+                }
+                this@SelectTypeDialog.data.forEachIndexed { index, item ->
+                    if (item is ContentSelectTypeBean){
+                        item.isSelected = index == position
+                    }
+                }
+                block(position)
+                dismiss()
+            }
+
+        })
     }
     override fun getImplLayoutId(): Int {
         return R.layout.dialog_select_type

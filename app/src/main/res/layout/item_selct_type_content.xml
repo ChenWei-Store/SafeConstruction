@@ -8,8 +8,10 @@
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/c_555"
+        android:textColor="@color/select_type_content_color"
         android:textSize="@dimen/sp_16"
-        android:background="@drawable/common_8_divider_color_bg"
-        android:text="全部"/>
+        android:background="@drawable/select_type_content_selector"
+        android:focusable="false"
+        android:clickable="false"
+        android:focusableInTouchMode="false"/>
 </LinearLayout>

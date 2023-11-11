@@ -6,7 +6,7 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 /**
  * Created by Chenwei on 2023/10/14.
  */
-data class ContentSelectTypeBean(val title: String = ""): ItemViewType() {
+data class ContentSelectTypeBean(val title: String = "", var isSelected: Boolean = false): ItemViewType() {
     override fun getItemType(): Int {
         return super.getItemType()
     }

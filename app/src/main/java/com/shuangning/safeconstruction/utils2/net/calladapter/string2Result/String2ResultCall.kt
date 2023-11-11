@@ -1,9 +1,9 @@
 package com.shuangning.safeconstruction.utils2.net.calladapter.string2Result
 
 import com.shuangning.safeconstruction.utils2.JsonUtils
+import com.shuangning.safeconstruction.utils2.net.HttpResult
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
 import com.shuangning.safeconstruction.utils2.net.NetworkException
-import com.shuangning.safeconstruction.utils2.net.String2Result
 import okhttp3.Request
 import okio.Timeout
 import org.json.JSONObject
@@ -55,7 +55,7 @@ class String2ResultCall(
                 val errorJson = response.errorBody()?.string()
                 kotlin.runCatching {
                     errorJson?.let {
-                        val result = JsonUtils.fromJson<String2Result<Any?>>(it, dataType)
+                        val result = JsonUtils.fromJson<HttpResult<Any?>>(it, dataType)
                         result?.let {
                             it2->
                             onNetCallback?.onCodeError(it2.code, it2.message)
@@ -70,7 +70,7 @@ class String2ResultCall(
                         val dataJson = response.body()
                         if (dataJson is String){
                             val json = createJson(dataJson)
-                            val data = JsonUtils.fromJson<String2Result<Any?>>(json, dataType)
+                            val data = JsonUtils.fromJson<HttpResult<Any?>>(json, dataType)
                             callback.onResponse(this@String2ResultCall, Response.success(data))
                         }else{
                             callback.onResponse(this@String2ResultCall, Response.success(dataJson))

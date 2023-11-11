@@ -112,7 +112,7 @@ object XPopCreateUtils {
     /**
      * 下面的是自定义弹窗
      */
-    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<IItemViewType>): BasePopupView{
+    fun showSelectTypeView(ctx: Context, attachView: View, data: MutableList<IItemViewType>, block: (index: Int)-> Unit): BasePopupView{
         return XPopup.Builder(ctx)
             .isDestroyOnDismiss(true)
             .popupWidth(ScreenUtil.getScreenWidth())
@@ -120,7 +120,7 @@ object XPopCreateUtils {
             .enableDrag(false)
             .isThreeDrag(false)
             .atView(attachView)
-            .asCustom(SelectTypeDialog(ctx, data))
+            .asCustom(SelectTypeDialog(ctx, data, block))
             .show()
     }
 

@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction.base.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -45,7 +46,13 @@ class TitleView @JvmOverloads constructor(
         setBackgroundColor(UIUtils.getColor(color))
     }
 
-    fun setRightText(block: (tv: TextView?)->Unit){
-        block(binding?.tvRight)
+    fun setRightText(text: String){
+        binding?.tvRight?.text = text
+        binding?.tvRight?.visibility = View.VISIBLE
+    }
+    fun setRightTextListener(block: (tv: View)->Unit){
+       binding?.tvRight?.setOnClickListener {
+           block(it)
+       }
     }
 }

@@ -12,12 +12,22 @@ const val LOGIN_NAME = "loginName"
 const val PWD = "pwd"
 const val TOKEN = "token"
 const val GROUP_EDUCATION_TIP_STATUS = "group_education_status"
+const val IS_LOGIN = "is_login"
 class MMKVResp {
     private var keyValueUtils: KeyValueUtils = KeyValueUtils()
     init {
         keyValueUtils.init()
     }
 
+    fun putLogin(isLogin: Boolean){
+        keyValueUtils.putAllWithId(APP_CONFIG) {
+            putBoolean(IS_LOGIN, isLogin)
+        }
+    }
+
+    fun getLogin(): Boolean{
+        return keyValueUtils.getWithId(APP_CONFIG, key = IS_LOGIN, valueType = false)
+    }
     fun putUserInfo(userInfo: UserInfo){
         keyValueUtils.putAllWithId(APP_CONFIG) {
             putString(LOGIN_NAME, userInfo.userName)

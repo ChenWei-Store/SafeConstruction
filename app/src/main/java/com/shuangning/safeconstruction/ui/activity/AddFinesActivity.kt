@@ -36,11 +36,13 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
         binding?.viewFinesUnit?.setOnClickListener {
             XPopCreateUtils.showListCenterDialog(this@AddFinesActivity, arrayOf("GX-2标", "GX-1标")){
                     position, text->
+                binding?.tvFinesUnit?.text = text
             }
         }
         binding?.viewVettingPerson?.setOnClickListener {
             XPopCreateUtils.showListCenterDialog(this@AddFinesActivity, arrayOf("指挥部", "xxx部")){
                     position, text->
+                binding?.tvVettingPerson?.text = text
             }
         }
     }

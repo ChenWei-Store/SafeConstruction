@@ -35,7 +35,7 @@
         android:ellipsize="end"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/c_222"
-        android:text="[gx-2标] gx-2_221228001"/>
+        android:text=""/>
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
@@ -66,9 +66,7 @@
         android:layout_marginTop="@dimen/vertical_margin_12"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         app:layout_constraintTop_toBottomOf="@id/view_line1"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/test_round_bg"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/tv_content1"
         android:layout_width="wrap_content"
@@ -78,7 +76,7 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="工地形象"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/tv_content2"
@@ -89,7 +87,7 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999"
-        android:text="测试测试测试测试测试"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/tv_price"
@@ -101,7 +99,7 @@
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999"
-        android:text="共100.0元"/>
+        android:text=""/>
     <View
         android:id="@+id/view_line2"
         android:layout_width="match_parent"

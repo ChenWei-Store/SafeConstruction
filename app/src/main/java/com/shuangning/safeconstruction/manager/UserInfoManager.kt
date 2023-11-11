@@ -10,8 +10,20 @@ import com.shuangning.safeconstruction.data.mmkv.TOKEN
 object UserInfoManager {
     private var userInfo: UserInfo? = null
     private var token: String?= null
+    private var isLogin: Boolean = false
     fun init(){
         userInfo = MMKVResp.resp.getUserInfo()
+        isLogin = MMKVResp.resp.getLogin()
+        token = MMKVResp.resp.getToken()
+    }
+
+    fun setLogin(isLogin: Boolean){
+        this.isLogin = isLogin
+        MMKVResp.resp.putLogin(isLogin)
+    }
+
+    fun getLogin(): Boolean{
+        return isLogin
     }
 
     fun setUserInfo(loginName: String, pwd: String){
