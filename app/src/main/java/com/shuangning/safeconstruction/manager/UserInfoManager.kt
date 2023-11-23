@@ -1,6 +1,7 @@
 package com.shuangning.safeconstruction.manager
 
 import com.shuangning.safeconstruction.bean.other.UserInfo
+import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
 import com.shuangning.safeconstruction.data.mmkv.TOKEN
 
@@ -41,6 +42,12 @@ object UserInfoManager {
         MMKVResp.resp.putToken(token)
     }
 
+    fun updateUserInfo(userInfoResp: UserInfoResp){
+        userInfo?.let {
+            it.companyType = userInfoResp.extend.danweileixing
+            MMKVResp.resp.putUserInfo(it)
+        }
+    }
     fun getToken(): String?{
         if (null == token){
             token = MMKVResp.resp.getToken()

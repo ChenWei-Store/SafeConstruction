@@ -15,6 +15,7 @@ import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.luck.picture.lib.utils.SandboxTransformUtils
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityScanQrcodeBinding
+import com.shuangning.safeconstruction.ui.web.CommonWebActivity
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils2.MyLog
@@ -102,7 +103,9 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
 
     override fun onScanQRCodeSuccess(result: String?) {
         result?.let{
-            ToastUtil.showCustomToast(it)
+//            ToastUtil.showCustomToast(it)
+            //TODO:根据格式解析出url
+            CommonWebActivity.start(this, it)
         }?:let {
             ToastUtil.showCustomToast("解析二维码失败")
         }

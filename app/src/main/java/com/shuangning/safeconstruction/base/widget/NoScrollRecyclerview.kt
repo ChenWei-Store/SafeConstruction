@@ -14,7 +14,7 @@ class NoScrollRecyclerview @JvmOverloads constructor(
     defStyleAttr: Int = 0): RecyclerView(ctx, attrs, defStyleAttr) {
 
 
-    override fun onInterceptTouchEvent(e: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return false
     }
 

@@ -2,15 +2,19 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
+import com.shuangning.safeconstruction.utils.UIUtils
 
 /**
  * Created by Chenwei on 2023/10/14.
  */
 class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
+    private var isVetting = true
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddFinesBinding? {
         return ActivityAddFinesBinding.inflate(layoutInflater)
     }
@@ -44,6 +48,23 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
                     position, text->
                 binding?.tvVettingPerson?.text = text
             }
+        }
+        binding?.tvVettingYes?.setOnClickListener {
+            val selectedText = binding?.tvVettingYes
+            val unSelectText = binding?.tvVettingNo
+            UIUtils.setTextLeftDrawable(selectedText, R.drawable.selected)
+            UIUtils.setTextLeftDrawable(unSelectText, R.drawable.not_select)
+            isVetting = true
+            binding?.group?.visibility = View.VISIBLE
+        }
+
+        binding?.tvVettingNo?.setOnClickListener {
+            val selectedText = binding?.tvVettingNo
+            val unSelectText = binding?.tvVettingYes
+            UIUtils.setTextLeftDrawable(selectedText, R.drawable.selected)
+            UIUtils.setTextLeftDrawable(unSelectText, R.drawable.not_select)
+            isVetting = false
+            binding?.group?.visibility = View.GONE
         }
     }
 

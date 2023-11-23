@@ -3,10 +3,12 @@ package com.shuangning.safeconstruction.ui.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
+import androidx.activity.viewModels
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityClockInOutBinding
+import com.shuangning.safeconstruction.ui.viewmodel.ClockInOutViewModel
 import com.shuangning.safeconstruction.utils.TimeUtils
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils.archcore.ArchTaskExecutor
@@ -23,6 +25,7 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
     private var timer: Timer?= null
     private var timeTask: TimeTask?= null
     private var result: BaiduLocation.LocationResult?= null
+    private val viewModel by viewModels<ClockInOutViewModel>()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityClockInOutBinding? {
         return ActivityClockInOutBinding.inflate(layoutInflater)
     }
@@ -59,8 +62,11 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
 
     override fun initListener() {
         binding?.iv?.setOnClickListener {
-            //TODO:打卡接口
-            ToastUtil.showCustomToast("打卡成功")
+            result?.let {
+                LoadingManager.startLoading(this)
+                viewModel.perform(it.longitude.toString(), it.latitude.toString())
+            }
+//            //TODO:打卡接口
         }
     }
 
@@ -94,6 +100,15 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
     }
 
     override fun observeViewModel() {
+        viewModel.result.observe(this){
+            it?.let {
+                if (it){
+                    ToastUtil.showCustomToast("打卡成功")
+                }else{
+                    ToastUtil.showCustomToast("打卡失败")
+                }
+            }
+        }
     }
 
     class TimeTask: TimerTask {

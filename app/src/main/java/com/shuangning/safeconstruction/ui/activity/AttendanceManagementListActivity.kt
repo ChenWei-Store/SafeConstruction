@@ -29,10 +29,11 @@ class AttendanceManagementListActivity: BaseActivity<ActivityAttendanceManagemen
 
     override fun initListener() {
         binding?.view1?.setOnClickListener {
-            StartActivityManager.startAttendanceManagementDetail(this@AttendanceManagementListActivity)
+            AttendanceManagementDetailActivity.startTo(this@AttendanceManagementListActivity, 1)
         }
         binding?.view2?.setOnClickListener {
-            StartActivityManager.startAttendanceManagementDetail(this@AttendanceManagementListActivity)
+            AttendanceManagementDetailActivity.startTo(this@AttendanceManagementListActivity, 2)
+
         }
     }
 

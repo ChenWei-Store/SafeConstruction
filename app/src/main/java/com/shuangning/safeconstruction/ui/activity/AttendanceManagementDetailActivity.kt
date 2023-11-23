@@ -1,11 +1,15 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.viewModels
+import androidx.loader.app.LoaderManager
 import com.bin.david.form.core.AnnotationParser
 import com.bin.david.form.data.CellInfo
 import com.bin.david.form.data.format.bg.IBackgroundFormat
@@ -17,43 +21,51 @@ import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.other.AttendanceData
 import com.shuangning.safeconstruction.bean.other.DepartmentBean
 import com.shuangning.safeconstruction.databinding.ActivityAttendanceManagementDetailBinding
+import com.shuangning.safeconstruction.manager.FROM_WHERE
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
+import com.shuangning.safeconstruction.ui.viewmodel.AttendanceManagementDetailViewModel
 import com.shuangning.safeconstruction.utils.DateUtil
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.TimeUtils
+import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM
 import com.shuangning.safeconstruction.utils.UIUtils
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 import java.util.Calendar
 import java.util.Date
 
 /**
  * Created by Chenwei on 2023/10/15.
  */
-class AttendanceManagementDetailActivity: BaseActivity<ActivityAttendanceManagementDetailBinding>() {
+
+class AttendanceManagementDetailActivity :
+    BaseActivity<ActivityAttendanceManagementDetailBinding>() {
     private val data: MutableList<AttendanceData> = mutableListOf()
-    private var annotationParser: AnnotationParser<AttendanceData> = AnnotationParser(ScreenUtil.dp2px(10f))
+    private var annotationParser: AnnotationParser<AttendanceData> =
+        AnnotationParser(ScreenUtil.dp2px(10f))
     private var selectedMonth = -1
     private var selectedYear = -1
     private var selectedDepartment = ""
     private var selectedCalendar: Calendar = Calendar.getInstance()
-    private var departmentData: MutableList<DepartmentBean> = mutableListOf()
+    private var selectedDay: String = ""
+    private val personType: Int by lazy {
+        intent?.getIntExtra(PERSON_TYPE, 1) ?: 1
+    }
+    private val viewModel by viewModels<AttendanceManagementDetailViewModel>()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAttendanceManagementDetailBinding? {
         return ActivityAttendanceManagementDetailBinding.inflate(layoutInflater)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("考勤管理")
-        if (departmentData.size > 0){
-            selectedDepartment = departmentData[0].name
-            binding?.tvDepartment?.text = selectedDepartment
-        }
         binding?.tvDate?.text = "$selectedMonth 月"
         setTable()
     }
 
-    private fun setTable(){
+    private fun setTable() {
         val titleFontStyle = FontStyle(this, 14, UIUtils.getColor(R.color.c_555))
         val contentFontStyle = FontStyle(this, 14, UIUtils.getColor(R.color.c_555))
         binding?.table?.config?.apply {
@@ -67,21 +79,18 @@ class AttendanceManagementDetailActivity: BaseActivity<ActivityAttendanceManagem
                 paint.color = UIUtils.getColor(R.color.divider3)
                 canvas.drawRect(rect, paint)
             }
-            contentCellBackgroundFormat = object: ICellBackgroundFormat<CellInfo<Any>> {
+            contentCellBackgroundFormat = object : ICellBackgroundFormat<CellInfo<Any>> {
                 override fun drawBackground(
-                    canvas: Canvas?,
-                    rect: Rect?,
-                    t: CellInfo<Any>?,
-                    paint: Paint?
+                    canvas: Canvas?, rect: Rect?, t: CellInfo<Any>?, paint: Paint?
                 ) {
                     t ?: return
                     paint ?: return
                     canvas ?: return
                     rect ?: return
-                    if (t.row % 2 == 0){
+                    if (t.row % 2 == 0) {
                         paint.color = UIUtils.getColor(R.color.white)
-                    }else{
-                        paint.color =UIUtils.getColor(R.color.c_f2f8ff)
+                    } else {
+                        paint.color = UIUtils.getColor(R.color.c_f2f8ff)
                     }
                     canvas.drawRect(rect, paint)
                 }
@@ -91,29 +100,29 @@ class AttendanceManagementDetailActivity: BaseActivity<ActivityAttendanceManagem
                 }
             }
         }
-        setTableData()
+//        setTableData()
     }
 
-    private fun setTableData(){
+    private fun setTableData() {
         val tableData: PageTableData<AttendanceData> = annotationParser.parse(data)
         val nowDay = DateUtil.getDay(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
         tableData.columns = tableData.columns.subList(0, 3 + nowDay)
         binding?.table?.setTableData(tableData)
     }
+
     override fun initData() {
-        data.add(AttendanceData("徐华盛", "试验检测工程师", 0))
-        data.add(AttendanceData("欧阳丽华", "试验检测工程师", 5))
-        data.add(AttendanceData("陈云飞", "安全员", 8))
-        data.add(AttendanceData("杨洋", "技术负责人", 8))
         selectedCalendar.time = Date()
         selectedMonth = DateUtil.getMonth(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
         selectedYear = DateUtil.getYears(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
+        selectedDay = TimeUtils.getCurrentDate(yyyy_MM)
+        LoadingManager.startLoading(this)
+        viewModel.getSectionAndList(personType, selectedDay)
 
-        departmentData.add(DepartmentBean("指挥部",true))
-        departmentData.add(DepartmentBean("GX-JL-1标"))
-        departmentData.add(DepartmentBean("GX-1标") )
-        departmentData.add(DepartmentBean("GX-2标") )
-        departmentData.add(DepartmentBean("GX-21标") )
+//        data.add(AttendanceData("徐华盛", "试验检测工程师", 0))
+//        data.add(AttendanceData("欧阳丽华", "试验检测工程师", 5))
+//        data.add(AttendanceData("陈云飞", "安全员", 8))
+//        data.add(AttendanceData("杨洋", "技术负责人", 8))
+
     }
 
 
@@ -125,30 +134,39 @@ class AttendanceManagementDetailActivity: BaseActivity<ActivityAttendanceManagem
 
     override fun initListener() {
         binding?.tvDate?.setOnClickListener {
-            XPopCreateUtils.showYearMonthDialog(this, TimePickerPopup.Mode.YM, selectedCalendar, object: TimePickerListener{
-                override fun onTimeChanged(date: Date?) {
-                }
-
-                override fun onTimeConfirm(date: Date?, view: View?) {
-                    date?.let {
-                        selectedMonth = DateUtil.getMonth(TimeUtils.parseTime(date, TimeUtils.yyyy_MM_dd))
-                        selectedYear = DateUtil.getYears(TimeUtils.parseTime(date, TimeUtils.yyyy_MM_dd))
-                        binding?.tvDate?.text = "$selectedMonth 月"
-                        selectedCalendar.time = date
+            XPopCreateUtils.showYearMonthDialog(this,
+                TimePickerPopup.Mode.YM,
+                selectedCalendar,
+                object : TimePickerListener {
+                    override fun onTimeChanged(date: Date?) {
                     }
-                }
 
-                override fun onCancel() {
+                    override fun onTimeConfirm(date: Date?, view: View?) {
+                        date?.let {
+                            selectedMonth =
+                                DateUtil.getMonth(TimeUtils.parseTime(date, TimeUtils.yyyy_MM_dd))
+                            selectedYear =
+                                DateUtil.getYears(TimeUtils.parseTime(date, TimeUtils.yyyy_MM_dd))
+                            selectedDay = TimeUtils.parseTime(date, yyyy_MM)
+                            binding?.tvDate?.text = "$selectedMonth 月"
+                            selectedCalendar.time = date
+                        }
+                    }
 
-                }
+                    override fun onCancel() {
 
-            })
+                    }
+                })
         }
 
         binding?.tvDepartment?.setOnClickListener {
             binding?.view2?.apply {
                 XPopCreateUtils.showAttachDepartment(this@AttendanceManagementDetailActivity,
-                    this, departmentData, selectedMonth, selectedDepartment, object: OnItemClickListener<DepartmentBean>{
+                    this,
+                    viewModel.getDepartmentData(),
+                    selectedMonth,
+                    selectedDepartment,
+                    object : OnItemClickListener<DepartmentBean> {
                         override fun onItemClick(data: DepartmentBean, position: Int) {
                             binding?.tvDepartment?.text = data.name
                             selectedDepartment = data.name
@@ -159,5 +177,35 @@ class AttendanceManagementDetailActivity: BaseActivity<ActivityAttendanceManagem
     }
 
     override fun observeViewModel() {
+        viewModel.selection.observe(this) {
+            it?.let {
+                selectedDepartment = it
+                binding?.tvDepartment?.text = selectedDepartment
+            }
+        }
+        viewModel.result.observe(this) {
+            it?.result?.let {
+                it.forEach {
+                    it2->
+                    val item = AttendanceData.transform(it2)
+                    data.add(item)
+                }
+                setTableData()
+                LoadingManager.stopLoading()
+
+            }?:let {
+                LoadingManager.stopLoading()
+            }
+
+        }
+    }
+
+    companion object {
+        const val PERSON_TYPE = "personType"
+        fun startTo(ctx: Context, personType: Int) {
+            ActivityUtils.start(ctx, AttendanceManagementDetailActivity::class.java) {
+                putExtra(PERSON_TYPE, personType)
+            }
+        }
     }
 }

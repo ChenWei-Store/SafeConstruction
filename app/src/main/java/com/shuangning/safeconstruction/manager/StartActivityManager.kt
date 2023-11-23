@@ -97,9 +97,6 @@ object StartActivityManager {
     fun startAttendanceManagement(ctx: Context,){
         ActivityUtils.start(ctx, AttendanceManagementListActivity::class.java)
     }
-    fun startAttendanceManagementDetail(ctx: Context,){
-        ActivityUtils.start(ctx, AttendanceManagementDetailActivity::class.java)
-    }
 
     fun startToScanQrcode(ctx: Context,){
         ActivityUtils.start(ctx, ScanQrcodeActivity::class.java)

@@ -6,4 +6,5 @@ package com.shuangning.safeconstruction.bean.other
 data class UserInfo(
     val userName: String,
     val pwd: String,
+    var companyType: String = ""
 )

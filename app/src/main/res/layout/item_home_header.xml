@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textColor="@color/c_000"
         android:textSize="@dimen/sp_16"
-        android:text="@string/platform_name" />
+        android:text="双宁安全管控平台                                                          " />
 
     <TextView
         android:id="@+id/tv_project"

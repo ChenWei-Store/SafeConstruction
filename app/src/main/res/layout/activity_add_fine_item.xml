@@ -47,9 +47,10 @@
         app:layout_constraintTop_toBottomOf="@id/tv_type"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:layout_marginTop="@dimen/vertical_margin_16"
-        android:background="@drawable/common_8_fff_stroke_bg"/>
+        android:background="@drawable/add_fine_type_btn_bg"/>
 
     <TextView
+        android:id="@+id/tv_safe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/view_safe"
@@ -57,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@id/view_safe"
         app:layout_constraintBottom_toBottomOf="@id/view_safe"
         android:text="安全"
-        android:textColor="@color/c_555"
+        android:textColor="@color/select_type_content_color"
         android:textSize="@dimen/sp_16"/>
     <View
         android:id="@+id/view_quantity"
@@ -69,11 +70,12 @@
         app:layout_constraintEnd_toStartOf="@id/view_green"
         app:layout_constraintTop_toBottomOf="@id/tv_type"
         android:layout_marginTop="@dimen/vertical_margin_16"
-        android:background="@drawable/common_8_fff_stroke_bg"
+        android:background="@drawable/add_fine_type_btn_bg"
         android:textColor="@color/divider"
         android:textSize="@dimen/sp_14"/>
 
     <TextView
+        android:id="@+id/tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/view_quantity"
@@ -81,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@id/view_quantity"
         app:layout_constraintBottom_toBottomOf="@id/view_quantity"
         android:text="质量"
-        android:textColor="@color/c_555"
+        android:textColor="@color/select_type_content_color"
         android:textSize="@dimen/sp_16"/>
     <View
         android:id="@+id/view_green"
@@ -93,10 +95,11 @@
         app:layout_constraintEnd_toStartOf="@id/view_routine_manage"
         app:layout_constraintTop_toBottomOf="@id/tv_type"
         android:layout_marginTop="@dimen/vertical_margin_16"
-        android:background="@drawable/common_8_fff_stroke_bg"
+        android:background="@drawable/add_fine_type_btn_bg"
         android:textColor="@color/divider"
         android:textSize="@dimen/sp_14"/>
     <TextView
+        android:id="@+id/tv_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/view_green"
@@ -104,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@id/view_green"
         app:layout_constraintBottom_toBottomOf="@id/view_green"
         android:text="环保"
-        android:textColor="@color/c_555"
+        android:textColor="@color/select_type_content_color"
         android:textSize="@dimen/sp_16"/>
     <View
         android:id="@+id/view_routine_manage"
@@ -116,9 +119,10 @@
         app:layout_constraintEnd_toEndOf="@id/view_content"
         app:layout_constraintTop_toBottomOf="@id/tv_type"
         android:layout_marginTop="@dimen/vertical_margin_16"
-        android:background="@drawable/common_8_fff_stroke_bg"/>
+        android:background="@drawable/add_fine_type_btn_bg"/>
 
     <TextView
+        android:id="@+id/tv_route_manage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/view_routine_manage"
@@ -126,7 +130,7 @@
         app:layout_constraintTop_toTopOf="@id/view_routine_manage"
         app:layout_constraintBottom_toBottomOf="@id/view_routine_manage"
         android:text="日常管理"
-        android:textColor="@color/c_555"
+        android:textColor="@color/select_type_content_color"
         android:textSize="@dimen/sp_16"/>
 
     <View
@@ -165,6 +169,7 @@
         android:textColor="@color/c_555"
         android:text="元" />
     <EditText
+        android:id="@+id/et_money"
         style="@style/CommonEditTextStyle"
         android:layout_width="140dp"
         android:layout_height="0dp"
@@ -173,7 +178,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_yuan"
         app:layout_constraintEnd_toStartOf="@id/tv_yuan"
         android:textColorHint="@color/c_999"
-        android:inputType="text"
+        android:inputType="number"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_555"
         android:hint="请输入金额"

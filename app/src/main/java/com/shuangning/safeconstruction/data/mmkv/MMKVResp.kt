@@ -10,6 +10,7 @@ import com.shuangning.safeconstruction.utils2.KeyValueUtils
 const val APP_CONFIG = "appConfig"
 const val LOGIN_NAME = "loginName"
 const val PWD = "pwd"
+const val COMPANY_TYPE = "companyType"
 const val TOKEN = "token"
 const val GROUP_EDUCATION_TIP_STATUS = "group_education_status"
 const val IS_LOGIN = "is_login"
@@ -32,12 +33,14 @@ class MMKVResp {
         keyValueUtils.putAllWithId(APP_CONFIG) {
             putString(LOGIN_NAME, userInfo.userName)
             putString(PWD, userInfo.pwd)
+            putString(COMPANY_TYPE, userInfo.companyType)
         }
     }
     fun getUserInfo(): UserInfo{
         val userName = keyValueUtils.getWithId(APP_CONFIG, key = LOGIN_NAME, valueType = "")
         val pwd = keyValueUtils.getWithId(APP_CONFIG, key = PWD, valueType = "")
-        return UserInfo(userName, pwd)
+        val companyType = keyValueUtils.getWithId(APP_CONFIG, key = COMPANY_TYPE, valueType = "")
+        return UserInfo(userName, pwd, companyType)
     }
 
     fun putToken(token: String){

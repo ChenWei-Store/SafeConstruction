@@ -25,7 +25,7 @@ android {
         debug{
             buildConfigField("Integer","DESIGN_WIDTH_DP","-1")
             buildConfigField("String","BAIDU_LBS_AK","\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
-            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
+            buildConfigField("String","BASE_URL","\"http://47.122.10.106/\"")
         }
         release {
             buildConfigField("String","BAIDU_LBS_AK","\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")

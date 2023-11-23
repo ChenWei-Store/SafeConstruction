@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.lxj.xpopup.XPopup
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
+import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
 import com.shuangning.safeconstruction.databinding.FragmentMineBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
@@ -32,9 +33,9 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
         binding?.tvVersion?.text = APPUtils.getVersionName()
     }
 
-    private fun showData(){
-        binding?.tvName?.text = "百盛检查"
-        binding?.tvDepartment?.text = "指挥部"
+    private fun showData(userInfoResp: UserInfoResp) {
+        binding?.tvName?.text = userInfoResp.extend.name
+        binding?.tvDepartment?.text = userInfoResp.extend.company.realCompany.companyName
     }
 
     override fun initData() {
@@ -77,7 +78,9 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
     }
     override fun observeViewModel() {
         mineViewModel.userInfo.observe(this){
-            showData()
+            it?.let {
+                showData(it)
+            }
             LoadingManager.stopLoading()
         }
     }

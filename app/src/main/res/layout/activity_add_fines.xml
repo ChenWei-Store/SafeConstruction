@@ -117,7 +117,6 @@
         app:layout_constraintBottom_toBottomOf="@id/view_vetting"
         android:layout_marginStart="@dimen/horizontal_margin_40"
         android:drawableLeft="@drawable/selected"
-        android:drawableTint="@color/c_ff3e3d"
         android:drawablePadding="@dimen/horizontal_margin_4"
         android:text="是"
         android:textSize="@dimen/sp_14"
@@ -138,6 +137,13 @@
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_555" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="view_vetting_unit,iv_vetting_unit,tv_vetting_unit_title,
+tv_vetting_unit, view_vetting_person, iv_vetting_person,tv_vetting_person_title,tv_vetting_person"/>
     <View
         android:id="@+id/view_vetting_unit"
         android:layout_width="match_parent"
@@ -179,7 +185,6 @@
         app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
         android:layout_marginStart="@dimen/horizontal_margin_40"
         android:drawableLeft="@drawable/selected"
-        android:drawableTint="@color/c_ff3e3d"
         android:drawablePadding="@dimen/horizontal_margin_4"
         android:text="指挥部"
         android:textSize="@dimen/sp_14"
@@ -205,6 +210,7 @@
         android:src="@drawable/vetting_person"/>
 
     <TextView
+        android:id="@+id/tv_vetting_person_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/view_vetting_person"
