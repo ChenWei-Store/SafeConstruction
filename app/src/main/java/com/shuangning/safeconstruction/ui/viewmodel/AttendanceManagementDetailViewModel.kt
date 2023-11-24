@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shuangning.safeconstruction.bean.other.DepartmentBean
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
-import com.shuangning.safeconstruction.bean.request.AttendanceManagementSectionListReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
 import com.shuangning.safeconstruction.data.net.ApiService
 import com.shuangning.safeconstruction.manager.UserInfoManager
@@ -51,10 +50,9 @@ class AttendanceManagementDetailViewModel: ViewModel() {
     private suspend fun getSection(): MutableList<String>?{
         return kotlin.runCatching {
             val companyType = UserInfoManager.getUserInfo()?.companyType?:""
-            val selectionReq = AttendanceManagementSectionListReq(companyType)
             NetworkClient.client.retrofit()
                 .createService(ApiService::class.java)
-                .getAttendanceManagementSectionList(selectionReq)
+                .getAttendanceManagementSectionList(companyType)
         }.onFailure {
             MyLog.e(it.message.toString())
         }.getOrNull()?.data

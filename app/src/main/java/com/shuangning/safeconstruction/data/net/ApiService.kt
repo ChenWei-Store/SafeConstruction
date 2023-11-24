@@ -1,7 +1,6 @@
 package com.shuangning.safeconstruction.data.net
 
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
-import com.shuangning.safeconstruction.bean.request.AttendanceManagementSectionListReq
 import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
@@ -9,6 +8,8 @@ import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -23,8 +24,9 @@ interface ApiService {
     suspend fun getUserInfo(@Query("token") token: String): HttpResult<UserInfoResp>?
     @POST(ATTENDANCE_MANAGEMENT_LIST)
     suspend fun getAttendanceManagementList(@Body data: AttendanceManagementListReq): HttpResult<AttendanceManagementListResp>?
+    @FormUrlEncoded
     @POST(ATTENDANCE_MANAGEMENT_SECTION_LIST)
-    suspend fun getAttendanceManagementSectionList(@Body data: AttendanceManagementSectionListReq): HttpResult<MutableList<String>>?
+    suspend fun getAttendanceManagementSectionList(@Field("companyType") companyType: String): HttpResult<MutableList<String>>?
 
     @POST(ATTENDANCE_PUNCH)
     suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<Any>?

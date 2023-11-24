@@ -4,8 +4,10 @@ import com.shuangning.safeconstruction.utils2.JsonUtils
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
 import com.shuangning.safeconstruction.utils2.net.NetworkException
+import com.squareup.moshi.rawType
 import okhttp3.Request
 import okio.Timeout
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,7 +67,6 @@ class String2ResultCall(
                             onNetCallback?.onOtherError(error)
                             callback.onFailure(this@String2ResultCall, error)
                         }
-
                     }?:let {
                         val dataJson = response.body()
                         if (dataJson is String){
@@ -100,8 +101,13 @@ class String2ResultCall(
         val jsonObject = JSONObject()
         jsonObject.put("code", 1000)
         jsonObject.put("message", "success")
-        val dataJsonObject = JSONObject(data)
-        jsonObject.put("data", dataJsonObject)
+        if (dataType.actualTypeArguments[0].rawType == List::class.java){
+            val dataJsonObject = JSONArray(data)
+            jsonObject.put("data", dataJsonObject)
+        }else{
+            val dataJsonObject = JSONObject(data)
+            jsonObject.put("data", dataJsonObject)
+        }
         return jsonObject.toString()
     }
 }

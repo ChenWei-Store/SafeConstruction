@@ -45,6 +45,7 @@ object UserInfoManager {
     fun updateUserInfo(userInfoResp: UserInfoResp){
         userInfo?.let {
             it.companyType = userInfoResp.extend.danweileixing
+            it.userId = userInfoResp.userId
             MMKVResp.resp.putUserInfo(it)
         }
     }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.activity.viewModels
+import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.utils.SpatialRelationUtil
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
@@ -17,6 +19,11 @@ import java.lang.ref.WeakReference
 import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
+import kotlin.math.asin
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Created by Chenwei on 2023/10/18.
@@ -36,20 +43,12 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
     }
 
     private fun showUI(){
-        val isInScope = true
-        if (isInScope){
-            binding?.iv?.setBackgroundResource(R.drawable.circle_13ce7f)
-            binding?.tvClockInOut?.text = "外勤打卡"
-        }else{
-            binding?.iv?.setBackgroundResource(R.drawable.circle_main_color)
-            binding?.tvClockInOut?.text = "考勤打卡"
-        }
+        binding?.iv?.setBackgroundResource(R.drawable.circle_13ce7f)
+        binding?.tvClockInOut?.text = "考勤打卡"
         result?.let {
             binding?.tvLocation?.text =  "${it.province + it.city +
                     it.district + it.town + it.street + it.locationDescribe}"
         }
-        binding?.tvTime?.text = "18:43:41"
-        binding?.tvTitle?.text="高淳至宣城高速公路江苏段工程项目"
     }
     override fun initData() {
     }
@@ -63,11 +62,31 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
     override fun initListener() {
         binding?.iv?.setOnClickListener {
             result?.let {
-                LoadingManager.startLoading(this)
-                viewModel.perform(it.longitude.toString(), it.latitude.toString())
+                if (isRange()){
+                    LoadingManager.startLoading(this)
+                    viewModel.perform(it.longitude.toString(), it.latitude.toString())
+                }
             }
 //            //TODO:打卡接口
         }
+    }
+
+    /**
+     * 返回是否在打卡范围内
+     *
+     * @return 返回值
+     *var0表示圆心的坐标，var1代表圆心的半径，var2代表要判断的点是否在圆内
+     *isCircleContainsPoint(LatLng var0, int var1, LatLng var2);
+     */
+    private fun isRange(): Boolean {
+        return true
+//        return result?.let {
+//            return SpatialRelationUtil.isCircleContainsPoint(
+//                LatLng(it.latitude, it.longitude),
+//                2000,
+//                LatLng(39.93058, 116.440108)
+//            )
+//        }?:false
     }
 
     override fun onStart() {
@@ -107,6 +126,7 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
                 }else{
                     ToastUtil.showCustomToast("打卡失败")
                 }
+                LoadingManager.stopLoading()
             }
         }
     }

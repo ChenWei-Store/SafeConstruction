@@ -14,6 +14,7 @@ const val COMPANY_TYPE = "companyType"
 const val TOKEN = "token"
 const val GROUP_EDUCATION_TIP_STATUS = "group_education_status"
 const val IS_LOGIN = "is_login"
+const val USER_ID = "userId"
 class MMKVResp {
     private var keyValueUtils: KeyValueUtils = KeyValueUtils()
     init {
@@ -34,13 +35,15 @@ class MMKVResp {
             putString(LOGIN_NAME, userInfo.userName)
             putString(PWD, userInfo.pwd)
             putString(COMPANY_TYPE, userInfo.companyType)
+            putString(USER_ID, userInfo.userId)
         }
     }
     fun getUserInfo(): UserInfo{
         val userName = keyValueUtils.getWithId(APP_CONFIG, key = LOGIN_NAME, valueType = "")
         val pwd = keyValueUtils.getWithId(APP_CONFIG, key = PWD, valueType = "")
         val companyType = keyValueUtils.getWithId(APP_CONFIG, key = COMPANY_TYPE, valueType = "")
-        return UserInfo(userName, pwd, companyType)
+        val userId = keyValueUtils.getWithId(APP_CONFIG, key = USER_ID, valueType = "")
+        return UserInfo(userName, pwd, companyType, userId)
     }
 
     fun putToken(token: String){

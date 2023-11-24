@@ -1,7 +1,6 @@
 package com.shuangning.safeconstruction.ui.activity
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
@@ -9,13 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
-import androidx.loader.app.LoaderManager
 import com.bin.david.form.core.AnnotationParser
 import com.bin.david.form.data.CellInfo
+import com.bin.david.form.data.column.Column
 import com.bin.david.form.data.format.bg.IBackgroundFormat
 import com.bin.david.form.data.format.bg.ICellBackgroundFormat
 import com.bin.david.form.data.style.FontStyle
-import com.bin.david.form.data.table.PageTableData
+import com.bin.david.form.data.table.TableData
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.shuangning.safeconstruction.R
@@ -25,7 +24,6 @@ import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.other.AttendanceData
 import com.shuangning.safeconstruction.bean.other.DepartmentBean
 import com.shuangning.safeconstruction.databinding.ActivityAttendanceManagementDetailBinding
-import com.shuangning.safeconstruction.manager.FROM_WHERE
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.AttendanceManagementDetailViewModel
 import com.shuangning.safeconstruction.utils.DateUtil
@@ -36,6 +34,7 @@ import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 import java.util.Calendar
 import java.util.Date
+
 
 /**
  * Created by Chenwei on 2023/10/15.
@@ -104,9 +103,33 @@ class AttendanceManagementDetailActivity :
     }
 
     private fun setTableData() {
-        val tableData: PageTableData<AttendanceData> = annotationParser.parse(data)
+        var tableData = annotationParser.parse(data)
         val nowDay = DateUtil.getDay(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
-        tableData.columns = tableData.columns.subList(0, 3 + nowDay)
+        tableData?.let {
+            it.columns = tableData.columns.subList(0, 3 + nowDay)
+            binding?.table?.setTableData(it)
+        }?:let{
+            initEmptyTable(nowDay)
+        }
+    }
+
+    private fun initEmptyTable(nowDay: Int) {
+        //普通列
+        //普通列
+        val columns: MutableList<Column<String>> = mutableListOf()
+        val column1: Column<String> = Column("姓名", "name")
+        val column2: Column<String> = Column("岗位", "age")
+        val column3: Column<String> = Column("出勤天数", "time")
+        columns.add(column1)
+        columns.add(column2)
+        columns.add(column3)
+        for (index in 1..nowDay){
+            val column: Column<String> = Column("$index", "_${index}")
+            columns.add(column)
+        }
+        //表格数据 datas是需要填充的数据
+        //表格数据 datas是需要填充的数据
+        val tableData: TableData<AttendanceData> = TableData<AttendanceData>("", mutableListOf(), columns.toList())
         binding?.table?.setTableData(tableData)
     }
 
@@ -150,6 +173,7 @@ class AttendanceManagementDetailActivity :
                             selectedDay = TimeUtils.parseTime(date, yyyy_MM)
                             binding?.tvDate?.text = "$selectedMonth 月"
                             selectedCalendar.time = date
+                            refreshData()
                         }
                     }
 
@@ -170,10 +194,16 @@ class AttendanceManagementDetailActivity :
                         override fun onItemClick(data: DepartmentBean, position: Int) {
                             binding?.tvDepartment?.text = data.name
                             selectedDepartment = data.name
+                            refreshData()
                         }
                     })
             }
         }
+    }
+
+    private fun refreshData() {
+        LoadingManager.startLoading(this@AttendanceManagementDetailActivity)
+        viewModel.refreshData(selectedDepartment, personType, selectedDay)
     }
 
     override fun observeViewModel() {
@@ -186,7 +216,7 @@ class AttendanceManagementDetailActivity :
         viewModel.result.observe(this) {
             it?.result?.let {
                 it.forEach {
-                    it2->
+                        it2->
                     val item = AttendanceData.transform(it2)
                     data.add(item)
                 }

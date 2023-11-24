@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
 import com.shuangning.safeconstruction.data.net.ApiService
+import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils2.MyLog
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ class ClockInOutViewModel: ViewModel() {
 
     fun perform(longitude: String, latitude: String){
         viewModelScope.launch {
-            val userNum = ""
+            val userNum = UserInfoManager.getUserInfo()?.userId?:""
             val req = AttendancePunchReq(userNum, longitude, latitude)
             val data = kotlin.runCatching {
                 NetworkClient.client.retrofit()
@@ -28,6 +29,7 @@ class ClockInOutViewModel: ViewModel() {
             }.onFailure {
                 MyLog.e(it.message.toString())
             }.getOrNull()?.data
+            _result.postValue(data == null)
         }
     }
 }
