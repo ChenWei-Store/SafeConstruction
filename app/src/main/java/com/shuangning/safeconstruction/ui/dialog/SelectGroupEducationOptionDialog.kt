@@ -25,8 +25,8 @@ class SelectGroupEducationOptionDialog(val ctx: Context): AttachPopupView(ctx) {
     private var selectedPosition = 0
     private var tvs = mutableListOf<TextView>()
     private var selectedCalendar: Calendar = Calendar.getInstance()
-    private var startDate = Date()
-    private var endDate = Date()
+    private var startDate: Date? = null
+    private var endDate: Date? = null
     override fun onCreate() {
         super.onCreate()
         selectedCalendar.time = Date()

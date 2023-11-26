@@ -1,6 +1,6 @@
 package com.shuangning.safeconstruction.base.adapter
 
-import kotlin.reflect.typeOf
+
 
 /**
  * Created by Chenwei on 2023/10/8.
@@ -12,7 +12,7 @@ interface IItemViewType{
     fun getItemType() = CONTENT
 }
 
-open class ItemViewType(val type: Int = CONTENT): IItemViewType{
+open class ItemViewType(var type: Int = CONTENT): IItemViewType{
     override fun getItemType(): Int {
         return type
     }

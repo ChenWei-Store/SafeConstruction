@@ -127,10 +127,4 @@ object StartActivityManager {
         ActivityUtils.start(ctx, TermsOfReferenceActivity::class.java)
     }
 
-    fun startGroupEducationList(ctx: Context,){
-        ActivityUtils.start(ctx, GroupEducationListActivity::class.java)
-    }
-    fun startAddGroupEducation(ctx: Context,){
-        ActivityUtils.start(ctx, AddGroupEducationActivity::class.java)
-    }
 }

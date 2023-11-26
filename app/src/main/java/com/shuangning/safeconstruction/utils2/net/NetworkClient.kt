@@ -6,6 +6,7 @@ import com.shuangning.safeconstruction.utils2.MyLog
 import com.shuangning.safeconstruction.utils2.net.calladapter.httpResult.ResultCallAdapterFactory
 import com.shuangning.safeconstruction.utils2.net.calladapter.string2Result.String2ResultCallAdapterFactory
 import com.shuangning.safeconstruction.utils2.net.convert.StringResponseConvertFactory
+import com.shuangning.safeconstruction.utils2.net.interceptor.CustomLogInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -59,13 +60,7 @@ class NetworkClient {
             .connectTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
             .cache(cache)
 //            .addInterceptor(HeaderInterceptor(callback))
-            .addInterceptor(HttpLoggingInterceptor(MyHttpLogger()).apply {
-                level = if(BuildConfig.DEBUG){
-                    HttpLoggingInterceptor.Level.BODY
-                }else{
-                    HttpLoggingInterceptor.Level.NONE
-                }
-            })
+            .addInterceptor(CustomLogInterceptor())
             .build()
     }
     fun <T> createService(serviceCls: Class<T>): T{
@@ -78,10 +73,9 @@ class NetworkClient {
     }
 
     class MyHttpLogger: HttpLoggingInterceptor.Logger{
-        override fun log(message: String?) {
-            message?.let {
-                MyLog.d(it)
-            }
+
+        override fun log(message: String) {
+            MyLog.d(message)
         }
     }
 

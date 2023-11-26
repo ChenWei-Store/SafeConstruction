@@ -67,7 +67,6 @@ class ClockInOrOutActivity: BaseActivity<ActivityClockInOutBinding>(), BaiduLoca
                     viewModel.perform(it.longitude.toString(), it.latitude.toString())
                 }
             }
-//            //TODO:打卡接口
         }
     }
 

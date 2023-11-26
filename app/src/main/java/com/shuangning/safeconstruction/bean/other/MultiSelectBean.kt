@@ -8,16 +8,19 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
  * Created by Chenwei on 2023/10/18.
  */
 data class MultiSelectBean(
+    val id: Int,
     val reason: String,
     var isSelect: Boolean = false
 ): ItemViewType(),Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString()?:"",
         parcel.readByte() != 0.toByte()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(reason)
         parcel.writeByte(if (isSelect) 1 else 0)
     }

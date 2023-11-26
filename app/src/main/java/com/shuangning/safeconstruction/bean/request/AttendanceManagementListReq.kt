@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class AttendanceManagementListReq(
     @Json(name = "section") val section: String = "",
-    @Json(name = "personType") val personType: Int = 1,
+    @Json(name = "personType") val personType: String = "",
     @Json(name = "day") val day: String = "",
     @Json(name = "pageNo") val pageNo: String = "0",
     @Json(name = "pageSize") val pageSize: String = "100",

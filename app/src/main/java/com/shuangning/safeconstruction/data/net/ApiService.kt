@@ -1,17 +1,28 @@
 package com.shuangning.safeconstruction.data.net
 
+import com.shuangning.safeconstruction.bean.request.AddGroupEducationReq
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
 import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
+import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
+import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
+import com.shuangning.safeconstruction.bean.response.AttendancePunchResp
+import com.shuangning.safeconstruction.bean.response.GetTeamInfoDetailResp
+import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
+import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
+import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.utils2.net.HttpResult
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 /**
@@ -27,7 +38,26 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ATTENDANCE_MANAGEMENT_SECTION_LIST)
     suspend fun getAttendanceManagementSectionList(@Field("companyType") companyType: String): HttpResult<MutableList<String>>?
-
     @POST(ATTENDANCE_PUNCH)
-    suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<Any>?
+    suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<AttendancePunchResp>?
+    @POST(GROUP_EDUCATION_LIST)
+    suspend fun getGroupEducationList(@Body data: GroupEducationListReq): HttpResult<GroupEducationListResp>?
+
+    @POST(JOIN_PARTICIPANT)
+    suspend fun getoinParticipant(@Body data: JoinParticipantReq): HttpResult<JoinParticipantResp>?
+    @Multipart
+    @POST(UPLOAD_VIDEO)
+    suspend fun uploadVideo(@Part file: MultipartBody.Part): HttpResult<Any>?
+    @POST(ADD_GROUP_EDUCATION)
+    suspend fun addGroupEducation(@Body data: AddGroupEducationReq): HttpResult<Any>?
+
+    @FormUrlEncoded
+    @POST(GROUP_DEUCATION_DETAIL)
+    suspend fun getGroupEducationDetail(@Field("trainTopic") trainTopic: String): HttpResult<GroupEducationDetailResp>?
+    @FormUrlEncoded
+    @POST(GROUP_LIST)
+    suspend fun getGroupList(@Field("section") section: String): HttpResult<MutableList<String>>?
+    @FormUrlEncoded
+    @POST(TEAM_INFO)
+    suspend fun getTeamInfo(@Field("section") section: String, @Field("teamGroup") teamGroup: String): HttpResult<GetTeamInfoDetailResp>?
 }

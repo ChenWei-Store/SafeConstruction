@@ -4,36 +4,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
+import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
+import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
+import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.data.net.ApiService
-import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils2.MyLog
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
 import kotlinx.coroutines.launch
 
 /**
- * Created by Chenwei on 2023/11/23.
+ * Created by Chenwei on 2023/11/25.
  */
-class ClockInOutViewModel: ViewModel() {
-    private val _result: MutableLiveData<Boolean> = MutableLiveData()
-    val result: LiveData<Boolean?> = _result
-
-    fun perform(longitude: String, latitude: String){
+class GroupEducationDetailViewModel: ViewModel() {
+    private val _result: MutableLiveData<GroupEducationDetailResp?> = MutableLiveData()
+    val result: LiveData<GroupEducationDetailResp?> = _result
+    fun getData(trainTopic: String){
         viewModelScope.launch {
-            val userNum = UserInfoManager.getUserInfo()?.userId?:""
-            val req = AttendancePunchReq(userNum, longitude, latitude)
             val data = kotlin.runCatching {
                 NetworkClient.client.retrofit()
                     .createService(ApiService::class.java)
-                    .attendancePunch(req)
+                    .getGroupEducationDetail(trainTopic)
             }.onFailure {
                 MyLog.e(it.message.toString())
             }.getOrNull()?.data
-            data?.let {
-                _result.postValue(it.result)
-            }?:let {
-                _result.postValue(false)
-            }
+            _result.postValue(data)
         }
     }
 }

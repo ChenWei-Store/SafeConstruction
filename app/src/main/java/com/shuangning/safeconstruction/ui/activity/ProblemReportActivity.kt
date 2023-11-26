@@ -136,7 +136,7 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>(),
         })
 
         binding?.viewCauseAnalysis?.setOnClickListener {
-            launcher.launch(MultiSelectActivity.getIntent(this@ProblemReportActivity, FROM_PROBLEM_REPORT))
+            launcher.launch(MultiSelectActivity.getIntent(this@ProblemReportActivity, FROM_PROBLEM_REPORT, null))
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.HEADER
-import com.shuangning.safeconstruction.base.adapter.ItemViewType
+import com.shuangning.safeconstruction.bean.response.GroupEducationItem
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.databinding.ItemGroupEducationContentBinding
 import com.shuangning.safeconstruction.databinding.ItemSearchBinding
@@ -16,11 +16,11 @@ import com.shuangning.safeconstruction.utils2.EventbusUtils
 /**
  * Created by Chenwei on 2023/11/4.
  */
-class GroupEducationMulAdapter(data: MutableList<ItemViewType>): CommonBaseMultiAdapter<ItemViewType, ViewBinding>(data) {
+class GroupEducationMulAdapter(data: MutableList<GroupEducationItem>): CommonBaseMultiAdapter<GroupEducationItem, ViewBinding>(data) {
     private var input: String = ""
     override fun onBindViewHolder(
         binding: ViewBinding,
-        item: ItemViewType,
+        item: GroupEducationItem,
         position: Int,
         ctx: Context
     ) {
@@ -41,11 +41,11 @@ class GroupEducationMulAdapter(data: MutableList<ItemViewType>): CommonBaseMulti
             }
 
             is ItemGroupEducationContentBinding->{
-                binding.tvTitle.text = "桥梁下部结构班组-202112141646"
-                binding.tvGroupName.text = "班组：桥梁下部结构组"
-                binding.tvGroupPerson.text = "班组长："
-                binding.tvCreatePerson.text = "创建人：张志月"
-                binding.tvTime.text = "2021-12-12"
+                binding.tvTitle.text = item.trainTopic
+                binding.tvGroupName.text = "班组：${item.teamGroup}"
+                binding.tvGroupPerson.text = "班组长：${item.squadLeader}"
+                binding.tvCreatePerson.text = "创建人：${item.createBy}"
+                binding.tvTime.text = item.createTime
             }
         }
     }

@@ -59,7 +59,12 @@ class AttendanceManagementDetailViewModel: ViewModel() {
     }
     private suspend fun getList(selection: String, personType: Int, day: String): AttendanceManagementListResp? {
         return kotlin.runCatching {
-            val req = AttendanceManagementListReq(selection, personType, day)
+            val personTypeStr = if (personType == 1){
+                "项目人员考勤"
+            }else{
+                "安全人员考勤"
+            }
+            val req = AttendanceManagementListReq(selection, personTypeStr, day)
             NetworkClient.client.retrofit()
                 .createService(ApiService::class.java)
                 .getAttendanceManagementList(req)

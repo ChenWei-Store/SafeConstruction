@@ -143,8 +143,8 @@
         android:layout_marginStart="@dimen/horizontal_margin_36"
         android:layout_marginEnd="@dimen/horizontal_margin_36"
         android:textSize="@dimen/sp_16"
-        android:textColor="@color/main_color"
+        android:textColor="@color/white"
         android:text="@string/login"
-        android:background="@drawable/common_8_fff_bg"/>
+        android:background="@drawable/common_8_main_color_bg"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

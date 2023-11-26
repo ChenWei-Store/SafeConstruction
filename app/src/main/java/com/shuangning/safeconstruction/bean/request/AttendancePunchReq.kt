@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
  */
 @JsonClass(generateAdapter = true)
 data class AttendancePunchReq(
-    @Json(name = "userNo") val userNo: String = "",
+    @Json(name = "userId") val userId: String = "",
     @Json(name = "longitude") val longitude: String = "",
     @Json(name = "latitude") val latitude: String = "",
 )
