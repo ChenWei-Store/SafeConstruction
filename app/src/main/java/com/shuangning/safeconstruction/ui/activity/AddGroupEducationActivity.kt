@@ -202,7 +202,6 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
             }
             val userNum = UserInfoManager.getUserInfo()?.userId?:""
             val participant = Participant(selectedPerson)
-            val jsonObject = JSONObject(JsonUtils.toJson(participant))
             val data = AddGroupEducationReq(classData!!, trainTopic, squadLeader, participant, constructionState, educationTime, userNum)
             viewModel.commit(data)
         }
