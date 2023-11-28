@@ -127,7 +127,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             PermissionManager.requestCamera(this){
                 StartActivityManager.startToScanQrcode(this)
             }
-
         }
     }
 }

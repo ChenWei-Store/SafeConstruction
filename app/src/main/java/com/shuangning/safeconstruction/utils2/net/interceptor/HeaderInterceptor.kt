@@ -12,7 +12,7 @@ class HeaderInterceptor(private val callback: NetworkClient.OnNetCallback?) : In
         val token = callback?.getToken()?:""
         val request = chain.request()
             .newBuilder()
-//            .addHeader(KeyName.TOKEN_KEY, token)
+            .addHeader("Authorization", "Bearer $token")
 //            .addHeader(KeyName.VERSION_KEY,  APPUtils.getVersionCode().toString())
 //            .addHeader(KeyName.PACKAGE_NAME_KEY, APPUtils.getPackageName())
             .build()

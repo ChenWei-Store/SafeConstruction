@@ -19,5 +19,5 @@ data class AddGroupEducationReq(
     @Json(name = "constructionState") val constructionState: String = "",
     @Json(name = "educationTime") val educationTime: String = "",
     @Json(name = "userNo") val userNo: String = "",
-//    @Json(name = "attachment") val attachment: String = "",
+    @Json(name = "attachment") val attachment: String = "",
 )

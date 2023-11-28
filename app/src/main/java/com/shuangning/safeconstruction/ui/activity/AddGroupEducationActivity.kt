@@ -3,8 +3,8 @@ package com.shuangning.safeconstruction.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -17,20 +17,19 @@ import com.shuangning.safeconstruction.bean.other.MultiSelectBean
 import com.shuangning.safeconstruction.bean.request.AddGroupEducationReq
 import com.shuangning.safeconstruction.bean.response.Participant
 import com.shuangning.safeconstruction.bean.response.ParticipantItem
+import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.databinding.ActivityAddGroupEducationBinding
 import com.shuangning.safeconstruction.extension.prepareStartForResult
 import com.shuangning.safeconstruction.manager.FROM_GROUP_EDUCATION
+import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.AddGroupEducationViewModel
-import com.shuangning.safeconstruction.utils.TimeUtils
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 import com.shuangning.safeconstruction.utils2.JsonUtils
-import org.json.JSONObject
 import java.io.File
-import java.util.Date
 
 /**
  * Created by Chenwei on 2023/11/4.
@@ -48,6 +47,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
     }
     private val persons = mutableListOf<ParticipantItem>()
     private val selectedPerson = mutableListOf<ParticipantItem>()
+    private val videos = mutableListOf<UploadVideoItem>()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddGroupEducationBinding? {
         return ActivityAddGroupEducationBinding.inflate(layoutInflater)
     }
@@ -107,11 +107,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
 
         binding?.ivAdd?.setOnClickListener {
             //录屏
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "video/*"
-            startActivityForResult(intent, 10)
-//            val file = File()
-//            viewModel.uploadVideo()
+            reqCameraPermissionAndStart()
         }
 
         binding?.tvNotWorks?.setOnDrawableClickListener(object :
@@ -190,6 +186,10 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择参会人员")
                 return@setOnClickListener
             }
+            if (videos.isEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请上传视频")
+                return@setOnClickListener
+            }
             val constructionState = if (isWork){
                 "施工"
             }else{
@@ -200,9 +200,11 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
             }else{
                 "班前"
             }
+            val jsonVideo = JsonUtils.toJson(videos)
             val userNum = UserInfoManager.getUserInfo()?.userId?:""
             val participant = Participant(selectedPerson)
-            val data = AddGroupEducationReq(classData!!, trainTopic, squadLeader, participant, constructionState, educationTime, userNum)
+            val data = AddGroupEducationReq(classData!!, trainTopic, squadLeader, participant, constructionState, educationTime, userNum, jsonVideo)
+            LoadingManager.startLoading(this)
             viewModel.commit(data)
         }
     }
@@ -223,6 +225,25 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
                 }
             }
             LoadingManager.stopLoading()
+        }
+        viewModel.video.observe(this){
+            it?.let {
+                it2->
+                if (it2.size > 0){
+                    videos.clear()
+                    videos.add(it2[0])
+                    binding?.player?.visibility = View.VISIBLE
+                    binding?.player?.setUp(it2[0].url, true, "")
+                }
+            }
+            LoadingManager.stopLoading()
+        }
+        viewModel.resp.observe(this){
+            if (it != null){
+                LoadingManager.stopLoading()
+                ToastUtil.showCustomToast("提交成功")
+                finish()
+            }
         }
     }
 
@@ -248,18 +269,11 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10) {
-            val uri = data?.data
-            uri?.let {
-                val cursor = contentResolver.query(uri, null, null, null, null)
-                if (cursor?.moveToFirst() == true) {
-                    val videoPath =
-                        cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA))
-                    cursor.close()
-                    val file = File(videoPath)
-                    viewModel.uploadVideo(file)
-                }
-            }
+        if (requestCode == 8){
+            val path = data?.getStringExtra("path")?:""
+            val file = File(path)
+            LoadingManager.startLoading(this)
+            viewModel.uploadVideo(file)
         }
     }
 
@@ -271,4 +285,12 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
             }
         }
     }
+
+    private fun reqCameraPermissionAndStart(){
+        PermissionManager.requestCamera(this){
+            ActivityUtils.startForResult(this@AddGroupEducationActivity,
+                CaptureVideoActivity::class.java, 8)
+        }
+    }
+
 }

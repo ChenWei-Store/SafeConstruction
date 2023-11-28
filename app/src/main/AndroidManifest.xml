@@ -5,7 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
+    <uses-feature android:name="android.hardware.camera.any" />
     <!--网络-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -19,7 +19,8 @@
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-
+    <!--录制音频权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!--下面是相关存储权限-->
     <!-- 声明即可，不需要授权-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -176,7 +177,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-
+        <activity android:name=".ui.activity.CaptureVideoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.AddGroupEducationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"

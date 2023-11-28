@@ -40,7 +40,8 @@ class CustomLogInterceptor: Interceptor {
         if (request == null) {
             return ""
         }
-        val requestParams = getRequestParams(request)
+//        val requestParams = getRequestParams(request)
+        val requestParams = ""
         val needPrintRequestParams = requestParams.contains("file").not()
         return "Request Url-->：${request.method} ${request.url} \r\n Request Header-->：${
             getRequestHeaders(

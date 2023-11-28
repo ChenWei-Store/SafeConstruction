@@ -1,12 +1,11 @@
 package com.shuangning.safeconstruction.utils2.net
 
-import com.shuangning.safeconstruction.BuildConfig
 import com.shuangning.safeconstruction.utils.PathUtils
 import com.shuangning.safeconstruction.utils2.MyLog
-import com.shuangning.safeconstruction.utils2.net.calladapter.httpResult.ResultCallAdapterFactory
 import com.shuangning.safeconstruction.utils2.net.calladapter.string2Result.String2ResultCallAdapterFactory
 import com.shuangning.safeconstruction.utils2.net.convert.StringResponseConvertFactory
 import com.shuangning.safeconstruction.utils2.net.interceptor.CustomLogInterceptor
+import com.shuangning.safeconstruction.utils2.net.interceptor.HeaderInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -59,7 +58,7 @@ class NetworkClient {
             .readTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
             .connectTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
             .cache(cache)
-//            .addInterceptor(HeaderInterceptor(callback))
+            .addInterceptor(HeaderInterceptor(callback))
             .addInterceptor(CustomLogInterceptor())
             .build()
     }
@@ -82,7 +81,7 @@ class NetworkClient {
     interface OnNetCallback{
         fun onCodeError(code: Int, msg: String)
         fun onOtherError(throwable: Throwable)
-        fun getToken(): String?
+        fun getToken(): String
     }
 
     companion object{

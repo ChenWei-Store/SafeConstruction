@@ -7,12 +7,13 @@ import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
-import com.shuangning.safeconstruction.bean.response.AttendancePunchResp
+import com.shuangning.safeconstruction.bean.response.Resp
 import com.shuangning.safeconstruction.bean.response.GetTeamInfoDetailResp
 import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
 import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
+import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import okhttp3.MultipartBody
@@ -39,7 +40,7 @@ interface ApiService {
     @POST(ATTENDANCE_MANAGEMENT_SECTION_LIST)
     suspend fun getAttendanceManagementSectionList(@Field("companyType") companyType: String): HttpResult<MutableList<String>>?
     @POST(ATTENDANCE_PUNCH)
-    suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<AttendancePunchResp>?
+    suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<Resp>?
     @POST(GROUP_EDUCATION_LIST)
     suspend fun getGroupEducationList(@Body data: GroupEducationListReq): HttpResult<GroupEducationListResp>?
 
@@ -47,9 +48,9 @@ interface ApiService {
     suspend fun getoinParticipant(@Body data: JoinParticipantReq): HttpResult<JoinParticipantResp>?
     @Multipart
     @POST(UPLOAD_VIDEO)
-    suspend fun uploadVideo(@Part file: MultipartBody.Part): HttpResult<Any>?
+    suspend fun uploadVideo(@Part file: MultipartBody.Part): HttpResult<MutableList<UploadVideoItem>>?
     @POST(ADD_GROUP_EDUCATION)
-    suspend fun addGroupEducation(@Body data: AddGroupEducationReq): HttpResult<Any>?
+    suspend fun addGroupEducation(@Body data: AddGroupEducationReq): HttpResult<Resp>?
 
     @FormUrlEncoded
     @POST(GROUP_DEUCATION_DETAIL)

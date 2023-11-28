@@ -1,5 +1,6 @@
 package com.shuangning.safeconstruction.data.net
 
+import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils.archcore.ArchTaskExecutor
 import com.shuangning.safeconstruction.utils2.MyLog
@@ -25,9 +26,8 @@ class OnNetCallbackImpl: NetworkClient.OnNetCallback {
         showToast("请求失败")
     }
 
-    override fun getToken(): String? {
-        //用不到
-        return ""
+    override fun getToken(): String {
+        return UserInfoManager.getToken()?:""
     }
 
     private fun showToast(msg: String){

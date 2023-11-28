@@ -16,12 +16,12 @@ import java.security.Permission
  */
 object PermissionManager {
     fun requestCamera(ctx: FragmentActivity, block:()-> Unit){
-        if (PermissionX.isGranted(ctx, Manifest.permission.CAMERA)){
+        if (PermissionX.isGranted(ctx, Manifest.permission.CAMERA) && PermissionX.isGranted(ctx, Manifest.permission.RECORD_AUDIO)){
             block()
         }else{
             XPopCreateUtils.showConfirmCancelDialog(ctx, "", "应用程序需要拍照的权限，请授权"){
                 PermissionX.init(ctx)
-                    .permissions(Manifest.permission.CAMERA)
+                    .permissions(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
                     .request { allGranted, grantedList, deniedList ->
                         if (!allGranted){
                             if (ActivityCompat.shouldShowRequestPermissionRationale(ctx, Manifest.permission.CAMERA)) {

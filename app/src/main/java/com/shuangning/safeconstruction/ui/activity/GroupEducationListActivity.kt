@@ -170,9 +170,9 @@ class GroupEducationListActivity: BaseActivity<ActivityGroupEducationListBinding
                         TimeUtils.parseTime(it.endDate, yyyy_MM_dd)
                     }
                     val status = if (it.status == 0){
-                        "全部"
+                        ""
                     }else if (it.status == 1){
-                        "施工"
+                        "已施工"
                     }else{
                         "未施工"
                     }

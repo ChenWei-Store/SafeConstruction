@@ -7,6 +7,6 @@ import com.squareup.moshi.JsonClass
  * Created by Chenwei on 2023/11/26.
  */
 @JsonClass(generateAdapter = true)
-data class AttendancePunchResp(
+data class Resp(
     @Json(name = "result") val result: Boolean = false,
 )

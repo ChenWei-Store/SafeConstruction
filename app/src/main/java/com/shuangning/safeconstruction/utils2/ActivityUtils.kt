@@ -83,4 +83,16 @@ object ActivityUtils {
         intent.addExtra()
         ctx.startActivity(intent)
     }
+
+    fun <T: AppCompatActivity>startForResult(ctx: Context, cls: Class<T>,
+                                             requestCode: Int){
+        val intent = Intent(ctx, cls)
+        (ctx as? Activity)?.startActivityForResult(intent, requestCode)
+    }
+    fun <T: AppCompatActivity>startForResult(ctx: Context, cls: Class<T>,
+                                             requestCode: Int, addExtra: Intent.()->Unit){
+        val intent = Intent(ctx, cls)
+        intent.addExtra()
+        (ctx as? Activity)?.startActivityForResult(intent, requestCode)
+    }
 }

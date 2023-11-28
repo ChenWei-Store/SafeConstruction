@@ -215,6 +215,7 @@ class AttendanceManagementDetailActivity :
         }
         viewModel.result.observe(this) {
             it?.result?.let {
+                data.clear()
                 it.forEach {
                         it2->
                     val item = AttendanceData.transform(it2)

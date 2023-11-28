@@ -22,11 +22,11 @@ public class ArchTaskExecutor extends TaskExecutor {
     private final TaskExecutor mDefaultTaskExecutor;
 
     @NonNull
-    private static final Executor sMainThreadExecutor =
+    public static final Executor sMainThreadExecutor =
             command -> getInstance().postToMainThread(command);
 
     @NonNull
-    private static final Executor sIOThreadExecutor =
+    public static final Executor sIOThreadExecutor =
             command -> getInstance().executeOnDiskIO(command);
 
     private ArchTaskExecutor() {
