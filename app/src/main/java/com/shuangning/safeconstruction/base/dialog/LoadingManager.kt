@@ -1,6 +1,7 @@
 package com.shuangning.safeconstruction.base.dialog
 
 import android.content.Context
+import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.shuangning.safeconstruction.utils2.MyLog
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
@@ -16,7 +17,7 @@ object LoadingManager {
             dialog = LoadingDialog(ctx)
         }
         dialog?.let {
-            XPopCreateUtils.commonShow2(ctx, it)
+           show(ctx, it)
         }
     }
 
@@ -26,5 +27,16 @@ object LoadingManager {
             dialog?.dismiss()
         }
         dialog = null
+    }
+
+    fun show(ctx: Context, basePopupView: BasePopupView): BasePopupView {
+        return XPopup.Builder(ctx)
+            .isDestroyOnDismiss(false)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(false)
+            .enableDrag(false)
+            .isThreeDrag(false)
+            .asCustom(basePopupView)
+            .show()
     }
 }

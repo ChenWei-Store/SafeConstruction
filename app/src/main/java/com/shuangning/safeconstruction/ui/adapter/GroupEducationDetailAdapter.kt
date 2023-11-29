@@ -2,6 +2,7 @@ package com.shuangning.safeconstruction.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
@@ -9,9 +10,13 @@ import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
+import com.shuangning.safeconstruction.bean.response.Participant
+import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.databinding.ItemGroupEducationDetailContentBinding
 import com.shuangning.safeconstruction.databinding.ItemGroupEducationDetailHeaderBinding
 import com.shuangning.safeconstruction.utils2.ImageLoader
+import com.shuangning.safeconstruction.utils2.JsonUtils
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/11/5.
@@ -38,8 +43,14 @@ class GroupEducationDetailAdapter(data:  MutableList<IItemViewType>): CommonBase
                     binding.tvTime.text = item.educationTime
                     binding.tvStatus.text=item.buildStatus
                     binding.tvCreatePerson.text="${item.createBy} ${item.createTime}"
+                    if (item.attachment.isNotEmpty()){
+                        val url = parseVideoUrl(item.attachment)
+                        binding.player.visibility = View.VISIBLE
+                        binding.player.setUp(url, true, "")
+                    }else{
+                        binding.player.visibility = View.GONE
+                    }
                 }
-
             }
 
             is ItemGroupEducationDetailContentBinding->{
@@ -54,6 +65,12 @@ class GroupEducationDetailAdapter(data:  MutableList<IItemViewType>): CommonBase
 
     }
 
+    private fun parseVideoUrl(json: String): String{
+        val jsonObj = JSONObject(json)
+        val jsonArray = jsonObj.optJSONArray("attach")
+        val result = jsonArray.optJSONObject(0)
+        return result.optString("url")
+    }
     override fun getViewBinding(
         inflater: LayoutInflater,
         parent: ViewGroup,

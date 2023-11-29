@@ -18,6 +18,7 @@ data class GroupEducationDetailResp(
     @Json(name = "createTime") val createTime: String = "",
     @Json(name = "buildStatus") val buildStatus: String = "",
     @Json(name = "educationTime") val educationTime: String = "",
+    @Json(name = "attachment") val attachment: String = "",
     @Json(ignore = true) var type: Int = CONTENT,
     ): IItemViewType{
     override fun getItemType(): Int {

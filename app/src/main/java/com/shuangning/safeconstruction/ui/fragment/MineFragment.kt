@@ -21,7 +21,13 @@ import com.shuangning.safeconstruction.utils.ToastUtil
  * Created by Chenwei on 2023/10/7.
  */
 class MineFragment: BaseFragment<FragmentMineBinding>() {
-    private val mineViewModel by viewModels<MineViewModel>()
+    private val name: String by lazy{
+        arguments?.getString(NAME)?:""
+    }
+
+    private val companyName: String by lazy{
+        arguments?.getString(COMPANY_NAME)?: ""
+    }
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -31,18 +37,12 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.tvVersion?.text = APPUtils.getVersionName()
-    }
-
-    private fun showData(userInfoResp: UserInfoResp) {
-        binding?.tvName?.text = userInfoResp.extend.name
-        binding?.tvDepartment?.text = userInfoResp.extend.company.realCompany.companyName
+        binding?.tvName?.text = name
+        binding?.tvDepartment?.text = companyName
     }
 
     override fun initData() {
-        activity?.apply {
-            LoadingManager.startLoading(this)
-        }
-        mineViewModel.getUserInfo()
+
     }
 
     override fun initListener() {
@@ -77,11 +77,19 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
         MMKVResp.resp.clear()
     }
     override fun observeViewModel() {
-        mineViewModel.userInfo.observe(this){
-            it?.let {
-                showData(it)
-            }
-            LoadingManager.stopLoading()
+
+    }
+
+    companion object{
+        const val NAME = "name"
+        const val COMPANY_NAME = "companyName"
+        fun newInstance(name: String, companyName: String): MineFragment{
+            val bundle = Bundle()
+            bundle.putString(NAME, name)
+            bundle.putString(COMPANY_NAME, companyName)
+            val fragment = MineFragment()
+            fragment.arguments = bundle
+            return fragment
         }
     }
 }

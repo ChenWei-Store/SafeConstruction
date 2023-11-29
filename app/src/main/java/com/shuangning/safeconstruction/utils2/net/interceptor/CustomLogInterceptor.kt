@@ -1,8 +1,8 @@
 package com.shuangning.safeconstruction.utils2.net.interceptor
 
-import com.shuangning.safeconstruction.utils2.MAX_LENGTH
 import com.shuangning.safeconstruction.utils2.MyLog
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
@@ -14,45 +14,31 @@ import java.nio.charset.Charset
 class CustomLogInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val requestLog = generateRequestLog(request)
         val response = chain.proceed(request)
-        val responseLog = generateResponseLog(response)
-        MyLog.d(requestLog)
-        MyLog.d(responseLog)
+        printRequestLog(request)
+        printResponseLog(response)
         return response
     }
 
-    private fun generateResponseLog(response: Response?): String {
+    private fun printResponseLog(response: Response?){
         if (response == null) {
-            return ""
+            return
         }
-        return "Response Result ${
-            if (response.code != 200)
-                response.code
-            else
-                ""
-        } -->：${
-            getResponseText(response)
-        }"
+        MyLog.d("response: code=${response.code} data=${getResponseText(response)}")
     }
 
-    private fun generateRequestLog(request: Request?): String {
+    private fun printRequestLog(request: Request?) {
         if (request == null) {
-            return ""
+            return
         }
-//        val requestParams = getRequestParams(request)
-        val requestParams = ""
-        val needPrintRequestParams = requestParams.contains("file").not()
-        return "Request Url-->：${request.method} ${request.url} \r\n Request Header-->：${
-            getRequestHeaders(
-                request
-            )
-        } \r\n Request Parameters-->：${
-            if (needPrintRequestParams)
-                requestParams
-            else
-                "文件上传，不打印请求参数"
-        } \r\n "
+        MyLog.d("request:${request.method} ${request.url}")
+        MyLog.d("header:${getRequestHeaders(request)}")
+        val body = request.body
+        if (body is MultipartBody){
+            MyLog.d("Multipart: size=${body.parts.size}")
+        }else{
+            MyLog.d("request param: ${getRequestParams(request)}")
+        }
     }
 
     /**

@@ -42,11 +42,6 @@ class GroupEducationDetailActivity: BaseActivity<ActivityGroupEducationDetailBin
     override fun initData() {
         LoadingManager.startLoading(this)
         viewModel.getData(trainTopic)
-//        data.add(ItemViewType(HEADER))
-//        data.add(ItemViewType())
-//        data.add(ItemViewType())
-//        data.add(ItemViewType())
-
     }
 
     override fun doBeforeSetContentView() {

@@ -266,5 +266,6 @@
         android:layout_marginStart="@dimen/horizontal_margin_16"
         android:layout_marginEnd="@dimen/horizontal_margin_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_divider9" />
+        app:layout_constraintTop_toBottomOf="@id/view_divider9"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

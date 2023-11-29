@@ -183,10 +183,12 @@
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.AddGroupEducationActivity"
             android:exported="false"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
         <activity android:name=".ui.activity.GroupEducationDetailActivity"
             android:exported="false"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
         <!--百度定位需要的-->

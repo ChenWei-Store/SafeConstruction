@@ -11,7 +11,7 @@ data class UploadVideoItem(
     @Json(name = "size") val size: Long = 0L,
     @Json(name = "createTime") val createTime: String = "",
     @Json(name = "name") val name: String = "",
-    @Json(name = "id") val id: String = "",
+    @Json(name = "id") val id: Int = 0,
     @Json(name = "key") val key: String = "",
     @Json(name = "url") val url: String = "",
     @Json(name = "storageId") val storageId: String = "",

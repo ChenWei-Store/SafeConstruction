@@ -2,7 +2,9 @@ package com.shuangning.safeconstruction.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -29,6 +31,7 @@ import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 import com.shuangning.safeconstruction.utils2.JsonUtils
+import com.shuangning.safeconstruction.utils2.MyLog
 import java.io.File
 
 /**
@@ -201,6 +204,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
                 "班前"
             }
             val jsonVideo = JsonUtils.toJson(videos)
+            MyLog.d( "jsonVideo:$jsonVideo")
             val userNum = UserInfoManager.getUserInfo()?.userId?:""
             val participant = Participant(selectedPerson)
             val data = AddGroupEducationReq(classData!!, trainTopic, squadLeader, participant, constructionState, educationTime, userNum, jsonVideo)
@@ -228,7 +232,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         }
         viewModel.video.observe(this){
             it?.let {
-                it2->
+                    it2->
                 if (it2.size > 0){
                     videos.clear()
                     videos.add(it2[0])
@@ -270,7 +274,10 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 8){
-            val path = data?.getStringExtra("path")?:""
+            val uri = data?.getStringExtra("path")?:""
+            MyLog.d("uri2:$uri")
+            val path = getFilePathFromContentUri(Uri.parse(uri))
+            MyLog.d("path:$path")
             val file = File(path)
             LoadingManager.startLoading(this)
             viewModel.uploadVideo(file)
@@ -293,4 +300,23 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         }
     }
 
+    /**
+     * 把content uri转为 文件路径
+     *
+     * @param contentUri      要转换的content uri
+     * @return
+     */
+    private fun getFilePathFromContentUri(contentUri: Uri): String{
+        var filePath = ""
+        val filePathColumn = arrayOf( MediaStore.Video.Media.DATA)
+        val cursor = contentResolver.query(contentUri, filePathColumn, null, null, null)
+        cursor?.let {
+            val columnIndex = it.getColumnIndex(filePathColumn[0])
+            it.moveToFirst()
+            filePath = it.getString(columnIndex)
+            cursor.close()
+        }
+
+        return filePath
+    }
 }
