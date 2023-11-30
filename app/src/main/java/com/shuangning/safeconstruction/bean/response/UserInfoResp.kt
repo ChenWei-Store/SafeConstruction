@@ -10,7 +10,7 @@ import com.squareup.moshi.JsonClass
 data class UserInfoResp(
     @Json(name="token") val token: String = "",
     @Json(name="userId") val userId: String = "",
-    @Json(name="extend") val extend: Extends = Extends(),
+    @Json(name="extendInfo") val extend: Extends = Extends(),
 
 )
 

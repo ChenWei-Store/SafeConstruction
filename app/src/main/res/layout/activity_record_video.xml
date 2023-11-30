@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <androidx.camera.view.PreviewView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/white"
         android:text="开始"
-        android:background="@drawable/common_8_main_color_bg"/>
-    <androidx.camera.view.PreviewView
-        android:id="@+id/preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/btn_start" />
-</RelativeLayout>
+        android:background="@drawable/common_8_main_color_bg"
+        android:layout_gravity="bottom|center_horizontal"/>
+</FrameLayout>

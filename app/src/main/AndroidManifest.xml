@@ -177,7 +177,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
-        <activity android:name=".ui.activity.CaptureVideoActivity"
+        <activity android:name=".ui.activity.RecordVideoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden"/>

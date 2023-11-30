@@ -273,8 +273,8 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 8){
-            val uri = data?.getStringExtra("path")?:""
+        if (requestCode == 8 && resultCode == RESULT_OK){
+            val uri = data?.getStringExtra("uri")?:""
             MyLog.d("uri2:$uri")
             val path = getFilePathFromContentUri(Uri.parse(uri))
             MyLog.d("path:$path")
@@ -296,7 +296,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
     private fun reqCameraPermissionAndStart(){
         PermissionManager.requestCamera(this){
             ActivityUtils.startForResult(this@AddGroupEducationActivity,
-                CaptureVideoActivity::class.java, 8)
+                RecordVideoActivity::class.java, 8)
         }
     }
 
