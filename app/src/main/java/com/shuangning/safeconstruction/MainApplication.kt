@@ -1,5 +1,6 @@
 package com.shuangning.safeconstruction
 
+import com.baidu.mapapi.SDKInitializer
 import com.shuangning.safeconstruction.base.BaseApplication
 import com.shuangning.safeconstruction.data.net.OnNetCallbackImpl
 import com.shuangning.safeconstruction.manager.UserInfoManager
@@ -13,7 +14,7 @@ class MainApplication: BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         UserInfoManager.init()
-        BaiduLocation.init()
         NetworkClient.client.init(BuildConfig.BASE_URL, OnNetCallbackImpl())
+        BaiduLocation.init()
     }
 }

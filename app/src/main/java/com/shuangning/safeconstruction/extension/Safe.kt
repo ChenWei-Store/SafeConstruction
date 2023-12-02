@@ -6,7 +6,7 @@ package com.shuangning.safeconstruction.extension
  */
 
 fun String?.safeString(block:String.()-> Unit){
-    if (this == null){
+    if (this == null || this.isEmpty()){
         return
     }
     block()
@@ -17,5 +17,16 @@ fun <T> Any?.safe(block: T.()-> Unit){
         return
     }
     block(this as T)
+}
+
+inline fun <R> Any?.safeObjects(vararg args: Any?, block: (args: List<Any>) -> R): Any?{
+    val list = args.filterNotNullTo(ArrayList<Any>())
+    return if (list.size == args.size && this != null){
+        list.add(0, this)
+        block(list)
+        list
+    }else{
+        null
+    }
 }
 

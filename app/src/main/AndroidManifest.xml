@@ -82,6 +82,9 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <!--适配华为（huawei）刘海屏-->
         <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH" />
+        <meta-data
             android:name="android.notch_support"
             android:value="true"/>
         <!--适配小米（xiaomi）刘海屏-->
@@ -191,6 +194,12 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.QrcodeResultActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" >
+        </activity>
         <!--百度定位需要的-->
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote" />
     </application>

@@ -10,6 +10,8 @@ import android.provider.MediaStore
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
+import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -29,6 +31,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenCreated
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityRecordVideoBinding
+import com.shuangning.safeconstruction.extension.getAspectRatio
+import com.shuangning.safeconstruction.extension.getAspectRatioString
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils2.MyLog
@@ -38,13 +42,11 @@ import kotlinx.coroutines.async
  * Created by Chenwei on 2023/11/27.
  */
 class RecordVideoActivity : BaseActivity<ActivityRecordVideoBinding>() {
-    private var cameraIndex = 0
     private var videoCapture: VideoCapture<Recorder>? = null
     private var isStart = false
     private var recording: Recording? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var preview: Preview? = null
-    private val cameraCapabilities = mutableListOf<CameraCapability>()
     private val mainThreadExecutor by lazy {
         ContextCompat.getMainExecutor(this)
     }
@@ -58,66 +60,51 @@ class RecordVideoActivity : BaseActivity<ActivityRecordVideoBinding>() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
             cameraProvider = cameraProviderFuture.get()
-            initCameraCapabilities(cameraProvider)
-            cameraIndex = (cameraIndex + 1) % cameraCapabilities.size
+
             cameraProvider?.let {
                 bindPreview()
             }
         }, mainThreadExecutor)
     }
 
-    private fun initCameraCapabilities(cameraProvider: ProcessCameraProvider?) {
-        val camSelector = CameraSelector.DEFAULT_BACK_CAMERA
-        try {
-            cameraProvider?.let { provider ->
-                {
-                    if (provider.hasCamera(camSelector)) {
-                        val camera = provider.bindToLifecycle(this@RecordVideoActivity, camSelector)
-                        QualitySelector
-                            .getSupportedQualities(camera.cameraInfo)
-                            .filter { quality ->
-                                listOf(Quality.UHD, Quality.FHD, Quality.HD, Quality.SD)
-                                    .contains(quality)
-                            }.also {
-                                cameraCapabilities.add(CameraCapability(camSelector, it))
-                            }
-                    }
-                }
-            }
-        } catch (exc: java.lang.Exception) {
-            MyLog.e( "Camera Face $camSelector is not supported")
-            ToastUtil.showCustomToast("当前设备不支持后置摄像头")
-            finish()
-        }
-    }
 
     private fun bindPreview() {
-        preview = Preview.Builder()
-            .build()
+        val quality = Quality.SD
+        val qualitySelector = QualitySelector.from(quality)
+        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
+        binding?.preview?.updateLayoutParams<ConstraintLayout.LayoutParams> {
+            val orientation = this@RecordVideoActivity.resources.configuration.orientation
+            dimensionRatio = quality.getAspectRatioString(
+                quality,
+                (orientation == Configuration.ORIENTATION_PORTRAIT)
+            )
+        }
+
+        preview = Preview.Builder()
+            .setTargetAspectRatio(quality.getAspectRatio(quality))
+            .build()
         binding?.preview?.surfaceProvider?.let {
             preview?.setSurfaceProvider(it)
         }
-//        binding?.preview?.updateLayoutParams<ConstraintLayout.LayoutParams> {
-//            val orientation = this@RecordVideoActivity.resources.configuration.orientation
-//            dimensionRatio = quality.getAspectRatioString(quality,
-//                (orientation == Configuration.ORIENTATION_PORTRAIT))
-//        }
-        val qualitySelector = QualitySelector.fromOrderedList(
-            listOf(Quality.UHD, Quality.FHD, Quality.HD, Quality.SD),
-            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD)
-        )
         val recorder = Recorder.Builder()
             .setQualitySelector(qualitySelector)
             .build()
         videoCapture = VideoCapture.withOutput(recorder)
 
-
         try {
-            cameraProvider?.unbindAll()
-            cameraProvider?.bindToLifecycle(
-                this, CameraSelector.DEFAULT_BACK_CAMERA, preview, videoCapture
-            )
+            cameraProvider?.apply {
+                if (!hasCamera(cameraSelector)) {
+                    ToastUtil.showCustomToast("当前手机不支持后置摄像头")
+                    finish()
+                    return
+                }
+                unbindAll()
+                bindToLifecycle(
+                    this@RecordVideoActivity, cameraSelector, preview, videoCapture
+                )
+            }
+
         } catch (exc: Exception) {
             MyLog.e("Use case binding failed:${exc.message}")
         }

@@ -10,7 +10,7 @@ import com.squareup.moshi.JsonClass
 data class HttpResult<T>(
     @Json(name = "code") val code: Int,
     @Json(name = "message") val message: String,
-    @Json(name = "data") val data: T?
+    @Json(name = "data") val data: T? = null
 )
 
 fun <T> HttpResult<T>.getOrNull(): T? {

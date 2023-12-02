@@ -7,6 +7,7 @@ import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
+import com.shuangning.safeconstruction.bean.response.GetProjectBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.Resp
 import com.shuangning.safeconstruction.bean.response.GetTeamInfoDetailResp
 import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
@@ -14,6 +15,7 @@ import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
+import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import okhttp3.MultipartBody
@@ -58,7 +60,13 @@ interface ApiService {
     @FormUrlEncoded
     @POST(GROUP_LIST)
     suspend fun getGroupList(@Field("section") section: String): HttpResult<MutableList<String>>?
-    @FormUrlEncoded
-    @POST(TEAM_INFO)
+    @GET(TEAM_INFO)
     suspend fun getTeamInfo(@Field("section") section: String, @Field("teamGroup") teamGroup: String): HttpResult<GetTeamInfoDetailResp>?
+    @GET(PROJECT_BASE_INFO)
+    suspend fun getProjectBaseInfo(): HttpResult<GetProjectBaseInfoResp>?
+
+    @FormUrlEncoded
+    @POST(USER_BASE_INFO)
+    suspend fun getUserBaseInfo(@Field("userId") userId: Int): HttpResult<UserBaseInfoResp>?
+
 }

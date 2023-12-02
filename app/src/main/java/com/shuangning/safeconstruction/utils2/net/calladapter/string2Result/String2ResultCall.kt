@@ -70,9 +70,14 @@ class String2ResultCall(
                     }?:let {
                         val dataJson = response.body()
                         if (dataJson is String){
-                            val json = createJson(dataJson)
-                            val data = JsonUtils.fromJson<HttpResult<Any?>>(json, dataType)
-                            callback.onResponse(this@String2ResultCall, Response.success(data))
+                            if(dataJson.isNullOrEmpty()){
+                                val data = HttpResult<Any>(200, "empty data")
+                                callback.onResponse(this@String2ResultCall, Response.success(data))
+                            }else{
+                                val json = createJson(dataJson)
+                                val data = JsonUtils.fromJson<HttpResult<Any?>>(json, dataType)
+                                callback.onResponse(this@String2ResultCall, Response.success(data))
+                            }
                         }else{
                             callback.onResponse(this@String2ResultCall, Response.success(dataJson))
                         }

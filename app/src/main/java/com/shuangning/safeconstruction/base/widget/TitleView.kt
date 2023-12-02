@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.annotation.ColorRes
 import com.shuangning.safeconstruction.databinding.ViewTitleBinding
 import com.shuangning.safeconstruction.utils.ScreenUtil
@@ -30,7 +29,7 @@ class TitleView @JvmOverloads constructor(
         }
 
         binding?.back?.setOnClickListener {
-            ActivityUtils.finishActivity()
+            ActivityUtils.removeActivity()
         }
     }
 

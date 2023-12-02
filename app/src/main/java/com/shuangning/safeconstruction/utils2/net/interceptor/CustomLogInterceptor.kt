@@ -1,5 +1,6 @@
 package com.shuangning.safeconstruction.utils2.net.interceptor
 
+import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils2.MyLog
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
@@ -24,7 +25,7 @@ class CustomLogInterceptor: Interceptor {
         if (response == null) {
             return
         }
-        MyLog.d("response: code=${response.code} data=${getResponseText(response)}")
+        MyLog.d("response:code=${response.code} data=${getResponseText(response)}")
     }
 
     private fun printRequestLog(request: Request?) {
@@ -33,11 +34,12 @@ class CustomLogInterceptor: Interceptor {
         }
         MyLog.d("request:${request.method} ${request.url}")
         MyLog.d("header:${getRequestHeaders(request)}")
+        MyLog.d("token:${UserInfoManager.getToken()}")
         val body = request.body
         if (body is MultipartBody){
-            MyLog.d("Multipart: size=${body.parts.size}")
+            MyLog.d("Multipart:size=${body.parts.size}")
         }else{
-            MyLog.d("request param: ${getRequestParams(request)}")
+            MyLog.d("request param:${getRequestParams(request)}")
         }
     }
 

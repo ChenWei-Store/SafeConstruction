@@ -88,7 +88,7 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-      ActivityUtils.finishActivity()
+      ActivityUtils.removeActivity()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -105,7 +105,7 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
         AdaptScreenUtil.setCustomDensity(this, application, BuildConfig.DESIGN_WIDTH_DP)
     }
     open fun isRegisterEventbus(): Boolean{
-        return false
+        return true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

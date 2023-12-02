@@ -54,7 +54,7 @@ object ActivityUtils {
             index--
         }
     }
-    fun finishActivity(){
+    fun removeActivity(){
         activities[activities.size - 1].finish()
         activities.removeAt(activities.size - 1)
 //        if(activities.size == 0){

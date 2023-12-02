@@ -4,6 +4,7 @@ import com.baidu.location.BDLocation
 import com.baidu.location.BDLocationListener
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
+import com.baidu.mapapi.SDKInitializer
 import com.shuangning.safeconstruction.BuildConfig
 import com.shuangning.safeconstruction.base.BaseApplication
 
@@ -18,6 +19,9 @@ object BaiduLocation: BDLocationListener{
     private var locationClient: LocationClient?= null
     private var locationCallback: OnLocationResultCallback?= null
     fun init(){
+        SDKInitializer.setAgreePrivacy(BaseApplication.appContext, true)
+        SDKInitializer.initialize(BaseApplication.appContext)
+        SDKInitializer.setApiKey(BuildConfig.BAIDU_LBS_AK)
         LocationClient.setKey(BuildConfig.BAIDU_LBS_AK)
         //同意隐私政策后调用setAgreePrivacy接口以进行SDK初始化
         LocationClient.setAgreePrivacy(true)
@@ -31,7 +35,7 @@ object BaiduLocation: BDLocationListener{
             //第一次时准确度优先
             options.firstLocType = LocationClientOption.FirstLocType.ACCURACY_IN_FIRST_LOC
             //定位请求的间隔,ms,0为获取一次，如果设置非0，需设置1000ms以上才有效
-            options.scanSpan = 0
+            options.scanSpan = 1500
             options.setIsNeedLocationDescribe(true)
             options.setIsNeedAddress(true)
             locationClient?.locOption = options

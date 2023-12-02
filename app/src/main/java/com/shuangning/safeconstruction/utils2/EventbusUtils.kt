@@ -19,7 +19,7 @@ object EventbusUtils {
     private fun getEventbus() = EventBus.getDefault()
     fun register(any: Any) = getEventbus().register(any)
     fun unregister(any: Any) = getEventbus().unregister(any)
-    fun post(code: Int, any: Any?)= getEventbus().post(MessageEvent(code, any))
-    fun postSticky(code: Int, any: Any?) = getEventbus().postSticky(MessageEvent(code, any))
+    fun post(code: Int, any: Any? = null)= getEventbus().post(MessageEvent(code, any))
+    fun postSticky(code: Int, any: Any? = null) = getEventbus().postSticky(MessageEvent(code, any))
     fun cancelEventDelivery(event: MessageEvent) = getEventbus().cancelEventDelivery(event)
 }

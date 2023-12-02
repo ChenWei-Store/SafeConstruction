@@ -1,31 +1,27 @@
 package com.shuangning.safeconstruction.ui.activity
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
-import cn.bingoogolapple.qrcode.core.BGAQRCodeUtil
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
-import com.luck.picture.lib.engine.UriToFileTransformEngine
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
-import com.luck.picture.lib.utils.SandboxTransformUtils
 import com.shuangning.safeconstruction.base.BaseActivity
+import com.shuangning.safeconstruction.bean.other.QRcodeResult
 import com.shuangning.safeconstruction.databinding.ActivityScanQrcodeBinding
-import com.shuangning.safeconstruction.ui.web.CommonWebActivity
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ToastUtil
-import com.shuangning.safeconstruction.utils2.MyLog
+import com.shuangning.safeconstruction.utils2.JsonUtils
 
 
 /**
  * Created by Chenwei on 2023/10/15.
  */
-class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.Delegate {
+class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.Delegate {
     private var isOpenFlashLight = false
+    private var userId: Int = -1
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityScanQrcodeBinding? {
         return ActivityScanQrcodeBinding.inflate(layoutInflater)
     }
@@ -39,6 +35,7 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
     override fun initData() {
 
     }
+
     override fun doBeforeSetContentView() {
     }
 
@@ -50,9 +47,9 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
             finish()
         }
         binding?.flashLight?.setOnClickListener {
-            if (isOpenFlashLight){
+            if (isOpenFlashLight) {
                 binding?.zxingview?.closeFlashlight()
-            }else{
+            } else {
                 binding?.zxingview?.openFlashlight()
             }
             isOpenFlashLight = !isOpenFlashLight
@@ -63,7 +60,7 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
         }
     }
 
-    private fun selectPicture(){
+    private fun selectPicture() {
         PictureSelector.create(this)
             .openGallery(SelectMimeType.ofImage())
             .setImageEngine(GlideEngine.createGlideEngine())
@@ -78,6 +75,7 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
                         }
                     }
                 }
+
                 override fun onCancel() {}
             })
     }
@@ -102,12 +100,14 @@ class ScanQrcodeActivity: BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.
     }
 
     override fun onScanQRCodeSuccess(result: String?) {
-        result?.let{
-//            ToastUtil.showCustomToast(it)
-            //TODO:根据格式解析出url
-            CommonWebActivity.start(this, it)
-        }?:let {
-            ToastUtil.showCustomToast("解析二维码失败")
+        result?.let {
+            val data = JsonUtils.fromJson<QRcodeResult>(result)
+            data?.takeIf { it2 ->
+                it2.userId > -1 && it2.userId != userId
+            }?.let {
+                userId = it.userId
+                QrcodeResultActivity.startTo(this@ScanQrcodeActivity, userId)
+            }
         }
         binding?.zxingview?.startSpot()
 
