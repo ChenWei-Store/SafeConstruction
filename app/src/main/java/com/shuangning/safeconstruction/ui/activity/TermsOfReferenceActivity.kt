@@ -1,6 +1,7 @@
 package com.shuangning.safeconstruction.ui.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
 class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() {
     private var termsOfReferencesAdapter: TermsOfReferencesMultiAdapter?= null
     private var data: MutableList<IItemViewType> = mutableListOf()
+
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityTermsOfReferenceBinding? {
         return ActivityTermsOfReferenceBinding.inflate(layoutInflater)
     }
@@ -63,9 +65,11 @@ class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() 
     override fun initListener() {
         termsOfReferencesAdapter?.setOnItemClickListener(object: OnItemClickListener<IItemViewType> {
             override fun onItemClick(data: IItemViewType, position: Int) {
-                if (data.getItemType() == LEVEL_THREE) {
+                if (data is TermsOfReferenceLevelThree) {
+                    val intent = Intent()
+                    intent.putExtra("data", data.title)
+                    setResult(RESULT_OK, intent)
                     finish()
-                    setResult(RESULT_OK)
                     return
                 }
                 if (data.getItemType() == LEVEL_ONE || data.getItemType() == LEVEL_TWO) {
@@ -85,8 +89,8 @@ class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() 
     }
 
     companion object{
-        fun startForResult(ctx: Context){
-            ActivityUtils.startForResult(ctx, TermsOfReferenceActivity::class.java, 1)
+        fun startForResult(ctx: Context, requestCode: Int){
+            ActivityUtils.startForResult(ctx, TermsOfReferenceActivity::class.java, requestCode)
         }
     }
 }

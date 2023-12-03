@@ -44,8 +44,7 @@
                 android:layout_marginTop="@dimen/vertical_margin_16"
                 android:layout_marginEnd="@dimen/horizontal_margin_16"
                 android:textSize="@dimen/sp_12"
-                android:textColor="@color/c_555"
-                android:text="500"/>
+                android:textColor="@color/c_555" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_pic"
@@ -85,6 +84,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_inspection_classification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_inspection_classification"
@@ -93,7 +93,6 @@
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
-                android:text="安全检查"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555"/>
 
@@ -104,7 +103,6 @@
                 android:background="@color/divider"
                 app:layout_constraintTop_toBottomOf="@id/view_inspection_classification"
                 app:layout_constraintStart_toStartOf="parent" />
-
 
             <View
                 android:id="@+id/view_check_list"
@@ -126,6 +124,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_check_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_check_list"
@@ -152,11 +151,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view3"/>
             <TextView
+                android:id="@+id/tv_terms_of_reference_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/view_terms_of_reference"
                 app:layout_constraintTop_toTopOf="@id/view_terms_of_reference"
                 app:layout_constraintBottom_toBottomOf="@id/view_terms_of_reference"
+                app:layout_constraintEnd_toStartOf="@id/tv_terms_of_reference"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:drawableLeft="@drawable/terms_of_reference"
                 android:drawablePadding="@dimen/horizontal_margin_4"
@@ -165,11 +167,17 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_terms_of_reference"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tv_terms_of_reference_title"
                 app:layout_constraintEnd_toEndOf="@id/view_terms_of_reference"
                 app:layout_constraintTop_toTopOf="@id/view_terms_of_reference"
                 app:layout_constraintBottom_toBottomOf="@id/view_terms_of_reference"
+                android:gravity="end|top"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
@@ -203,6 +211,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_part_of_tender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_part_of_tender"
@@ -212,8 +221,7 @@
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"
-                android:text="GX-1标"/>
+                android:textColor="@color/c_555" />
 
             <View
                 android:id="@+id/view5"
@@ -242,6 +250,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_construction_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_construction_team"
@@ -339,6 +348,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_rectification_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_rectification_period"
@@ -379,6 +389,7 @@
                 android:textColor="@color/c_555"/>
 
             <TextView
+                android:id="@+id/tv_cause_analysis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/view_cause_analysis"
@@ -407,6 +418,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/ll_commit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/main_color"

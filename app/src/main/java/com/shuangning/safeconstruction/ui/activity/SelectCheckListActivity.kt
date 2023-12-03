@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction.ui.activity
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,10 +73,11 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
                     finish()
                     return
                 }
-                if (data.getItemType() == LEVEL_TWO){
+                if (data is SelectCheckLevelTwo){
+                    val intent = Intent()
+                    intent.putExtra("data", data.title)
+                    setResult(RESULT_OK, intent)
                     finish()
-
-                    setResult(RESULT_OK)
                     return
                 }
                 if (data.getItemType() == LEVEL_ONE){
@@ -95,8 +97,8 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
     }
 
     companion object{
-        fun startForResult(ctx: Context){
-            ActivityUtils.startForResult(ctx, SelectCheckListActivity::class.java, 1)
+        fun startForResult(ctx: Context, requestCode: Int){
+            ActivityUtils.startForResult(ctx, SelectCheckListActivity::class.java, requestCode)
         }
     }
 }

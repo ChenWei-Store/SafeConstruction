@@ -37,11 +37,9 @@ import java.io.File
 /**
  * Created by Chenwei on 2023/11/4.
  */
-class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>(),
-    ActivityResultCallback<ActivityResult> {
+class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>(){
     private var data: MutableList<String> = mutableListOf()
     private var classData: String? = null
-    private lateinit var launcher: ActivityResultLauncher<Intent>
     private var isWork = true
     private var isAfterWork = false
     private val viewModel by viewModels<AddGroupEducationViewModel>()
@@ -57,7 +55,6 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("班组教育")
-        launcher = prepareStartForResult(this)
     }
 
     override fun initData() {
@@ -99,12 +96,11 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
                 ToastUtil.showCustomToast("没有参会人员")
                 return@setOnClickListener
             }
-            launcher.launch(
-                MultiSelectActivity.getIntent(
-                    this@AddGroupEducationActivity,
-                    FROM_GROUP_EDUCATION,
-                    persons
-                )
+            MultiSelectActivity.startForResult(
+                this@AddGroupEducationActivity,
+                FROM_GROUP_EDUCATION,
+                persons,
+                2
             )
         }
 
@@ -169,45 +165,54 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         })
 
         binding?.btnCommit?.setOnClickListener {
-            if (classData.isNullOrEmpty()){
+            if (classData.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择班组")
                 return@setOnClickListener
             }
 
-            val trainTopic = binding?.tvNumber?.text.toString()?:""
-            if (trainTopic.isNullOrEmpty()){
+            val trainTopic = binding?.tvNumber?.text.toString() ?: ""
+            if (trainTopic.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "当前选择班组没有记录编号")
                 return@setOnClickListener
             }
 
-            val squadLeader = binding?.tvClassLeader?.text.toString()?:""
-            if (squadLeader.isNullOrEmpty()){
+            val squadLeader = binding?.tvClassLeader?.text.toString() ?: ""
+            if (squadLeader.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "当前选择班组没有班组长")
                 return@setOnClickListener
             }
-            if (selectedPerson.size == 0){
+            if (selectedPerson.size == 0) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择参会人员")
                 return@setOnClickListener
             }
-            if (videos.isEmpty()){
+            if (videos.isEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请上传视频")
                 return@setOnClickListener
             }
-            val constructionState = if (isWork){
+            val constructionState = if (isWork) {
                 "施工"
-            }else{
+            } else {
                 "未施工"
             }
-            val educationTime = if (isAfterWork){
+            val educationTime = if (isAfterWork) {
                 "班后"
-            }else{
+            } else {
                 "班前"
             }
             val jsonVideo = JsonUtils.toJson(videos)
-            MyLog.d( "jsonVideo:$jsonVideo")
-            val userNum = UserInfoManager.getUserInfo()?.userId?:""
+            MyLog.d("jsonVideo:$jsonVideo")
+            val userNum = UserInfoManager.getUserInfo()?.userId ?: ""
             val participant = Participant(selectedPerson)
-            val data = AddGroupEducationReq(classData!!, trainTopic, squadLeader, participant, constructionState, educationTime, userNum, jsonVideo)
+            val data = AddGroupEducationReq(
+                classData!!,
+                trainTopic,
+                squadLeader,
+                participant,
+                constructionState,
+                educationTime,
+                userNum,
+                jsonVideo
+            )
             LoadingManager.startLoading(this)
             viewModel.commit(data)
         }
@@ -230,10 +235,9 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
             }
             LoadingManager.stopLoading()
         }
-        viewModel.video.observe(this){
-            it?.let {
-                    it2->
-                if (it2.size > 0){
+        viewModel.video.observe(this) {
+            it?.let { it2 ->
+                if (it2.size > 0) {
                     videos.clear()
                     videos.add(it2[0])
                     binding?.player?.visibility = View.VISIBLE
@@ -242,8 +246,8 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
             }
             LoadingManager.stopLoading()
         }
-        viewModel.resp.observe(this){
-            if (it != null){
+        viewModel.resp.observe(this) {
+            if (it != null) {
                 LoadingManager.stopLoading()
                 ToastUtil.showCustomToast("提交成功")
                 finish()
@@ -251,36 +255,39 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         }
     }
 
-    override fun onActivityResult(result: ActivityResult) {
-        if (result.resultCode == RESULT_OK) {
-            val data = result.data?.getParcelableArrayListExtra<MultiSelectBean>("data")
-            data?.let {
-                it.forEach { it1 ->
-                    persons.forEach { it2 ->
-                        run {
-                            if (it1.id == it2.id && it1.isSelect) {
-                                selectedPerson.add(it2)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                1 -> {
+                    val uri = data?.getStringExtra("uri") ?: ""
+                    MyLog.d("uri2:$uri")
+                    val path = getFilePathFromContentUri(Uri.parse(uri))
+                    MyLog.d("path:$path")
+                    val file = File(path)
+                    LoadingManager.startLoading(this)
+                    viewModel.uploadVideo(file)
+                }
+
+                2 -> {
+                    val data = data?.getParcelableArrayListExtra<MultiSelectBean>("data")
+                    data?.let {
+                        it.forEach { it1 ->
+                            persons.forEach { it2 ->
+                                run {
+                                    if (it1.id == it2.id && it1.isSelect) {
+                                        selectedPerson.add(it2)
+                                    }
+                                }
                             }
+                        }
+                        if (selectedPerson.size > 0) {
+                            binding?.tvPerson?.text = "已选择${selectedPerson.size}人"
                         }
                     }
                 }
-                if (selectedPerson.size > 0) {
-                    binding?.tvPerson?.text = "已选择${selectedPerson.size}人"
-                }
             }
-        }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 8 && resultCode == RESULT_OK){
-            val uri = data?.getStringExtra("uri")?:""
-            MyLog.d("uri2:$uri")
-            val path = getFilePathFromContentUri(Uri.parse(uri))
-            MyLog.d("path:$path")
-            val file = File(path)
-            LoadingManager.startLoading(this)
-            viewModel.uploadVideo(file)
         }
     }
 
@@ -293,10 +300,12 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         }
     }
 
-    private fun reqCameraPermissionAndStart(){
-        PermissionManager.requestCamera(this){
-            ActivityUtils.startForResult(this@AddGroupEducationActivity,
-                RecordVideoActivity::class.java, 8)
+    private fun reqCameraPermissionAndStart() {
+        PermissionManager.requestCamera(this) {
+            ActivityUtils.startForResult(
+                this@AddGroupEducationActivity,
+                RecordVideoActivity::class.java, 1
+            )
         }
     }
 
@@ -306,9 +315,9 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
      * @param contentUri      要转换的content uri
      * @return
      */
-    private fun getFilePathFromContentUri(contentUri: Uri): String{
+    private fun getFilePathFromContentUri(contentUri: Uri): String {
         var filePath = ""
-        val filePathColumn = arrayOf( MediaStore.Video.Media.DATA)
+        val filePathColumn = arrayOf(MediaStore.Video.Media.DATA)
         val cursor = contentResolver.query(contentUri, filePathColumn, null, null, null)
         cursor?.let {
             val columnIndex = it.getColumnIndex(filePathColumn[0])

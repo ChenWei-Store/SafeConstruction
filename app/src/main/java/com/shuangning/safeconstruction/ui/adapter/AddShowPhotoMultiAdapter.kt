@@ -9,6 +9,7 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.util.SmartGlideImageLoader
 import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
+import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.bean.base.ShowPhoto
 import com.shuangning.safeconstruction.databinding.ItemAddPhotoBinding
 import com.shuangning.safeconstruction.databinding.ItemShowPhotoBinding
@@ -20,31 +21,47 @@ import com.shuangning.safeconstruction.utils2.ImageLoader
  */
 const val ADD_PHOTO = 0
 const val SHOW_PHOTO = 1
-class AddShowPhotoMultiAdapter(data: MutableList<ItemViewType>): CommonBaseMultiAdapter<ItemViewType, ViewBinding>(data) {
+
+class AddShowPhotoMultiAdapter(data: MutableList<ItemViewType>) :
+    CommonBaseMultiAdapter<ItemViewType, ViewBinding>(data) {
     private var maxCount = 9
-   private var listener: OnPhotoActionClickListener?= null
+    private var listener: OnPhotoActionClickListener? = null
+
+    fun setMaxCount(maxCount: Int) {
+        this.maxCount = maxCount
+    }
+
     override fun onBindViewHolder(
         binding: ViewBinding,
         item: ItemViewType,
         position: Int,
         ctx: Context
     ) {
-        when(binding){
-            is ItemAddPhotoBinding->{
+        when (binding) {
+            is ItemAddPhotoBinding -> {
                 binding.ivAdd.setOnClickListener {
                     listener?.onAdd()
                 }
             }
-            is ItemShowPhotoBinding->{
+
+            is ItemShowPhotoBinding -> {
                 val content = item as? ShowPhoto
                 content?.let {
-                    binding.ivDelete.visibility = if (it.isShowDelete){
+                    binding.ivDelete.visibility = if (it.isShowDelete) {
                         View.VISIBLE
-                    }else{
+                    } else {
                         View.GONE
                     }
                     ImageLoader.loadUrl(ctx, content.url, binding.iv)
                     binding.ivDelete.setOnClickListener {
+                        data.removeAt(position)
+                        notifyDataSetChanged()
+                        if (data.size < 9){
+                            val item = data[data.size - 1]
+                            if (item !is AddPhoto){
+                                data.add(AddPhoto())
+                            }
+                        }
                         listener?.onDelete(position)
                     }
                     binding.iv.setOnClickListener {
@@ -66,29 +83,29 @@ class AddShowPhotoMultiAdapter(data: MutableList<ItemViewType>): CommonBaseMulti
         parent: ViewGroup,
         viewType: Int
     ): ViewBinding {
-        return if (ADD_PHOTO == viewType){
+        return if (ADD_PHOTO == viewType) {
             ItemAddPhotoBinding.inflate(inflater, parent, false)
-        }else {
+        } else {
             ItemShowPhotoBinding.inflate(inflater, parent, false)
         }
     }
 
     override fun getItemCount(): Int {
-        return if (data.size > maxCount){
+        return if (data.size > maxCount) {
             return maxCount
-        }else{
+        } else {
             return data.size
         }
     }
 
-    interface OnPhotoActionClickListener{
+    interface OnPhotoActionClickListener {
         fun onAdd()
         fun onDelete(position: Int)
 
         fun onImageClick()
     }
 
-    fun setListener(listener: OnPhotoActionClickListener){
+    fun setListener(listener: OnPhotoActionClickListener) {
         this.listener = listener
     }
 }

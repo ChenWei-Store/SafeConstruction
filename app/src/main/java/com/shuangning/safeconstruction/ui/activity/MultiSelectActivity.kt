@@ -16,6 +16,7 @@ import com.shuangning.safeconstruction.manager.FROM_GROUP_EDUCATION
 import com.shuangning.safeconstruction.manager.FROM_PROBLEM_REPORT
 import com.shuangning.safeconstruction.manager.FROM_WHERE
 import com.shuangning.safeconstruction.ui.adapter.MultiSelectMultiAdapter
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/18.
@@ -106,6 +107,19 @@ class MultiSelectActivity: BaseActivity<ActivitySelectCauseBinding>() {
                 intent.putParcelableArrayListExtra(DATA, list)
             }
             return intent
+        }
+
+        fun startForResult(activity: Activity, fromWhere: Int, items1: MutableList<ParticipantItem>?, requestCode: Int){
+            val list = ArrayList<ParticipantItem>()
+            items1?.forEach {
+                list.add(it)
+            }
+            ActivityUtils.startForResult(activity, MultiSelectActivity::class.java, requestCode){
+                putExtra(FROM_WHERE, fromWhere)
+                if (list.isNotEmpty()){
+                    putParcelableArrayListExtra(DATA, list)
+                }
+            }
         }
     }
 
