@@ -3,16 +3,12 @@ package com.shuangning.safeconstruction.ui.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.lxj.xpopup.XPopup
 import com.shuangning.safeconstruction.base.BaseFragment
-import com.shuangning.safeconstruction.base.dialog.LoadingManager
-import com.shuangning.safeconstruction.bean.response.UserInfoResp
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
 import com.shuangning.safeconstruction.databinding.FragmentMineBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.UserInfoManager
-import com.shuangning.safeconstruction.ui.viewmodel.MineViewModel
 import com.shuangning.safeconstruction.utils.APPUtils
 import com.shuangning.safeconstruction.utils.ToastUtil
 
@@ -46,11 +42,11 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
     }
 
     override fun initListener() {
-        binding?.viewModifyPwd?.setOnClickListener {
-            activity?.apply {
-                StartActivityManager.startToModifyPwdList(this)
-            }
-        }
+//        binding?.viewModifyPwd?.setOnClickListener {
+//            activity?.apply {
+//                StartActivityManager.startToModifyPwdList(this)
+//            }
+//        }
         binding?.viewUpdateVersion?.setOnClickListener {
             //TODO:补充获取最新版本接口
             ToastUtil.showLong("已经是最新版本")

@@ -10,8 +10,8 @@ data class HomeHeaderBean(
     val imageId: Int = 0,
     val titleId: Int = 0,
     val functionId: Int = 0,
-    val projectName: String,
-    val bannerUrls: MutableList<String>,
+    val projectName: String = "",
+    val bannerUrls: MutableList<String> = mutableListOf(),
 ): ItemViewType(){
     override fun getItemType(): Int {
         return HEADER

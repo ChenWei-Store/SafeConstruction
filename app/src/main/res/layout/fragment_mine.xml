@@ -41,48 +41,48 @@
         android:textSize="@dimen/sp_12"
         android:textColor="@color/c_fff" />
 
-    <View
-        android:id="@+id/view_modify_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@id/view_header"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/vertical_margin_20"
-        android:background="@color/c_fff"/>
+<!--    <View-->
+<!--        android:id="@+id/view_modify_pwd"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/view_header"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginTop="@dimen/vertical_margin_20"-->
+<!--        android:background="@color/c_fff" />-->
 
-    <ImageView
-        android:id="@+id/iv_modify_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/view_modify_pwd"
-        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"
-        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"
-        android:src="@drawable/change_pwd_icon"
-        android:layout_marginStart="@dimen/horizontal_margin_16" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"
-        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"
-        app:layout_constraintStart_toEndOf="@id/iv_modify_pwd"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        android:textSize="@dimen/sp_16"
-        android:textColor="@color/c_000"
-        android:text="@string/modify_pwd"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_margin_16"
-        app:layout_constraintEnd_toEndOf="@id/view_modify_pwd"
-        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"
-        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"
-        android:src="@drawable/right_arrow_icon"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_modify_pwd"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"-->
+<!--        android:src="@drawable/change_pwd_icon"-->
+<!--        android:layout_marginStart="@dimen/horizontal_margin_16" />-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintStart_toEndOf="@id/iv_modify_pwd"-->
+<!--        android:layout_marginStart="@dimen/horizontal_margin_8"-->
+<!--        android:textSize="@dimen/sp_16"-->
+<!--        android:textColor="@color/c_000"-->
+<!--        android:text="@string/modify_pwd"/>-->
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="@dimen/horizontal_margin_16"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintTop_toTopOf="@id/view_modify_pwd"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/view_modify_pwd"-->
+<!--        android:src="@drawable/right_arrow_icon"/>-->
 
     <View
         android:id="@+id/view_update_version"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@id/view_modify_pwd"
+        app:layout_constraintTop_toBottomOf="@id/view_header"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/vertical_margin_16"
         android:background="@color/c_fff"/>

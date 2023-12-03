@@ -105,11 +105,11 @@ class ProblemReportActivity: BaseActivity<ActivityProblemReportBinding>(),
         }
 
         binding?.viewCheckList?.setOnClickListener {
-            StartActivityManager.startSelectCheckList(this@ProblemReportActivity)
+            SelectCheckListActivity.startForResult(this@ProblemReportActivity)
         }
 
         binding?.viewPartOfTender?.setOnClickListener {
-            StartActivityManager.startTermsOfReference(this@ProblemReportActivity)
+            TermsOfReferenceActivity.startForResult(this@ProblemReportActivity)
         }
         addShowPhotoAdapter?.setListener(object: AddShowPhotoMultiAdapter.OnPhotoActionClickListener{
             override fun onAdd() {

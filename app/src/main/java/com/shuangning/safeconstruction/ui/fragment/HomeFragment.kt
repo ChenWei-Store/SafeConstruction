@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jaeger.library.StatusBarUtil
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.other.HomeContentBean
 import com.shuangning.safeconstruction.bean.other.HomeHeaderBean
 import com.shuangning.safeconstruction.constants.EventCode
@@ -20,16 +22,17 @@ import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.FROM_TAKE_PHOTO_OF_DANAGE
 import com.shuangning.safeconstruction.ui.adapter.HomeMultiAdapter
+import com.shuangning.safeconstruction.ui.viewmodel.HomeViewModel
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.MyLog
 
 /**
  * Created by Chenwei on 2023/10/7.
  */
-class HomeFragment: BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private var data: MutableList<ItemViewType> = mutableListOf()
-    private var adapter: HomeMultiAdapter?= null
-
+    private var adapter: HomeMultiAdapter? = null
+    private val viewModel by viewModels<HomeViewModel>()
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -41,9 +44,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         StatusBarUtil.setColor(activity, UIUtils.getColor(R.color.white))
         adapter = HomeMultiAdapter(data)
         val layoutManager = GridLayoutManager(activity, 4)
-        layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                if(position == 0){
+                if (position == 0) {
                     return 4
                 }
                 return 1
@@ -55,36 +58,42 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initData() {
-        val urls = mutableListOf<String>()
-        urls.add("https://img2.baidu.com/it/u=1993631557,3277239874&fm=253&fmt=auto&app=138&f=PNG?w=889&h=500")
-        urls.add("https://img1.baidu.com/it/u=994926169,1520033403&fm=253&fmt=auto&app=138&f=PNG?w=553&h=275")
-        urls.add("https://img0.baidu.com/it/u=2668993312,2284395540&fm=253&fmt=auto&app=138&f=PNG?w=500&h=262")
-        val items = HomeItemManager.getData()
-        data.add(HomeHeaderBean(projectName="高淳至宣城高速公路江苏段工程项目", bannerUrls = urls))
-        data.addAll(items)
+        activity?.apply {
+            LoadingManager.startLoading(this)
+        }
+        viewModel.getData()
+
     }
 
     override fun initListener() {
-        adapter?.setOnItemClickListener(object: OnItemClickListener<ItemViewType>{
+        adapter?.setOnItemClickListener(object : OnItemClickListener<ItemViewType> {
             override fun onItemClick(data: ItemViewType, position: Int) {
-                if(position == 0){
+                if (position == 0) {
                     return
                 }
                 val realData = data as? HomeContentBean
                 activity?.apply {
-                    when(realData?.functionId){
+                    when (realData?.functionId) {
                         HomeItemManager.TAKE_PTOTOS_OF_DANGERS ->
-                            StartActivityManager.startToTakePhotosOfDangers(this,
-                                FROM_TAKE_PHOTO_OF_DANAGE)
+                            StartActivityManager.startToTakePhotosOfDangers(
+                                this,
+                                FROM_TAKE_PHOTO_OF_DANAGE
+                            )
+
                         HomeItemManager.RECTIFICATION_AND_REPLY ->
                             StartActivityManager.startToRectificationAndReply(this)
+
                         HomeItemManager.ROUTINE_INSPCETION ->
                             StartActivityManager.startToRoutineInspectionList(this)
+
                         HomeItemManager.ATTENDANCE_MANAGEMENT ->
                             StartActivityManager.startAttendanceManagement(this)
+
                         HomeItemManager.GROUP_EDUCATION ->
-                            StartActivityManager.startToTakePhotosOfDangers(this,
-                                FROM_GROUP_EDUCATION)
+                            StartActivityManager.startToTakePhotosOfDangers(
+                                this,
+                                FROM_GROUP_EDUCATION
+                            )
 
                     }
                 }
@@ -94,6 +103,25 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun observeViewModel() {
+        viewModel.data.observe(this) {
+            val items = HomeItemManager.getData()
+            it?.let {
+                data.add(
+                    HomeHeaderBean(
+                        projectName = "高淳至宣城高速公路江苏段工程项目",
+                        bannerUrls = it
+                    )
+                )
+            }?:let {
+                data.add(
+                    HomeHeaderBean(
+                        projectName = "高淳至宣城高速公路江苏段工程项目",
+                    )
+                )
+            }
+            data.addAll(items)
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun isRegisterEventbus(): Boolean {
@@ -103,28 +131,29 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun receiveEvent(code: Int, obj: Any?) {
         super.receiveEvent(code, obj)
         MyLog.d("receiveEvent:$code")
-        when(code){
-            EventCode.START_SCAN_QRCODE->{
+        when (code) {
+            EventCode.START_SCAN_QRCODE -> {
                 reqCameraPermissionAndStart()
             }
-            EventCode.START_CLOCK_IN_OUT->{
-              reqLocationPermissionAndStart()
+
+            EventCode.START_CLOCK_IN_OUT -> {
+                reqLocationPermissionAndStart()
             }
         }
     }
 
-    private fun reqLocationPermissionAndStart(){
+    private fun reqLocationPermissionAndStart() {
         (activity as? FragmentActivity)?.apply {
-            PermissionManager.reqLocation(this){
+            PermissionManager.reqLocation(this) {
                 StartActivityManager.startToClockInOut(this)
             }
 
         }
     }
 
-    private fun reqCameraPermissionAndStart(){
+    private fun reqCameraPermissionAndStart() {
         (activity as? FragmentActivity)?.apply {
-            PermissionManager.requestCamera(this){
+            PermissionManager.requestCamera(this) {
                 StartActivityManager.startToScanQrcode(this)
             }
         }

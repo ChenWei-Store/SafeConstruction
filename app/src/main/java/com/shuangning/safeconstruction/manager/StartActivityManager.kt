@@ -119,12 +119,4 @@ object StartActivityManager {
     fun startToClockInOut(ctx: Context,){
         ActivityUtils.start(ctx, ClockInOrOutActivity::class.java)
     }
-    fun startSelectCheckList(ctx: Context,){
-        ActivityUtils.start(ctx, SelectCheckListActivity::class.java)
-    }
-
-    fun startTermsOfReference(ctx: Context,){
-        ActivityUtils.start(ctx, TermsOfReferenceActivity::class.java)
-    }
-
 }

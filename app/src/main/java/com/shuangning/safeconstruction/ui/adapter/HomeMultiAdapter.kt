@@ -2,6 +2,7 @@ package com.shuangning.safeconstruction.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
@@ -37,14 +38,19 @@ class HomeMultiAdapter(data: MutableList<ItemViewType>): CommonBaseMultiAdapter<
                 val headerBean = item as? HomeHeaderBean
                 headerBean?.let {
                     binding.tvProject.text = it.projectName
-                    binding.banner.setAdapter(object: BannerImageAdapter<String>(it.bannerUrls) {
-                        override fun onBindView(holder: BannerImageHolder?, data: String?,
-                                                position: Int, size: Int) {
-                            data ?: return
-                            holder ?: return
-                            ImageLoader.loadUrl(ctx, data, holder.imageView)
-                        }
-                    }).setIndicator(CircleIndicator(ctx))
+                    if (it.bannerUrls.size > 0){
+                        binding.banner.visibility = View.VISIBLE
+                        binding.banner.setAdapter(object: BannerImageAdapter<String>(it.bannerUrls) {
+                            override fun onBindView(holder: BannerImageHolder?, data: String?,
+                                                    position: Int, size: Int) {
+                                data ?: return
+                                holder ?: return
+                                ImageLoader.loadUrl(ctx, data, holder.imageView)
+                            }
+                        }).setIndicator(CircleIndicator(ctx))
+                    }else{
+                        binding.banner.visibility = View.GONE
+                    }
                 }
                 binding.viewLeft.setOnClickListener {
                     EventbusUtils.post(EventCode.START_SCAN_QRCODE, null)

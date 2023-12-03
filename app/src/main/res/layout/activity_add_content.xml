@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view_title"
                 android:layout_marginTop="@dimen/vertical_margin_16"
                 android:minHeight="30dp"
+                android:maxLength="500"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555"
                 android:hint="请输入现场情况描述（以及地点、分部分项）"
@@ -221,85 +222,12 @@
                 android:background="@color/divider"
                 app:layout_constraintTop_toBottomOf="@id/view_part_of_tender"
                 app:layout_constraintStart_toStartOf="parent" />
-            <View
-                android:id="@+id/view_synchronize_albums"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view5"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/view_synchronize_albums"
-                app:layout_constraintTop_toTopOf="@id/view_synchronize_albums"
-                app:layout_constraintBottom_toBottomOf="@id/view_synchronize_albums"
-                android:layout_marginStart="@dimen/horizontal_margin_8"
-                android:drawableLeft="@drawable/synchronize_albums"
-                android:drawablePadding="@dimen/horizontal_margin_4"
-                android:text="同步相册"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"/>
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/view_synchronize_albums"
-                app:layout_constraintTop_toTopOf="@id/view_synchronize_albums"
-                app:layout_constraintBottom_toBottomOf="@id/view_synchronize_albums"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:checked="true"/>
-
-            <View
-                android:id="@+id/view6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                app:layout_constraintTop_toBottomOf="@id/view_synchronize_albums"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/view_album_category"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view6"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/view_album_category"
-                app:layout_constraintTop_toTopOf="@id/view_album_category"
-                app:layout_constraintBottom_toBottomOf="@id/view_album_category"
-                android:layout_marginStart="@dimen/horizontal_margin_8"
-                android:drawableLeft="@drawable/album_category"
-                android:drawablePadding="@dimen/horizontal_margin_4"
-                android:text="相册分类"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/view_album_category"
-                app:layout_constraintTop_toTopOf="@id/view_album_category"
-                app:layout_constraintBottom_toBottomOf="@id/view_album_category"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:drawableRight="@drawable/right_arrow_icon"
-                android:drawablePadding="@dimen/horizontal_margin_4"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"
-                android:text="默认"/>
-
-            <View
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                app:layout_constraintTop_toBottomOf="@id/view_album_category"
-                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/ll_commit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/main_color"

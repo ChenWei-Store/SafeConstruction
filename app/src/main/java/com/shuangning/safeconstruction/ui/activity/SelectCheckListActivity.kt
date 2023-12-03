@@ -1,5 +1,8 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +17,9 @@ import com.shuangning.safeconstruction.bean.other.SelectCheckHeader
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelOne
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelTwo
 import com.shuangning.safeconstruction.databinding.ActivitySelectCheckListBinding
+import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.SelectCheckListMultiAdapter
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/18.
@@ -63,8 +68,14 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
     override fun initListener() {
         selectCheckListAdapter?.setOnItemClickListener(object: OnItemClickListener<IItemViewType>{
             override fun onItemClick(data: IItemViewType, position: Int) {
-                if (data.getItemType() == HEADER || data.getItemType() == LEVEL_TWO){
+                if (data.getItemType() == HEADER){
                     finish()
+                    return
+                }
+                if (data.getItemType() == LEVEL_TWO){
+                    finish()
+
+                    setResult(RESULT_OK)
                     return
                 }
                 if (data.getItemType() == LEVEL_ONE){
@@ -77,11 +88,15 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
                     }
                 }
             }
-
         })
-
     }
 
     override fun observeViewModel() {
+    }
+
+    companion object{
+        fun startForResult(ctx: Context){
+            ActivityUtils.startForResult(ctx, SelectCheckListActivity::class.java, 1)
+        }
     }
 }

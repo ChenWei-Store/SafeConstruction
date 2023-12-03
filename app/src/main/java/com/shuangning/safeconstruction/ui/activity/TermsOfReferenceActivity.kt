@@ -1,5 +1,6 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.shuangning.safeconstruction.bean.other.TermsOfReferenceLevelThree
 import com.shuangning.safeconstruction.bean.other.TermsOfReferenceLevelTwo
 import com.shuangning.safeconstruction.databinding.ActivityTermsOfReferenceBinding
 import com.shuangning.safeconstruction.ui.adapter.TermsOfReferencesMultiAdapter
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/19.
@@ -63,6 +65,7 @@ class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() 
             override fun onItemClick(data: IItemViewType, position: Int) {
                 if (data.getItemType() == LEVEL_THREE) {
                     finish()
+                    setResult(RESULT_OK)
                     return
                 }
                 if (data.getItemType() == LEVEL_ONE || data.getItemType() == LEVEL_TWO) {
@@ -79,5 +82,11 @@ class TermsOfReferenceActivity: BaseActivity<ActivityTermsOfReferenceBinding>() 
     }
 
     override fun observeViewModel() {
+    }
+
+    companion object{
+        fun startForResult(ctx: Context){
+            ActivityUtils.startForResult(ctx, TermsOfReferenceActivity::class.java, 1)
+        }
     }
 }

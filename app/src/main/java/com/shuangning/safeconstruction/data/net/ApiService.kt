@@ -14,6 +14,7 @@ import com.shuangning.safeconstruction.bean.response.GroupEducationDetailResp
 import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
+import com.shuangning.safeconstruction.bean.response.NewsListResp
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
@@ -45,7 +46,6 @@ interface ApiService {
     suspend fun attendancePunch(@Body data: AttendancePunchReq): HttpResult<Resp>?
     @POST(GROUP_EDUCATION_LIST)
     suspend fun getGroupEducationList(@Body data: GroupEducationListReq): HttpResult<GroupEducationListResp>?
-
     @POST(JOIN_PARTICIPANT)
     suspend fun getoinParticipant(@Body data: JoinParticipantReq): HttpResult<JoinParticipantResp>?
     @Multipart
@@ -53,7 +53,6 @@ interface ApiService {
     suspend fun uploadVideo(@Part file: MultipartBody.Part): HttpResult<MutableList<UploadVideoItem>>?
     @POST(ADD_GROUP_EDUCATION)
     suspend fun addGroupEducation(@Body data: AddGroupEducationReq): HttpResult<Resp>?
-
     @FormUrlEncoded
     @POST(GROUP_DEUCATION_DETAIL)
     suspend fun getGroupEducationDetail(@Field("trainTopic") trainTopic: String): HttpResult<GroupEducationDetailResp>?
@@ -64,9 +63,9 @@ interface ApiService {
     suspend fun getTeamInfo(@Field("section") section: String, @Field("teamGroup") teamGroup: String): HttpResult<GetTeamInfoDetailResp>?
     @GET(PROJECT_BASE_INFO)
     suspend fun getProjectBaseInfo(): HttpResult<GetProjectBaseInfoResp>?
-
     @FormUrlEncoded
     @POST(USER_BASE_INFO)
     suspend fun getUserBaseInfo(@Field("userId") userId: Int): HttpResult<UserBaseInfoResp>?
-
+    @GET(GET_NEWS_INFO)
+    suspend fun getNewsInfo(): HttpResult<NewsListResp>?
 }
