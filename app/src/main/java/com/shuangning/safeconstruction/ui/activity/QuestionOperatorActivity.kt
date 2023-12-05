@@ -1,6 +1,7 @@
 package com.shuangning.safeconstruction.ui.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.UIUtils
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/11.
@@ -206,10 +208,10 @@ class QuestionOperatorActivity: BaseActivity<ViewBinding>() {
 
     companion object{
         const val STATUS = "status"
-        fun getIntent(activity: Activity, status: Int): Intent {
-            val intent = Intent(activity, MultiSelectActivity::class.java)
-            intent.putExtra(STATUS, status)
-            return intent
+        fun startTo(ctx: Context, status: Int){
+            ActivityUtils.start(ctx, QuestionOperatorActivity::class.java){
+                putExtra(STATUS, status)
+            }
         }
     }
 }

@@ -10,6 +10,5 @@
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:layout_centerVertical="true"
         android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222"
-        android:text="2022-12-28"/>
+        android:textColor="@color/c_222" />
 </RelativeLayout>

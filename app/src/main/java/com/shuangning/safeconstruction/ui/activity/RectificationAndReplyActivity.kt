@@ -86,9 +86,7 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
     override fun initListener() {
         replyAdapter?.setOnItemClickListener(object: OnItemClickListener<RectificationAndReplyBean>{
             override fun onItemClick(data: RectificationAndReplyBean, position: Int) {
-                ActivityUtils.start(this@RectificationAndReplyActivity, QuestionOperatorActivity::class.java){
-                    putExtras(QuestionOperatorActivity.getIntent(this@RectificationAndReplyActivity, selectedTab))
-                }
+                QuestionOperatorActivity.startTo(this@RectificationAndReplyActivity, selectedTab)
             }
         })
 

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/view_add_fine_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/c_fff" />
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="@id/view_add_fine_item"
+        app:layout_constraintEnd_toEndOf="@id/view_add_fine_item"
+        app:layout_constraintStart_toStartOf="@id/view_add_fine_item"
+        app:layout_constraintTop_toTopOf="@id/view_add_fine_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/plus"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        android:drawableTint="@color/main_color"
+        android:text="添加罚款项"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <View
+        android:id="@+id/view_fines_unit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_add_fine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:background="@color/c_fff" />
+
+    <ImageView
+        android:id="@+id/iv_fines_unit"
+        app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
+        app:layout_constraintStart_toStartOf="@id/view_fines_unit"
+        app:layout_constraintTop_toTopOf="@id/view_fines_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:src="@drawable/fines_unit" />
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
+        app:layout_constraintStart_toEndOf="@id/iv_fines_unit"
+        app:layout_constraintTop_toTopOf="@id/view_fines_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_12"
+        android:text="被罚款单位"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_fines_unit"
+        app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
+        app:layout_constraintEnd_toEndOf="@id/view_fines_unit"
+        app:layout_constraintTop_toTopOf="@id/view_fines_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:drawableRight="@drawable/right_arrow_icon"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+
+    <View
+        android:id="@+id/view_vetting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_fines_unit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:background="@color/c_fff" />
+
+    <ImageView
+        android:id="@+id/iv_vetting"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting"
+        app:layout_constraintStart_toStartOf="@id/view_vetting"
+        app:layout_constraintTop_toTopOf="@id/view_vetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:src="@drawable/vetting" />
+
+    <TextView
+        android:id="@+id/tv_vetting_title"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting"
+        app:layout_constraintStart_toEndOf="@id/iv_vetting"
+        app:layout_constraintTop_toTopOf="@id/view_vetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_12"
+        android:text="是否审批"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_vetting_yes"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting"
+        app:layout_constraintStart_toEndOf="@id/tv_vetting_title"
+        app:layout_constraintTop_toTopOf="@id/view_vetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_40"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:drawableLeft="@drawable/selected"
+        android:drawablePadding="@dimen/horizontal_margin_4"
+        android:text="是"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_vetting_no"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting"
+        app:layout_constraintStart_toEndOf="@id/tv_vetting_yes"
+        app:layout_constraintTop_toTopOf="@id/view_vetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_40"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:drawableLeft="@drawable/not_select"
+        android:drawablePadding="@dimen/horizontal_margin_4"
+        android:text="否"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        app:constraint_referenced_ids="view_vetting_unit,iv_vetting_unit,tv_vetting_unit_title,
+    tv_vetting_unit, view_vetting_person, iv_vetting_person,tv_vetting_person_title,tv_vetting_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/view_vetting_unit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_vetting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_1"
+        android:background="@color/c_fff" />
+
+    <ImageView
+        android:id="@+id/iv_vetting_unit"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
+        app:layout_constraintStart_toStartOf="@id/view_vetting_unit"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:src="@drawable/vetting_unit" />
+
+    <TextView
+        android:id="@+id/tv_vetting_unit_title"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
+        app:layout_constraintStart_toEndOf="@id/iv_vetting_unit"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_12"
+        android:text="审批单位"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_vetting_unit"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
+        app:layout_constraintStart_toEndOf="@id/tv_vetting_unit_title"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_40"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:drawableLeft="@drawable/selected"
+        android:drawablePadding="@dimen/horizontal_margin_4"
+        android:text="指挥部"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <View
+        android:id="@+id/view_vetting_person"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_vetting_unit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_1"
+        android:background="@color/c_fff" />
+
+    <ImageView
+        android:id="@+id/iv_vetting_person"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
+        app:layout_constraintStart_toStartOf="@id/view_vetting_person"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:src="@drawable/vetting_person" />
+
+    <TextView
+        android:id="@+id/tv_vetting_person_title"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
+        app:layout_constraintStart_toEndOf="@id/iv_vetting_person"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_12"
+        android:text="审批人"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_vetting_person"
+        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
+        app:layout_constraintEnd_toEndOf="@id/view_vetting_person"
+        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:drawableRight="@drawable/right_arrow_icon"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+</androidx.constraintlayout.widget.ConstraintLayout>
