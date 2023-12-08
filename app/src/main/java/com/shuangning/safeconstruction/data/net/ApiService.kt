@@ -15,6 +15,7 @@ import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.NewsListResp
+import com.shuangning.safeconstruction.bean.response.RoutineInspectionListResp
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
@@ -68,4 +69,7 @@ interface ApiService {
     suspend fun getUserBaseInfo(@Field("userId") userId: Int): HttpResult<UserBaseInfoResp>?
     @GET(GET_NEWS_INFO)
     suspend fun getNewsInfo(): HttpResult<NewsListResp>?
+    @FormUrlEncoded
+    @POST(ROUTINE_INSPECTION_LIST)
+    suspend fun getRoutineInspectionList(@Field("biaoduan") biaoduan: String, @Field("pageNo") pageNo: Int, @Field("pageSize") pageSize: Int): HttpResult<RoutineInspectionListResp>?
 }

@@ -1,6 +1,5 @@
 package com.shuangning.safeconstruction.base.adapter
 
-import android.content.Context
 import androidx.viewbinding.ViewBinding
 
 

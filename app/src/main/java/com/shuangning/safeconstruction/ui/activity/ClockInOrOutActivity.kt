@@ -66,10 +66,10 @@ class ClockInOrOutActivity : BaseActivity<ActivityClockInOutBinding>(),
 
     override fun initListener() {
         binding?.iv?.setOnClickListener {
-            if (!isInScope) {
-                ToastUtil.showCustomToast("超出指定的打卡范围")
-                return@setOnClickListener
-            }
+//            if (!isInScope) {
+//                ToastUtil.showCustomToast("超出指定的打卡范围")
+//                return@setOnClickListener
+//            }
             result?.let {
                 LoadingManager.startLoading(this)
                 viewModel.perform(it.longitude.toString(), it.latitude.toString())
