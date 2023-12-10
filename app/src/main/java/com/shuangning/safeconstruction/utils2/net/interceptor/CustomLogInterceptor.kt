@@ -14,10 +14,12 @@ import java.nio.charset.Charset
  */
 class CustomLogInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
+        MyLog.d("CustomLogInterceptor")
         val request = chain.request()
         val response = chain.proceed(request)
         printRequestLog(request)
         printResponseLog(response)
+        MyLog.d("CustomLogInterceptor end")
         return response
     }
 

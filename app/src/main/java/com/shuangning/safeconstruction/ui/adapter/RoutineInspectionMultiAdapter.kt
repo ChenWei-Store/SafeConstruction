@@ -22,6 +22,7 @@ import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ImageLoader
 import com.shuangning.safeconstruction.utils2.MyLog
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/10/14.
@@ -41,19 +42,26 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
             is ItemRectificationAndReplyBinding->{
                 val data = item as? RoutineInspectionItem
                 data?.let {
+                    val urls = parseImageUrl(it.xunchatupian)
                     binding.tvTitle.text = "[${it.biaoduan}] ${it.jianchaxiang}"
-                    ImageLoader.loadUrlWithRound(ctx, "", binding.ivIcon, ScreenUtil.dp2px(16f))
+                    if (urls.size > 0){
+                        ImageLoader.loadUrlWithRound(ctx, urls[0], binding.ivIcon, ScreenUtil.dp2px(16f))
+                        binding.ivIcon.visibility = View.VISIBLE
+                    }else{
+                        binding.ivIcon.visibility = View.GONE
+                    }
+
                     binding.tvContent1.text = it.jianchaxiang
                     binding.tvContent2.text = it.xianchangmiaoshu0
-                    val selectedTab = TO_BE_RECTIFIED
-                    when (selectedTab) {
-                        COMPLETED -> {
+                    val selectedTab = it.status.toInt()
+                    when (it.status) {
+                        "0" -> {
                             binding.groupBottom.visibility = View.GONE
                             binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_c8ebff_bg)
                             binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_0A8DE5))
                             binding.tvStatus.text = "已完成"
                         }
-                        TO_BE_EXAMINE -> {
+                        "1" -> {
                             binding.groupBottom.visibility = View.GONE
                             binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_67e667_bg)
                             binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_008500))
@@ -67,7 +75,8 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
                         }
                     }
                     binding.content.setOnClickListener {
-                        QuestionOperatorActivity.startTo(ctx, selectedTab)
+                        it2->
+                        QuestionOperatorActivity.startTo(ctx, selectedTab, it.id.toString(), QuestionOperatorActivity.FROM_ROUTINE_INSPECTION)
                     }
                 }
 
@@ -76,6 +85,17 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
         }
     }
 
+    private fun parseImageUrl(json: String): MutableList<String> {
+        val jsonObj = JSONObject(json)
+        val jsonArray = jsonObj.optJSONArray("attach")
+        val urls = mutableListOf<String>()
+        for (idx in 0 until jsonArray.length()) {
+            val result = jsonArray.optJSONObject(idx)
+            val url = result.optString("url")
+            urls.add(url)
+        }
+        return urls
+    }
     override fun getViewBinding(
         inflater: LayoutInflater,
         parent: ViewGroup,

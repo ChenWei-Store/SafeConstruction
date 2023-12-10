@@ -21,7 +21,7 @@ object HomeItemManager {
     private val takePhotosOfDangers = mutableListOf(R.string.take_photos_of_dangers, R.drawable.take_photos_of_hidden_dangers_icon, TAKE_PTOTOS_OF_DANGERS)
     private val groupEducation = mutableListOf(R.string.group_education, R.drawable.group_education, GROUP_EDUCATION)
 
-    private val datas = mutableListOf(attendanceManagement, rectificationAndReply, routineInspection, takePhotosOfDangers, groupEducation)
+    private val datas = mutableListOf(attendanceManagement, rectificationAndReply, routineInspection, groupEducation)
     private val homeContentBeans = mutableListOf<HomeContentBean>()
 
     init {

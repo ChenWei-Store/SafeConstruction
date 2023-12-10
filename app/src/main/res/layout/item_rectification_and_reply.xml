@@ -26,11 +26,14 @@
         android:background="@color/c_ff3e3d"/>
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toTopOf="@id/view_title"
         app:layout_constraintBottom_toBottomOf="@id/view_title"
         app:layout_constraintStart_toStartOf="@id/view_title"
+        app:layout_constraintEnd_toStartOf="@id/tv_status"
+        android:layout_marginEnd="@dimen/horizontal_margin_4"
         android:layout_marginStart="@dimen/horizontal_margin_16"
         android:maxLines="1"
         android:ellipsize="end"
@@ -48,6 +51,7 @@
         android:paddingStart="@dimen/horizontal_margin_12"
         android:paddingEnd="@dimen/horizontal_margin_12"
         android:layout_marginEnd="@dimen/horizontal_margin_16"
+        app:layout_constraintStart_toEndOf="@id/tv_title"
         app:layout_constraintTop_toTopOf="@id/view_title"
         app:layout_constraintBottom_toBottomOf="@id/view_title"
         app:layout_constraintEnd_toEndOf="@id/view_title"
@@ -75,17 +79,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
         app:layout_constraintTop_toTopOf="@id/iv_icon"
+        app:layout_goneMarginStart="@dimen/horizontal_margin_8"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222" />
 
     <TextView
         android:id="@+id/tv_content2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
         app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+        app:layout_goneMarginStart="@dimen/horizontal_margin_8"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999" />
     <View

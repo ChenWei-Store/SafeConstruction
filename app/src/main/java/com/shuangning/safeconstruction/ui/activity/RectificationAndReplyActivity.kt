@@ -23,9 +23,9 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
  * Created by Chenwei on 2023/10/11.
  */
 const val ERROR = -1
-const val TO_BE_RECTIFIED = 0
+const val TO_BE_RECTIFIED = 2
 const val TO_BE_EXAMINE = 1
-const val COMPLETED = 2
+const val COMPLETED = 0
 class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyBinding>() {
     private var replyAdapter: RectificationAndReplyAdapter? = null
     private val toBeRectifiedData: MutableList<RectificationAndReplyBean> = mutableListOf()
@@ -86,7 +86,8 @@ class RectificationAndReplyActivity: BaseActivity<ActivityRectificationAndReplyB
     override fun initListener() {
         replyAdapter?.setOnItemClickListener(object: OnItemClickListener<RectificationAndReplyBean>{
             override fun onItemClick(data: RectificationAndReplyBean, position: Int) {
-                QuestionOperatorActivity.startTo(this@RectificationAndReplyActivity, selectedTab)
+                QuestionOperatorActivity.startTo(this@RectificationAndReplyActivity, selectedTab,
+                    "", QuestionOperatorActivity.FROM_RECTIFICATION_PEPLY)
             }
         })
 

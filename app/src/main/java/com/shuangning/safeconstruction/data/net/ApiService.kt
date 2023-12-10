@@ -7,6 +7,8 @@ import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
+import com.shuangning.safeconstruction.bean.response.FinesDetailResp
+import com.shuangning.safeconstruction.bean.response.FinesListItem
 import com.shuangning.safeconstruction.bean.response.GetProjectBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.Resp
 import com.shuangning.safeconstruction.bean.response.GetTeamInfoDetailResp
@@ -15,6 +17,7 @@ import com.shuangning.safeconstruction.bean.response.GroupEducationListResp
 import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.NewsListResp
+import com.shuangning.safeconstruction.bean.response.QuestionOperatorResp
 import com.shuangning.safeconstruction.bean.response.RoutineInspectionListResp
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
@@ -72,4 +75,18 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ROUTINE_INSPECTION_LIST)
     suspend fun getRoutineInspectionList(@Field("biaoduan") biaoduan: String, @Field("pageNo") pageNo: Int, @Field("pageSize") pageSize: Int): HttpResult<RoutineInspectionListResp>?
+    @FormUrlEncoded
+    @POST(QUESTION_OPERATOR)
+    suspend fun getQuestionOperator(@Field("id") id: String): HttpResult<QuestionOperatorResp>?
+    @POST(COMMIT_ROUTINE_INSPECTION)
+    suspend fun commitRoutineInspection(@Body data: GroupEducationListReq): HttpResult<GroupEducationListResp>?
+    @Multipart
+    @POST(UPLOAD_VIDEO)
+    suspend fun uploadPhotos(@Part files: MutableList<MultipartBody.Part>): HttpResult<MutableList<UploadVideoItem>>?
+    @FormUrlEncoded
+    @POST(FINES_LIST)
+    suspend fun getFinesList(@Field("checkOutNo") checkOutNo: String): HttpResult<MutableList<FinesListItem>>?
+    @FormUrlEncoded
+    @POST(FINES_DETAIL)
+    suspend fun getFineDetail(@Field("id") id: String): HttpResult<FinesDetailResp>?
 }

@@ -143,60 +143,12 @@
                 android:background="@color/divider"
                 app:layout_constraintTop_toBottomOf="@id/view_check_list"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/view_terms_of_reference"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view3"/>
-            <TextView
-                android:id="@+id/tv_terms_of_reference_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/view_terms_of_reference"
-                app:layout_constraintTop_toTopOf="@id/view_terms_of_reference"
-                app:layout_constraintBottom_toBottomOf="@id/view_terms_of_reference"
-                app:layout_constraintEnd_toStartOf="@id/tv_terms_of_reference"
-                android:layout_marginEnd="@dimen/horizontal_margin_4"
-                android:layout_marginStart="@dimen/horizontal_margin_8"
-                android:drawableLeft="@drawable/terms_of_reference"
-                android:drawablePadding="@dimen/horizontal_margin_4"
-                android:text="涉及条款"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"/>
-
-            <TextView
-                android:id="@+id/tv_terms_of_reference"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@id/tv_terms_of_reference_title"
-                app:layout_constraintEnd_toEndOf="@id/view_terms_of_reference"
-                app:layout_constraintTop_toTopOf="@id/view_terms_of_reference"
-                app:layout_constraintBottom_toBottomOf="@id/view_terms_of_reference"
-                android:gravity="end|top"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:drawableRight="@drawable/right_arrow_icon"
-                android:drawablePadding="@dimen/horizontal_margin_4"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"/>
-
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                app:layout_constraintTop_toBottomOf="@id/view_terms_of_reference"
-                app:layout_constraintStart_toStartOf="parent" />
             <View
                 android:id="@+id/view_part_of_tender"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view4"/>
+                app:layout_constraintTop_toBottomOf="@id/view3"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -384,7 +336,7 @@
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:drawableLeft="@drawable/cause_analysis"
                 android:drawablePadding="@dimen/horizontal_margin_4"
-                android:text="原因分析"
+                android:text="整改处理人"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555"/>
 

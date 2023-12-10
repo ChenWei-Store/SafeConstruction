@@ -163,45 +163,13 @@
             android:layout_marginTop="@dimen/vertical_margin_8"
             app:layout_constraintTop_toBottomOf="@id/tv_check_item_title"
             app:layout_constraintStart_toStartOf="parent"/>
-        <TextView
-            android:id="@+id/tv_reference_cause_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_reference_cause"
-            android:layout_marginEnd="@dimen/horizontal_margin_8"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            android:layout_marginStart="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555"
-            android:text="涉及条款"/>
 
-        <TextView
-            android:id="@+id/tv_reference_cause"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/tv_reference_cause_title"
-            app:layout_constraintTop_toTopOf="@id/tv_reference_cause_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555" />
-        <View
-            android:id="@+id/view_line7"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            app:layout_constraintTop_toBottomOf="@id/tv_reference_cause"
-            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_part_of_tender_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line7"
+            app:layout_constraintTop_toBottomOf="@id/view_line6"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/vertical_margin_8"
             android:layout_marginStart="@dimen/horizontal_margin_8"
@@ -320,40 +288,10 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_reason_analyze_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line11"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            android:layout_marginStart="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555"
-            android:text="原因分析"/>
-
-        <TextView
-            android:id="@+id/tv_reason_analyze"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/tv_reason_analyze_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555" />
-        <View
-            android:id="@+id/view_line12"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            app:layout_constraintTop_toBottomOf="@id/tv_reason_analyze_title"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
             android:id="@+id/tv_person_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line12"
+            app:layout_constraintTop_toBottomOf="@id/view_line11"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/vertical_margin_8"
             android:layout_marginStart="@dimen/horizontal_margin_8"

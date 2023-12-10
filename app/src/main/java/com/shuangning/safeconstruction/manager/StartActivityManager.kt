@@ -66,13 +66,6 @@ object StartActivityManager {
         ActivityUtils.start(ctx, QuestionOperatorActivity::class.java)
     }
 
-    fun startToFinesList(ctx: Context,){
-        ActivityUtils.start(ctx, FinesListActivity::class.java)
-    }
-
-    fun startToFinesDetail(ctx: Context,){
-        ActivityUtils.start(ctx, FinesDetailActivity::class.java)
-    }
 
     fun startToQuestionOperatorDetail(ctx: Context,){
         ActivityUtils.start(ctx, QuestionOperatorDetailActivity::class.java)

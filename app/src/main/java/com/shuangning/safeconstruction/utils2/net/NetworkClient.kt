@@ -6,9 +6,10 @@ import com.shuangning.safeconstruction.utils2.net.calladapter.string2Result.Stri
 import com.shuangning.safeconstruction.utils2.net.convert.StringResponseConvertFactory
 import com.shuangning.safeconstruction.utils2.net.interceptor.CustomLogInterceptor
 import com.shuangning.safeconstruction.utils2.net.interceptor.HeaderInterceptor
+import com.shuangning.safeconstruction.utils2.net.interceptor.TimeOutInterceptor
 import okhttp3.Cache
+import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
@@ -23,21 +24,23 @@ import java.util.concurrent.TimeUnit
  * 3.gzip拦截器
  */
 class NetworkClient {
-    private var callback: OnNetCallback?= null
+    private var callback: OnNetCallback? = null
     private var baseUrl = ""
     private val servicesMap = mutableMapOf<String, Any>()
     private var retrofit: Retrofit? = null
-    fun init(baseUrl: String, callback:OnNetCallback?){
+    private lateinit var okHttpClient: OkHttpClient
+    fun init(baseUrl: String, callback: OnNetCallback?) {
         this.baseUrl = baseUrl
         this.callback = callback
     }
+
     fun retrofit(): NetworkClient {
-        if(baseUrl.isNullOrBlank()){
+        if (baseUrl.isNullOrBlank()) {
             throw NullPointerException("请调用NetworkClient.init() 初始化baseurl")
         }
         MyLog.d("baseUrl:${baseUrl}")
         if (retrofit == null) {
-            val okHttpClient = newOkhttp()
+            okHttpClient = newOkhttp()
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
@@ -52,18 +55,23 @@ class NetworkClient {
         return this
     }
 
-    private fun newOkhttp(): OkHttpClient{
+    private fun newOkhttp(): OkHttpClient {
         val cache = Cache(File(PathUtils.getExternalAppCachePath(), "cache"), CACHE_SIZE)
         return OkHttpClient.Builder()
-            .readTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
-            .connectTimeout(TIME_OUT_TIME, TimeUnit.MILLISECONDS)
+            .readTimeout(TIME_OUT_TIME, TimeUnit.SECONDS)
+            .connectTimeout(TIME_OUT_TIME, TimeUnit.SECONDS)
+            .writeTimeout(TIME_OUT_TIME, TimeUnit.SECONDS)
+            //自定义连接池最大空闲连接数和等待时间大小，否则默认最大5个空闲连接(优化文件上传)
+            .connectionPool(ConnectionPool(32, 5, TimeUnit.MINUTES))
             .cache(cache)
             .addInterceptor(HeaderInterceptor(callback))
             .addInterceptor(CustomLogInterceptor())
+            .addInterceptor(TimeOutInterceptor())
             .build()
     }
-    fun <T> createService(serviceCls: Class<T>): T{
-        if (servicesMap.containsKey(serviceCls.name)){
+
+    fun <T> createService(serviceCls: Class<T>): T {
+        if (servicesMap.containsKey(serviceCls.name)) {
             return servicesMap[serviceCls.name] as T
         }
         val service = retrofit?.create(serviceCls)
@@ -71,22 +79,16 @@ class NetworkClient {
         return service
     }
 
-    class MyHttpLogger: HttpLoggingInterceptor.Logger{
-
-        override fun log(message: String) {
-            MyLog.d(message)
-        }
-    }
-
-    interface OnNetCallback{
+    interface OnNetCallback {
         fun onCodeError(code: Int, msg: String)
         fun onOtherError(throwable: Throwable)
         fun getToken(): String
     }
 
-    companion object{
+    companion object {
         val client = NetworkClient()
-        const val TIME_OUT_TIME = 5000L
+        const val TIME_OUT_TIME = 10L
         const val CACHE_SIZE = 100 * 1024 * 1024L
+        const val UPLOAD_TIME_OUT_TIME = 60L
     }
 }

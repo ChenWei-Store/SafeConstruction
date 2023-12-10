@@ -23,21 +23,16 @@ class RoutineInspectionListViewModel : ViewModel() {
     private val _data: MutableLiveData<RoutineInspectionListResp?> = MutableLiveData()
     val data: LiveData<RoutineInspectionListResp?> = _data
     fun getData(biaoduan: String, pageNo: Int, pageSize: Int) {
-        val companyType = UserInfoManager.getUserInfo()?.companyType ?: ""
         viewModelScope.launch {
             val data = kotlin.runCatching {
                 val deferred1 = async {
-                    NetworkClient.client.retrofit()
-                        .createService(ApiService::class.java)
-                        .getRoutineInspectionList(biaoduan, pageNo, pageSize)
+                    getRoutineInspectionList(biaoduan, pageNo, pageSize)
                 }
                 val deferred2 = async {
-                    NetworkClient.client.retrofit()
-                        .createService(ApiService::class.java)
-                        .getAttendanceManagementSectionList(companyType)
+                    getAttendanceManagementSectionList()
                 }
-                val result1 = deferred1.await()?.data
-                val result2 = deferred2.await()?.data
+                val result1 = deferred1.await()
+                val result2 = deferred2.await()
                 val wrapper = RoutineInspectionListWrapper(result1, result2)
                 wrapper
             }.onFailure {
@@ -49,17 +44,31 @@ class RoutineInspectionListViewModel : ViewModel() {
 
     fun onlyGetList(biaoduan: String, pageNo: Int, pageSize: Int) {
         viewModelScope.launch {
-            val data = kotlin.runCatching {
-                NetworkClient.client.retrofit()
-                    .createService(ApiService::class.java)
-                    .getRoutineInspectionList(biaoduan, pageNo, pageSize)
-            }.onFailure {
-                MyLog.e(it.message.toString())
-            }.getOrNull()?.data
+            val data = getRoutineInspectionList(biaoduan, pageNo, pageSize)
             _data.postValue(data)
         }
     }
 
+    private suspend fun getRoutineInspectionList(biaoduan: String, pageNo: Int, pageSize: Int): RoutineInspectionListResp?{
+        return kotlin.runCatching {
+            NetworkClient.client.retrofit()
+                .createService(ApiService::class.java)
+                .getRoutineInspectionList(biaoduan, pageNo, pageSize)
+        }.onFailure {
+            MyLog.e(it.message.toString())
+        }.getOrNull()?.data
+    }
+
+    private suspend fun getAttendanceManagementSectionList(): MutableList<String>?{
+        val companyType = UserInfoManager.getUserInfo()?.companyType ?: ""
+        return kotlin.runCatching {
+            NetworkClient.client.retrofit()
+                .createService(ApiService::class.java)
+                .getAttendanceManagementSectionList(companyType)
+        }.onFailure {
+            MyLog.e(it.message.toString())
+        }.getOrNull()?.data
+    }
     data class RoutineInspectionListWrapper(
         val routineInspectionList: RoutineInspectionListResp?,
         val sections: MutableList<String>?,

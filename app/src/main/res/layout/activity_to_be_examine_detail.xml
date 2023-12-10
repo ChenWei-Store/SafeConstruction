@@ -168,45 +168,10 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_reference_clause_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toBottomOf="@id/view_line4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_reference_clause"
-            android:layout_marginEnd="@dimen/horizontal_margin_8"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            android:layout_marginStart="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555"
-            android:text="@string/reference_clause"/>
-
-        <TextView
-            android:id="@+id/tv_reference_clause"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="@id/tv_reference_clause_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_reference_clause_title"
-            android:layout_marginEnd="@dimen/horizontal_margin_8"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555" />
-
-        <View
-            android:id="@+id/view_line5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginTop="@dimen/vertical_margin_8"
-            app:layout_constraintTop_toBottomOf="@id/tv_reference_clause"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <TextView
             android:id="@+id/tv_part_of_tender_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line5"
+            app:layout_constraintTop_toBottomOf="@id/view_line4"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/vertical_margin_8"
             android:layout_marginStart="@dimen/horizontal_margin_8"

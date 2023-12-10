@@ -15,7 +15,7 @@ import com.shuangning.safeconstruction.utils2.net.NetworkClient
 class OnNetCallbackImpl: NetworkClient.OnNetCallback {
     override fun onCodeError(code: Int, msg: String) {
         MyLog.e("OnNetCallbackImpl onCodeError:$code-$msg")
-        if (code == 500){
+        if (code == 500 || code == -1){
             showToast("请求失败")
         }else if (code == 400){
             showToast("非法请求参数")

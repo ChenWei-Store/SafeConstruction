@@ -122,6 +122,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/view_line3"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_check_item"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
@@ -130,10 +132,13 @@
 
             <TextView
                 android:id="@+id/tv_check_item"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/tv_check_item_title"
+                app:layout_constraintStart_toEndOf="@id/tv_check_item_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555" />
@@ -147,44 +152,10 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_reference_clause_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintTop_toBottomOf="@id/view_line4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_reference_clause"
-                android:layout_marginTop="@dimen/vertical_margin_8"
-                android:layout_marginStart="@dimen/horizontal_margin_8"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"
-                android:text="@string/reference_clause"/>
-
-            <TextView
-                android:id="@+id/tv_reference_clause"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@id/tv_reference_clause_title"
-                app:layout_constraintTop_toTopOf="@id/tv_reference_clause_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
-            <View
-                android:id="@+id/view_line5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_reference_clause"
-                app:layout_constraintStart_toStartOf="parent"/>
-            <TextView
                 android:id="@+id/tv_part_of_tender_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/view_line5"
+                app:layout_constraintTop_toBottomOf="@id/view_line4"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
@@ -245,6 +216,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/view_linex"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_commit_person"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
@@ -253,10 +226,13 @@
 
             <TextView
                 android:id="@+id/tv_commit_person"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/tv_commit_person_title"
+                app:layout_constraintStart_toEndOf="@id/tv_commit_person_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555" />
@@ -270,40 +246,10 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_reason_analyze_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/view_line7"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/vertical_margin_8"
-                android:layout_marginStart="@dimen/horizontal_margin_8"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555"
-                android:text="@string/reason_analyze"/>
-
-            <TextView
-                android:id="@+id/tv_reason_analyze"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/tv_reason_analyze_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/horizontal_margin_8"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
-            <View
-                android:id="@+id/view_line8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_reason_analyze_title"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TextView
                 android:id="@+id/tv_rectification_condition_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/view_line8"
+                app:layout_constraintTop_toBottomOf="@id/view_line7"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"

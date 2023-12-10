@@ -21,6 +21,8 @@ data class RoutineInspectionItem(
     @Json(name = "flowInstanceId") val flowInstanceId: Int = 0,
     @Json(name = "flowNodeInstanceId") val flowNodeInstanceId: Int = 0,
     @Json(name = "status") val status: String = "",
+    @Json(name = "xunchatupian") val xunchatupian: String = "",
+    @Json(name = "id") val id: Int = 0,
     @Json(ignore = true) val type: Int = CONTENT,
 ): IItemViewType {
     override fun getItemType(): Int {
