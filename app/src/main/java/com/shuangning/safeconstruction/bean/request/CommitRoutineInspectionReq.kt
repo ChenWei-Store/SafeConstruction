@@ -1,5 +1,7 @@
 package com.shuangning.safeconstruction.bean.request
 
+import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
+import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -11,6 +13,7 @@ data class CommitRoutineInspectionReq(
     @Json(name = "weidu") val weidu: Double = 0.0,
     @Json(name = "jingdu") val jingdu: Double = 0.0,
     @Json(name = "jianchafenlei") val jianchafenlei: String = "",
+    @Json(name = "xunchatupian") val xunchatupian: MutableList<UploadPhotoItem> = mutableListOf(),
     @Json(name = "jianchaxiang") val jianchaxiang: JianChaXiang = JianChaXiang(),
     @Json(name = "biaoduan") val biaoduan: String = "",
     @Json(name = "shigongdui") val shigongdui: String = "",

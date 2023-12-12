@@ -23,6 +23,11 @@ import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
 import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.bean.base.ShowPhoto
+import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
+import com.shuangning.safeconstruction.bean.request.JianChaXiang
+import com.shuangning.safeconstruction.bean.request.ZhengGaiChuLiRen
+import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
+import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.databinding.ActivityProblemReportBinding
 import com.shuangning.safeconstruction.extension.prepareStartForResult
 import com.shuangning.safeconstruction.manager.FROM_PROBLEM_REPORT
@@ -34,6 +39,9 @@ import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.TimeUtils
 import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_HH_mm
+import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_HH_mm_ss
+import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_T_HH_mm_ss_SSS
+import com.shuangning.safeconstruction.utils.ToastUtil
 import java.util.ArrayList
 import java.util.Calendar
 import java.util.Date
@@ -95,6 +103,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 
     override fun initListener() {
         binding?.viewInspectionClassification?.setOnClickListener {
+            //检查分类
             val data = arrayOf("安全检查", "质量检查")
             XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data) { index, text ->
                 inspectionClassification = text
@@ -102,6 +111,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             }
         }
         binding?.viewPartOfTender?.setOnClickListener {
+            //标段
             val data = arrayOf("GX-1标", "GX-2标", "GX-21标")
             XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data) { index, text ->
                 partOfTender = text
@@ -144,7 +154,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 
                     override fun onTimeConfirm(date: Date?, view: View?) {
                         date?.let {
-                            selectedTime = TimeUtils.parseTime(date, yyyy_MM_dd_HH_mm)
+                            selectedTime = TimeUtils.parseTime(date, yyyy_MM_dd_HH_mm_ss)
                             selectedCalendar.time = date
                             binding?.tvRectificationPeriod?.text = selectedTime
                         }
@@ -208,44 +218,36 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             binding?.tvRectificationRequirements?.text = (maxLength - length).toString()
         }
         binding?.llCommit?.setOnClickListener {
-//            val desc = binding?.etContent?.text?.toString()
-//            if (desc.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请输入现场情况描述")
-//                return@setOnClickListener
-//            }
-//            if (inspectionClassification.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择检查分类")
-//                return@setOnClickListener
-//            }
-//            if (checkList.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择检查项")
-//                return@setOnClickListener
-//            }
-//            if (termsOfReference.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择涉及条款")
-//                return@setOnClickListener
-//            }
-//            if (partOfTender.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择标段")
-//                return@setOnClickListener
-//            }
-//            if (constructionTeam.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择施工队")
-//                return@setOnClickListener
-//            }
-//            val rectificationRequirements = binding?.etRectificationRequirements?.text
-//            if (rectificationRequirements.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请输入整改要求")
-//                return@setOnClickListener
-//            }
-//            if (selectedTime.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择整改期限")
-//                return@setOnClickListener
-//            }
-//            if (causeAnalysis.isNullOrEmpty()){
-//                XPopCreateUtils.showTipDialog(this, "提示", "请选择原因分析")
-//                return@setOnClickListener
-//            }
+            val desc = binding?.etContent?.text?.toString()
+            if (desc.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请输入现场情况描述")
+                return@setOnClickListener
+            }
+            if (inspectionClassification.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请选择检查分类")
+                return@setOnClickListener
+            }
+            if (checkList.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请选择检查项")
+                return@setOnClickListener
+            }
+            if (partOfTender.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请选择标段")
+                return@setOnClickListener
+            }
+            if (constructionTeam.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请选择施工队")
+                return@setOnClickListener
+            }
+            val rectificationRequirements = binding?.etRectificationRequirements?.text
+            if (rectificationRequirements.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请输入整改要求")
+                return@setOnClickListener
+            }
+            if (selectedTime.isNullOrEmpty()){
+                XPopCreateUtils.showTipDialog(this, "提示", "请选择整改期限")
+                return@setOnClickListener
+            }
             if (data.isEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请上传图片")
                 return@setOnClickListener
@@ -263,8 +265,28 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 
     override fun observeViewModel() {
         viewModel.photos.observe(this){
-            LoadingManager.stopLoading()
+            val data = mutableListOf<UploadPhotoItem>()
+            it?.let {
+                data.addAll(it)
+            }
+            val jianchaxiang = JianChaXiang(2, "测试管理员")
+            val chuliren = ZhengGaiChuLiRen(205)
+            val desc = binding?.etContent?.text?.toString()?:""
+            partOfTender = "HA4"
+            constructionTeam="施工队"
+            val rectificationRequirements = binding?.etRectificationRequirements?.text?.toString()?:""
+            val req = CommitRoutineInspectionReq(0.0,0.0, inspectionClassification, data,
+                jianchaxiang, partOfTender, constructionTeam, selectedTime, desc, rectificationRequirements, chuliren)
+            viewModel.commit(req)
         }
+        viewModel.uploadResult.observe(this){
+            LoadingManager.stopLoading()
+            if (it){
+                ToastUtil.showCustomToast("提交成功")
+                finish()
+            }
+        }
+
     }
 
     override fun onActivityResult(result: ActivityResult) {

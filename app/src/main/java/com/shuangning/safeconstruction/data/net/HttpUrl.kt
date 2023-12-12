@@ -23,3 +23,4 @@ const val COMMIT_ROUTINE_INSPECTION = "shuangning-server/dailyCheck/startProcess
 const val QUESTION_OPERATOR = "shuangning-server/gis/queryCheckoutDetail"
 const val FINES_LIST = "shuangning-server/gis/queryPenaltyMoney"
 const val FINES_DETAIL = "shuangning-server/gis/queryPenaltyMoneyDetail"
+const val GET_CHECK_LIST = "shuangning-server/gis/querycheckoutList"

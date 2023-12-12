@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction.data.net
 import com.shuangning.safeconstruction.bean.request.AddGroupEducationReq
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
 import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
+import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
 import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
@@ -19,6 +20,7 @@ import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.NewsListResp
 import com.shuangning.safeconstruction.bean.response.QuestionOperatorResp
 import com.shuangning.safeconstruction.bean.response.RoutineInspectionListResp
+import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
@@ -79,10 +81,10 @@ interface ApiService {
     @POST(QUESTION_OPERATOR)
     suspend fun getQuestionOperator(@Field("id") id: String): HttpResult<QuestionOperatorResp>?
     @POST(COMMIT_ROUTINE_INSPECTION)
-    suspend fun commitRoutineInspection(@Body data: GroupEducationListReq): HttpResult<GroupEducationListResp>?
+    suspend fun commitRoutineInspection(@Body data: CommitRoutineInspectionReq): HttpResult<Any>?
     @Multipart
     @POST(UPLOAD_VIDEO)
-    suspend fun uploadPhotos(@Part files: MutableList<MultipartBody.Part>): HttpResult<MutableList<UploadVideoItem>>?
+    suspend fun uploadPhotos(@Part files: MutableList<MultipartBody.Part>): HttpResult<MutableList<UploadPhotoItem>>?
     @FormUrlEncoded
     @POST(FINES_LIST)
     suspend fun getFinesList(@Field("checkOutNo") checkOutNo: String): HttpResult<MutableList<FinesListItem>>?
