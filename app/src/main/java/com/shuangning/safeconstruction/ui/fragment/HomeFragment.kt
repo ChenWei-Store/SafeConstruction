@@ -94,7 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 this,
                                 FROM_GROUP_EDUCATION
                             )
-
+                        HomeItemManager.VIDEO_SURVEILLANCE ->
+                            StartActivityManager.startToVideoSurveillance(this)
                     }
                 }
             }

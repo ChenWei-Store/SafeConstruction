@@ -8,6 +8,8 @@ import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
 import com.shuangning.safeconstruction.bean.response.AttendanceManagementListResp
+import com.shuangning.safeconstruction.bean.response.CameraListResp
+import com.shuangning.safeconstruction.bean.response.CameraTokenResp
 import com.shuangning.safeconstruction.bean.response.FinesDetailResp
 import com.shuangning.safeconstruction.bean.response.FinesListItem
 import com.shuangning.safeconstruction.bean.response.GetProjectBaseInfoResp
@@ -91,4 +93,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST(FINES_DETAIL)
     suspend fun getFineDetail(@Field("id") id: String): HttpResult<FinesDetailResp>?
+    @POST(CAMERA_LIST)
+    suspend fun getCameraList(): HttpResult<MutableList<CameraListResp>>?
+    @GET(CAMERA_TOKEN)
+    suspend fun getCameraToken(): HttpResult<CameraTokenResp>?
 }

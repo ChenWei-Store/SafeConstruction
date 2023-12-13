@@ -2,20 +2,16 @@ package com.shuangning.safeconstruction.manager
 
 import android.content.Context
 import androidx.activity.ComponentActivity
+import com.shuangning.safeconstruction.bean.response.CameraListResp
 import com.shuangning.safeconstruction.ui.activity.AddContentActivity
 import com.shuangning.safeconstruction.ui.activity.AddFineItemActivity
 import com.shuangning.safeconstruction.ui.activity.AddFinesActivity
-import com.shuangning.safeconstruction.ui.activity.AddGroupEducationActivity
-import com.shuangning.safeconstruction.ui.activity.AttendanceManagementDetailActivity
 import com.shuangning.safeconstruction.ui.activity.AttendanceManagementListActivity
+import com.shuangning.safeconstruction.ui.activity.CameraDetailActivity
 import com.shuangning.safeconstruction.ui.activity.ClockInOrOutActivity
-import com.shuangning.safeconstruction.ui.activity.FinesDetailActivity
-import com.shuangning.safeconstruction.ui.activity.FinesListActivity
-import com.shuangning.safeconstruction.ui.activity.GroupEducationListActivity
 import com.shuangning.safeconstruction.ui.activity.LoginActivity
 import com.shuangning.safeconstruction.ui.activity.MainActivity
 import com.shuangning.safeconstruction.ui.activity.ModifyPasswordActivity
-import com.shuangning.safeconstruction.ui.activity.TermsOfReferenceActivity
 import com.shuangning.safeconstruction.ui.activity.ProblemReportActivity
 import com.shuangning.safeconstruction.ui.activity.RectificationAndReplyActivity
 import com.shuangning.safeconstruction.ui.activity.QuestionOperatorActivity
@@ -23,16 +19,17 @@ import com.shuangning.safeconstruction.ui.activity.QuestionOperatorDetailActivit
 import com.shuangning.safeconstruction.ui.activity.RoutineInspectionListActivity
 import com.shuangning.safeconstruction.ui.activity.ScanQrcodeActivity
 import com.shuangning.safeconstruction.ui.activity.MultiSelectActivity
-import com.shuangning.safeconstruction.ui.activity.SelectCheckListActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersDetailsActivity
 import com.shuangning.safeconstruction.ui.activity.TakePhotosOfDangersStatusActivity
+import com.shuangning.safeconstruction.ui.activity.CameraListActivity
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/9/8.
  */
 const val FROM_WHERE = "From_where"
+const val CAMERA_INFO = "camera_info"
 const val NONE = 0
 const val FROM_TAKE_PHOTO_OF_DANAGE = 1
 const val FROM_GROUP_EDUCATION = 2
@@ -111,5 +108,15 @@ object StartActivityManager {
 
     fun startToClockInOut(ctx: Context,){
         ActivityUtils.start(ctx, ClockInOrOutActivity::class.java)
+    }
+
+    fun startToVideoSurveillance(ctx:Context){
+        ActivityUtils.start(ctx, CameraListActivity::class.java)
+    }
+
+    fun startToCameraDetail(ctx:Context,cameraInfo: CameraListResp){
+        ActivityUtils.start(ctx, CameraDetailActivity::class.java){
+            putExtra(CAMERA_INFO,cameraInfo)
+        }
     }
 }
