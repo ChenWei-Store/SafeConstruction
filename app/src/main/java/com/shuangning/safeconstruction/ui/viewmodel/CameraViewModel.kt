@@ -38,8 +38,8 @@ class CameraViewModel : ViewModel() {
             }.onFailure {
                 MyLog.e(it.message.toString())
             }.getOrNull()?.data
-            data?.let {
-                MyLog.d(it.status)
+            data?.data?.accessToken?.let {
+                cameraToken.postValue(it)
             }
         }
     }
