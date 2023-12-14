@@ -1,25 +1,24 @@
 package com.shuangning.safeconstruction.ui.activity
 
-import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IExpandable
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
-import com.shuangning.safeconstruction.base.adapter.LEVEL_TWO
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.other.SelectCheckHeader
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelOne
 import com.shuangning.safeconstruction.bean.other.SelectCheckLevelTwo
 import com.shuangning.safeconstruction.databinding.ActivitySelectCheckListBinding
-import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.SelectCheckListMultiAdapter
+import com.shuangning.safeconstruction.ui.viewmodel.SelectCheckListViewModel
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
@@ -28,6 +27,7 @@ import com.shuangning.safeconstruction.utils2.ActivityUtils
 class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
     private var selectCheckListAdapter: SelectCheckListMultiAdapter?= null
     private var data: MutableList<IItemViewType> = mutableListOf()
+    private val viewModel by viewModels<SelectCheckListViewModel>()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivitySelectCheckListBinding? {
         return ActivitySelectCheckListBinding.inflate(layoutInflater)
     }
@@ -42,7 +42,9 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
     }
 
     override fun initData() {
-        data.add(SelectCheckHeader("平安守护系统应用"))
+        LoadingManager.startLoading(this)
+        viewModel.getCheckList()
+        data.add(SelectCheckHeader("检查项"))
         val level2List = mutableListOf<SelectCheckLevelTwo>()
         for(i in 1..5){
             val level2 = SelectCheckLevelTwo("第一节2区三场建设")
@@ -94,6 +96,10 @@ class SelectCheckListActivity: BaseActivity<ActivitySelectCheckListBinding>() {
     }
 
     override fun observeViewModel() {
+        viewModel.result.observe(this){
+            LoadingManager.stopLoading()
+        }
+
     }
 
     companion object{

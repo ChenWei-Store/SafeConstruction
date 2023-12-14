@@ -41,6 +41,9 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun getUrl(json: String): String {
+        if (json.isEmpty()){
+            return ""
+        }
         val jsonObject = JSONObject(json)
         val ja = jsonObject.optJSONArray("attach")
         return ja?.optJSONObject(0)?.optString("url") ?: ""

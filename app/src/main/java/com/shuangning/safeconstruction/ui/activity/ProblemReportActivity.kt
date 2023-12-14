@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,22 +25,19 @@ import com.shuangning.safeconstruction.bean.base.ShowPhoto
 import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
 import com.shuangning.safeconstruction.bean.request.JianChaXiang
 import com.shuangning.safeconstruction.bean.request.ZhengGaiChuLiRen
+import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
+import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
-import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.databinding.ActivityProblemReportBinding
-import com.shuangning.safeconstruction.extension.prepareStartForResult
-import com.shuangning.safeconstruction.manager.FROM_PROBLEM_REPORT
-import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
 import com.shuangning.safeconstruction.ui.viewmodel.ProblemReportViewModel
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.TimeUtils
-import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_HH_mm
 import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_HH_mm_ss
-import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd_T_HH_mm_ss_SSS
 import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils2.BaiduLocation
 import java.util.ArrayList
 import java.util.Calendar
 import java.util.Date
@@ -50,7 +46,7 @@ import java.util.Date
  * Created by Chenwei on 2023/10/16.
  */
 class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
-    ActivityResultCallback<ActivityResult> {
+    ActivityResultCallback<ActivityResult>, BaiduLocation.OnLocationResultCallback {
     private val data: MutableList<ItemViewType> = mutableListOf()
     private var addShowPhotoAdapter: AddShowPhotoMultiAdapter? = null
     private var selectedCalendar: Calendar = Calendar.getInstance()
@@ -63,6 +59,12 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     private var causeAnalysis = "" //原因分析
     private val maxPhotoNum = 9
     private val viewModel by viewModels<ProblemReportViewModel>()
+    private var section: Array<String>? = null
+    private val personConstructionTeams = mutableListOf<ConstructionTeamResp>()
+    private var latitude: Double = 0.0 //纬度
+    private var longitude: Double = 0.0 //精度
+    private var personResp: PersonResp?= null
+    private var person = ""
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityProblemReportBinding? {
         return ActivityProblemReportBinding.inflate(layoutInflater)
     }
@@ -86,13 +88,24 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         binding?.etRectificationRequirements?.filters =
             arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
         binding?.tvInspectionClassification?.text = inspectionClassification
-        binding?.tvPartOfTender?.text = partOfTender
+    }
+
+    override fun onStart() {
+        super.onStart()
+        BaiduLocation.start(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        BaiduLocation.stop()
     }
 
     override fun initData() {
         data.add(AddPhoto())
-        partOfTender = "GX-1标"
+//        partOfTender = "GX-1标"
         inspectionClassification = "安全检查"
+        LoadingManager.startLoading(this)
+        viewModel.getData()
     }
 
     override fun doBeforeSetContentView() {
@@ -112,31 +125,27 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
         binding?.viewPartOfTender?.setOnClickListener {
             //标段
-            val data = arrayOf("GX-1标", "GX-2标", "GX-21标")
-            XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data) { index, text ->
-                partOfTender = text
-                binding?.tvPartOfTender?.text = partOfTender
+            section?.let {
+                XPopCreateUtils.showListCenterDialog(
+                    this@ProblemReportActivity,
+                    it
+                ) { index, text ->
+                    partOfTender = text
+                    binding?.tvPartOfTender?.text = partOfTender
+                }
             }
         }
         binding?.viewConstructionTeam?.setOnClickListener {
-            val data = arrayOf(
-                "三场基建队",
-                "三场钢筋大棚安拆队",
-                "三场砌墙队",
-                "三场临建队",
-                "施工便道队",
-                "施工便桥队",
-                "桩基一队",
-                "桩基二队",
-                "路基一队",
-                "路基二队",
-                "下沟/小构1队",
-                "下沟/小构2队",
-                "钢筋加工场",
-                "混凝土拌和站",
-                "预制梁厂",
-                "标准化建设"
-            )
+            //施工队
+            if (partOfTender.isEmpty()) {
+                ToastUtil.showCustomToast("请先选择标段")
+                return@setOnClickListener
+            }
+            val data = getConstructionTeam()
+            if (data.isEmpty()) {
+                ToastUtil.showCustomToast("当前标段下没有施工队")
+                return@setOnClickListener
+            }
             XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data) { index, text ->
                 constructionTeam = text
                 binding?.tvConstructionTeam?.text = constructionTeam
@@ -144,6 +153,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
 
         binding?.viewRectificationPeriod?.setOnClickListener {
+            //整改期限
             XPopCreateUtils.showYearMonthDialog(
                 this@ProblemReportActivity,
                 TimePickerPopup.Mode.YMDHM,
@@ -166,6 +176,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
 
         binding?.viewCheckList?.setOnClickListener {
+            //检查项
             SelectCheckListActivity.startForResult(this@ProblemReportActivity, 1)
         }
 
@@ -217,34 +228,49 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             val length = it.toString().length
             binding?.tvRectificationRequirements?.text = (maxLength - length).toString()
         }
+        binding?.viewCauseAnalysis?.setOnClickListener {
+            //整改处理人
+            if (partOfTender.isEmpty()) {
+                ToastUtil.showCustomToast("请先选择标段")
+                return@setOnClickListener
+            }
+            if (constructionTeam.isEmpty()) {
+                ToastUtil.showCustomToast("请先选择施工队")
+                return@setOnClickListener
+            }
+            val id = getConstructionTeamId()
+            LoadingManager.startLoading(this)
+            viewModel.getPerson(id)
+        }
         binding?.llCommit?.setOnClickListener {
+            //提交
             val desc = binding?.etContent?.text?.toString()
-            if (desc.isNullOrEmpty()){
+            if (desc.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请输入现场情况描述")
                 return@setOnClickListener
             }
-            if (inspectionClassification.isNullOrEmpty()){
+            if (inspectionClassification.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择检查分类")
                 return@setOnClickListener
             }
-            if (checkList.isNullOrEmpty()){
+            if (checkList.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择检查项")
                 return@setOnClickListener
             }
-            if (partOfTender.isNullOrEmpty()){
+            if (partOfTender.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择标段")
                 return@setOnClickListener
             }
-            if (constructionTeam.isNullOrEmpty()){
+            if (constructionTeam.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择施工队")
                 return@setOnClickListener
             }
             val rectificationRequirements = binding?.etRectificationRequirements?.text
-            if (rectificationRequirements.isNullOrEmpty()){
+            if (rectificationRequirements.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请输入整改要求")
                 return@setOnClickListener
             }
-            if (selectedTime.isNullOrEmpty()){
+            if (selectedTime.isNullOrEmpty()) {
                 XPopCreateUtils.showTipDialog(this, "提示", "请选择整改期限")
                 return@setOnClickListener
             }
@@ -263,28 +289,126 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
     }
 
+    private fun getConstructionTeamId(): Int {
+        var item: ConstructionTeamResp? = null
+        personConstructionTeams.forEach {
+            if (it.name.contains(partOfTender)) {
+                item = it
+                return@forEach
+            }
+        }
+        val id = item?.let { it ->
+            val result = it.children.find {
+                it.name == constructionTeam
+            }
+            val id = result?.id ?: 0
+            id
+        } ?: let {
+            0
+        }
+        return id
+    }
+
+    fun getPersonId(): Int{
+        var id = 0
+        personResp?.children?.forEach {
+            if (it.name == person) {
+                id = it.id
+                return@forEach
+            }
+        }
+        return id
+    }
+
+    private fun getConstructionTeam(): Array<String> {
+        if (personConstructionTeams.isEmpty()) {
+            return emptyArray()
+        }
+        var item: ConstructionTeamResp? = null
+        personConstructionTeams.forEach {
+            if (it.name.contains(partOfTender)) {
+                item = it
+                return@forEach
+            }
+        }
+        val data = item?.let {
+            val array = arrayOfNulls<String>(it.children.size)
+            it.children.forEachIndexed { index, constructionTeamItem ->
+                array[index] = constructionTeamItem.name
+            }
+            array as Array<String>
+        } ?: let {
+            emptyArray()
+        }
+        return data
+
+    }
+
     override fun observeViewModel() {
-        viewModel.photos.observe(this){
+        viewModel.photos.observe(this) {
             val data = mutableListOf<UploadPhotoItem>()
             it?.let {
                 data.addAll(it)
             }
             val jianchaxiang = JianChaXiang(2, "测试管理员")
-            val chuliren = ZhengGaiChuLiRen(205)
-            val desc = binding?.etContent?.text?.toString()?:""
-            partOfTender = "HA4"
-            constructionTeam="施工队"
-            val rectificationRequirements = binding?.etRectificationRequirements?.text?.toString()?:""
-            val req = CommitRoutineInspectionReq(0.0,0.0, inspectionClassification, data,
-                jianchaxiang, partOfTender, constructionTeam, selectedTime, desc, rectificationRequirements, chuliren)
+            val chuliren = ZhengGaiChuLiRen(getPersonId())
+            val desc = binding?.etContent?.text?.toString() ?: ""
+            val rectificationRequirements =
+                binding?.etRectificationRequirements?.text?.toString() ?: ""
+            val req = CommitRoutineInspectionReq(
+                latitude,
+                longitude,
+                inspectionClassification,
+                data,
+                jianchaxiang,
+                partOfTender,
+                constructionTeam,
+                selectedTime,
+                desc,
+                rectificationRequirements,
+                chuliren
+            )
             viewModel.commit(req)
         }
-        viewModel.uploadResult.observe(this){
+        viewModel.uploadResult.observe(this) {
             LoadingManager.stopLoading()
-            if (it){
+            if (it) {
                 ToastUtil.showCustomToast("提交成功")
                 finish()
             }
+        }
+        viewModel.sectionResult.observe(this) {
+            section = it?.toTypedArray()
+            section?.let {
+                partOfTender = it[0]
+                binding?.tvPartOfTender?.text = partOfTender
+            }
+        }
+        viewModel.constructionTeamResult.observe(this) {
+            LoadingManager.stopLoading()
+            it?.let {
+                personConstructionTeams.addAll(it)
+            }
+        }
+
+        viewModel.personResult.observe(this) {
+            LoadingManager.stopLoading()
+            if (it == null || it.children.isNullOrEmpty()){
+                ToastUtil.showCustomToast("当前施工队下没有整改处理人数据")
+                return@observe
+            }
+            personResp = it
+            personResp?.children?.let {
+                val data = arrayOfNulls<String>(it.size)
+                it.forEachIndexed { index, personItem ->
+                    data[index] = personItem.name
+                }
+                XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data as Array<String>) { index, text ->
+                    person = text
+                    binding?.tvCauseAnalysis?.text = person
+                }
+            }
+
         }
 
     }
@@ -306,5 +430,15 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     private fun onCheckListResult(data: Intent?) {
         checkList = data?.getStringExtra("data") ?: ""
         binding?.tvCheckList?.text = checkList
+    }
+
+    override fun onLocationResult(isSuccess: Boolean, result: BaiduLocation.LocationResult?) {
+        if (isSuccess && result != null) {
+            latitude = result.latitude
+            longitude = result.longitude
+        } else {
+            latitude = 0.0
+            longitude = 0.0
+        }
     }
 }

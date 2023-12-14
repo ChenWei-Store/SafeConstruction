@@ -66,6 +66,9 @@ class GroupEducationDetailAdapter(data:  MutableList<IItemViewType>): CommonBase
     }
 
     private fun parseVideoUrl(json: String): String{
+        if (json.isEmpty()){
+            return ""
+        }
         val jsonObj = JSONObject(json)
         val jsonArray = jsonObj.optJSONArray("attach")
         val result = jsonArray.optJSONObject(0)

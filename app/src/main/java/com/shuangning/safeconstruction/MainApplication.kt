@@ -1,6 +1,5 @@
 package com.shuangning.safeconstruction
 
-import com.baidu.mapapi.SDKInitializer
 import com.shuangning.safeconstruction.base.BaseApplication
 import com.shuangning.safeconstruction.data.net.OnNetCallbackImpl
 import com.shuangning.safeconstruction.manager.UserInfoManager

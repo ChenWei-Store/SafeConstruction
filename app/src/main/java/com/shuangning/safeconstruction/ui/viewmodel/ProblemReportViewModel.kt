@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
-import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
+import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
+import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
-import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.data.net.ApiService
 import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils2.MyLog
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -28,7 +27,14 @@ class ProblemReportViewModel : ViewModel() {
 
     private val _uploadResult: MutableLiveData<Boolean> = MutableLiveData()
     val uploadResult: LiveData<Boolean> = _uploadResult
+    private val _sectionResult: MutableLiveData<MutableList<String>?> = MutableLiveData()
+    val sectionResult: LiveData<MutableList<String>?> = _sectionResult
 
+    private val _constructionTeamResult: MutableLiveData<MutableList<ConstructionTeamResp>?> = MutableLiveData()
+    val constructionTeamResult: LiveData<MutableList<ConstructionTeamResp>?> = _constructionTeamResult
+
+    private val _personResult: MutableLiveData<PersonResp?> = MutableLiveData()
+    val personResult: LiveData<PersonResp?> = _personResult
     fun uploadPhotos(files: MutableList<String>) {
         viewModelScope.launch {
             val parts = mutableListOf<MultipartBody.Part>()
@@ -46,11 +52,11 @@ class ProblemReportViewModel : ViewModel() {
                 if (data1 != null) {
                     result.addAll(data1)
                 }
-                if (data2 != null){
+                if (data2 != null) {
                     result.addAll(data2)
                 }
             } else {
-                val data =upload(parts)
+                val data = upload(parts)
                 if (data != null) {
                     result.addAll(data)
                 }
@@ -72,7 +78,6 @@ class ProblemReportViewModel : ViewModel() {
 
     fun commit(data: CommitRoutineInspectionReq) {
         viewModelScope.launch {
-            val token = UserInfoManager.getToken() ?: ""
             val data = kotlin.runCatching {
                 NetworkClient.client.retrofit()
                     .createService(ApiService::class.java)
@@ -80,11 +85,54 @@ class ProblemReportViewModel : ViewModel() {
             }.onFailure {
                 MyLog.e(it.message.toString())
             }.getOrNull()?.data
-            if (data != null){
+            if (data != null) {
                 _uploadResult.postValue(true)
-            }else{
+            } else {
                 _uploadResult.postValue(false)
             }
+        }
+    }
+
+    private suspend fun getSection(): MutableList<String>? {
+        return kotlin.runCatching {
+            val companyType = UserInfoManager.getUserInfo()?.companyType ?: ""
+            NetworkClient.client.retrofit()
+                .createService(ApiService::class.java)
+                .getAttendanceManagementSectionList(companyType)
+        }.onFailure {
+            MyLog.e(it.message.toString())
+        }.getOrNull()?.data
+    }
+
+    private suspend fun getConstructionTeam(): MutableList<ConstructionTeamResp>? {
+        return kotlin.runCatching {
+            NetworkClient.client.retrofit()
+                .createService(ApiService::class.java)
+                .getConstructionTeam(true)
+        }.onFailure {
+            MyLog.e(it.message.toString())
+        }.getOrNull()?.data
+    }
+
+    fun getData() {
+        viewModelScope.launch {
+            val section = getSection()
+            val constructionTeam = getConstructionTeam()
+            _sectionResult.postValue(section)
+            _constructionTeamResult.postValue(constructionTeam)
+        }
+    }
+
+    fun getPerson(id: Int){
+        viewModelScope.launch {
+            val data = kotlin.runCatching {
+                NetworkClient.client.retrofit()
+                    .createService(ApiService::class.java)
+                    .getPerson(id.toString())
+            }.onFailure {
+                MyLog.e(it.message.toString())
+            }.getOrNull()?.data
+            _personResult.postValue(data)
         }
     }
 }

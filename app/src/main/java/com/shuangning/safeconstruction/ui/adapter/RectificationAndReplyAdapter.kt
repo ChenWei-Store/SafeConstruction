@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
-import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
-import com.shuangning.safeconstruction.base.adapter.ItemViewType
-import com.shuangning.safeconstruction.bean.other.RectificationAndReplyBean
+import com.shuangning.safeconstruction.bean.response.RectificationAndReplyItem
 import com.shuangning.safeconstruction.databinding.ItemRectificationAndReplyBinding
 import com.shuangning.safeconstruction.ui.activity.COMPLETED
 import com.shuangning.safeconstruction.ui.activity.TO_BE_EXAMINE
@@ -16,13 +14,14 @@ import com.shuangning.safeconstruction.ui.activity.TO_BE_RECTIFIED
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ImageLoader
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/10/11.
  */
 
-class RectificationAndReplyAdapter(data: MutableList<RectificationAndReplyBean>):
-    CommonBaseAdapter<RectificationAndReplyBean, ItemRectificationAndReplyBinding>(data) {
+class RectificationAndReplyAdapter(data: MutableList<RectificationAndReplyItem>):
+    CommonBaseAdapter<RectificationAndReplyItem, ItemRectificationAndReplyBinding>(data) {
     private var selectedTab = TO_BE_RECTIFIED
 
     fun setSelectedTab(selectedTab: Int){
@@ -31,7 +30,7 @@ class RectificationAndReplyAdapter(data: MutableList<RectificationAndReplyBean>)
 
     override fun onBindViewHolder(
         binding: ItemRectificationAndReplyBinding,
-        item: RectificationAndReplyBean,
+        item: RectificationAndReplyItem,
         position: Int,
         ctx: Context
     ) {
@@ -56,12 +55,20 @@ class RectificationAndReplyAdapter(data: MutableList<RectificationAndReplyBean>)
             }
         }
 
-        binding.tvTitle.text = "[gx-2标] gx-2_221228001"
-        ImageLoader.loadUrlWithRound(ctx, "", binding.ivIcon, ScreenUtil.dp2px(16f))
-        binding.tvContent1.text = "工地形象"
-        binding.tvContent2.text = "测试测试测试测试测试"
+        binding.tvTitle.text = "[${item.tenderCode}标] ${item.checkOutNo}"
+        ImageLoader.loadUrlWithRound(ctx, getUrl(item.imgUrl), binding.ivIcon, ScreenUtil.dp2px(16f))
+        binding.tvContent1.text = item.type
+        binding.tvContent2.text = item.checkItem
     }
 
+    private fun getUrl(json: String): String {
+        if (json.isEmpty()){
+            return ""
+        }
+        val jsonObject = JSONObject(json)
+        val ja = jsonObject.optJSONArray("attach")
+        return ja?.optJSONObject(0)?.optString("url") ?: ""
+    }
     override fun getViewBinding(
         inflater: LayoutInflater,
         parent: ViewGroup,

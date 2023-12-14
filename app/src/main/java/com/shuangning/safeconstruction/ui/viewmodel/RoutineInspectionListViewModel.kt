@@ -69,6 +69,17 @@ class RoutineInspectionListViewModel : ViewModel() {
             MyLog.e(it.message.toString())
         }.getOrNull()?.data
     }
+
+    private suspend fun getSection(): MutableList<String>?{
+        return kotlin.runCatching {
+            val companyType = UserInfoManager.getUserInfo()?.companyType?:""
+            NetworkClient.client.retrofit()
+                .createService(ApiService::class.java)
+                .getAttendanceManagementSectionList(companyType)
+        }.onFailure {
+            MyLog.e(it.message.toString())
+        }.getOrNull()?.data
+    }
     data class RoutineInspectionListWrapper(
         val routineInspectionList: RoutineInspectionListResp?,
         val sections: MutableList<String>?,

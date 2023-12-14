@@ -43,7 +43,7 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
                 val data = item as? RoutineInspectionItem
                 data?.let {
                     val urls = parseImageUrl(it.xunchatupian)
-                    binding.tvTitle.text = "[${it.biaoduan}] ${it.jianchaxiang}"
+                    binding.tvTitle.text = "[${it.biaoduan}标] ${it.jianchaxiang}"
                     if (urls.size > 0){
                         ImageLoader.loadUrlWithRound(ctx, urls[0], binding.ivIcon, ScreenUtil.dp2px(16f))
                         binding.ivIcon.visibility = View.VISIBLE
@@ -86,6 +86,9 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
     }
 
     private fun parseImageUrl(json: String): MutableList<String> {
+        if (json.isEmpty()){
+            return mutableListOf()
+        }
         val jsonObj = JSONObject(json)
         val jsonArray = jsonObj.optJSONArray("attach")
         val urls = mutableListOf<String>()
