@@ -8,10 +8,13 @@ import com.shuangning.safeconstruction.bean.response.CameraListResp
 import com.shuangning.safeconstruction.databinding.ActivityCameraDetailBinding
 import com.shuangning.safeconstruction.manager.CAMERA_INFO
 import com.shuangning.safeconstruction.ui.viewmodel.CameraViewModel
+import com.videogo.openapi.EZOpenSDK
+import com.videogo.openapi.EZPlayer
 
 class CameraDetailActivity : BaseActivity<ActivityCameraDetailBinding>() {
     private val viewModel by viewModels<CameraViewModel>()
     private var cameraInfo: CameraListResp? = null
+    private var player: EZPlayer? = null
 
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityCameraDetailBinding? {
         return ActivityCameraDetailBinding.inflate(layoutInflater)
@@ -36,5 +39,13 @@ class CameraDetailActivity : BaseActivity<ActivityCameraDetailBinding>() {
     }
 
     override fun observeViewModel() {
+        viewModel.cameraToken.observe(this) {
+            it?.let {
+                EZOpenSDK.getInstance().setAccessToken(it)
+                player = EZOpenSDK.getInstance().createPlayer("AX2947957", 1)
+                binding?.surface?.holder?.let{player?.setSurfaceHold(it)}
+                player?.startRealPlay()
+            }
+        }
     }
 }
