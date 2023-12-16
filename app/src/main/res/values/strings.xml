@@ -65,5 +65,10 @@
         2.班组人员规范系带安全帽，穿反光衣，队列整齐，班组长必须检查组员劳保用品穿戴情况。\n
         3.班组长点名问好，用扩音喇叭，队员喊到名字答“到”,声音清晰洪亮。\n
         4.全体进行安全口号宣誓，誓言内容：“不安全不生产、不交底不上岗、不检查不施工、无防护不干活”（必须）等。</string>
+    <string name="monitor_save_video">录像</string>
+    <string name="monitor_save_videoing">录像中</string>
+    <string name="monitor_start_record_success">已开启录像</string>
+    <string name="monitor_start_record_fail">开启录像失败</string>
+    <string name="monitor_save_record_success">录像已保存至相相册</string>
 
 </resources>
