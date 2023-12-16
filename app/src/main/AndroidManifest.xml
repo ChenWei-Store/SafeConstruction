@@ -200,6 +200,24 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" >
         </activity>
+        <activity android:name=".ui.activity.RectifucationAndReplyDetailActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" >
+        </activity>
+        <activity android:name=".ui.activity.CommitRectifiedActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" >
+        </activity>
+        <activity android:name=".ui.activity.CommitAduitActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboardHidden" >
+        </activity>
         <activity android:name=".ui.activity.CameraListActivity"
             android:exported="false"
             android:hardwareAccelerated="true"

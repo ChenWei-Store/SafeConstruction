@@ -247,6 +247,15 @@
         android:textColor="@color/c_fff"
         android:text="@string/fines_detail2"
         android:maxLines="2" />
-
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|start"
+        android:background="@color/main_color"
+        android:contentDescription=""
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_fff"
+        android:text="提交整改" />
 </FrameLayout>
 

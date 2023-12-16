@@ -297,11 +297,17 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
                 return@forEach
             }
         }
+
         val id = item?.let { it ->
-            val result = it.children.find {
-                it.name == constructionTeam
+            var id = 0
+            if (it.name == constructionTeam){
+                id = it.id
+            }else{
+                val result = it.children.find {
+                    it.name == constructionTeam
+                }
+                id = result?.id ?: 0
             }
-            val id = result?.id ?: 0
             id
         } ?: let {
             0
@@ -332,9 +338,10 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             }
         }
         val data = item?.let {
-            val array = arrayOfNulls<String>(it.children.size)
+            val array = arrayOfNulls<String>(it.children.size + 1)
+            array[0] = it.name
             it.children.forEachIndexed { index, constructionTeamItem ->
-                array[index] = constructionTeamItem.name
+                array[index + 1] = constructionTeamItem.name
             }
             array as Array<String>
         } ?: let {

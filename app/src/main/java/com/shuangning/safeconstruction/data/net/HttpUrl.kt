@@ -29,3 +29,12 @@ const val GET_CONSTRUCTION_TEAM="api/organizations"
 const val GET_PERSON = "api/users"
 const val CAMERA_LIST = "shuangning-server/device/queryDeviceList"
 const val CAMERA_TOKEN = "shuangning-server/device/getAccessToken"
+const val COMMIT_RECTIFIED = "shuangning-server/dailyCheck/commit/correct"
+const val COMMIT_AUDIT = "shuangning-server/dailyCheck/commit/audit"
+const val COMMIT_APPROVAL = "shuangning-server/dailyCheck/commit/approval"
+const val COMMIT_REJECT = "shuangning-server/dailyCheck/commit/reject"
+const val RECTIFUCATION_AND_REPLY_DETAIL = "shuangning-server/gis/getTodoDetail"
+
+
+
+

@@ -4,6 +4,9 @@ import com.shuangning.safeconstruction.bean.response.CheckListItem
 import com.shuangning.safeconstruction.bean.request.AddGroupEducationReq
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
 import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
+import com.shuangning.safeconstruction.bean.request.CommitApprovalRejectReq
+import com.shuangning.safeconstruction.bean.request.CommitAuditReq
+import com.shuangning.safeconstruction.bean.request.CommitRectifiedReq
 import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
 import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
@@ -24,6 +27,7 @@ import com.shuangning.safeconstruction.bean.response.NewsListResp
 import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
 import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.bean.response.QuestionOperatorResp
+import com.shuangning.safeconstruction.bean.response.RectificationAndReplyDetailResp
 import com.shuangning.safeconstruction.bean.response.RectificationAndReplyListResp
 import com.shuangning.safeconstruction.bean.response.RoutineInspectionListResp
 import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
@@ -148,4 +152,17 @@ interface ApiService {
         @Query("pageSize") pageSize: Int = 1000,
         @Query("state") state: String = "NORMAL"
     ): HttpResult<PersonResp>?
+
+    @POST(COMMIT_RECTIFIED)
+    suspend fun commitRectified(@Body data: CommitRectifiedReq): HttpResult<Any>?
+    @POST(COMMIT_AUDIT)
+    suspend fun commitAduit(@Body data: CommitAuditReq): HttpResult<Any>?
+    @POST(COMMIT_APPROVAL)
+    suspend fun commitApproval(@Body data: CommitApprovalRejectReq): HttpResult<Any>?
+    @POST(COMMIT_REJECT)
+    suspend fun commitReject(@Body data: CommitApprovalRejectReq): HttpResult<Any>?
+
+    @FormUrlEncoded
+    @POST(RECTIFUCATION_AND_REPLY_DETAIL)
+    suspend fun getRectificationAndReplyDetail(@Field("id") id: String, @Field("flowInstanceId") flowInstanceId: Int, @Field("taskInstanceId") taskInstanceId: Int): HttpResult<RectificationAndReplyDetailResp>?
 }

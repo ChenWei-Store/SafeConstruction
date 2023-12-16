@@ -269,8 +269,7 @@
                 android:layout_marginTop="@dimen/vertical_margin_16"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_12"
-                android:textColor="@color/c_555"
-                android:text="500"/>
+                android:textColor="@color/c_555" />
             <View
                 android:id="@+id/view7"
                 android:layout_width="match_parent"

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <com.shuangning.safeconstruction.base.widget.TitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignParentTop="true"/>
+    <EditText
+        android:id="@+id/et_content"
+        style="@style/CommonEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_title"
+        android:layout_marginTop="@dimen/vertical_margin_16"
+        android:minHeight="30dp"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_555"
+        android:textColorHint="@color/c_999"
+        android:hint="请输入现场情况描述（以及地点、分部分项）"
+        android:paddingStart="@dimen/horizontal_margin_16"
+        android:paddingEnd="@dimen/horizontal_margin_16"/>
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_content"
+        android:layout_marginTop="@dimen/vertical_margin_16"
+        android:layout_marginEnd="@dimen/horizontal_margin_16"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/c_555" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_count"
+        android:layout_marginStart="@dimen/horizontal_margin_16"
+        android:layout_marginTop="@dimen/vertical_margin_16" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@id/rv_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_16"/>
+    <View
+        android:id="@+id/view_subsequent_measures"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        app:layout_constraintBottom_toBottomOf="@id/view2"/>
+    <TextView
+        android:id="@+id/tv_subsequent_measures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/view_subsequent_measures"
+        app:layout_constraintTop_toTopOf="@id/view_subsequent_measures"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:drawableLeft="@drawable/rectification_requirements"
+        android:drawablePadding="@dimen/horizontal_margin_4"
+        android:text="后期措施"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_555"/>
+
+    <EditText
+        android:id="@+id/et_subsequent_measures"
+        style="@style/CommonEditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tv_subsequent_measures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view_subsequent_measures"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:paddingStart="@dimen/horizontal_margin_8"
+        android:paddingEnd="@dimen/horizontal_margin_8"
+        android:hint="请输入后期措施"
+        android:textColorHint="@color/c_999"
+        android:minHeight="20dp"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/c_555"
+        android:text=""/>
+    <TextView
+        android:id="@+id/tv_subsequent_measures_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_subsequent_measures"
+        android:layout_marginTop="@dimen/vertical_margin_16"
+        android:layout_marginEnd="@dimen/horizontal_margin_8"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/c_555"
+        android:text="500"/>
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginTop="@dimen/vertical_margin_16"
+        app:layout_constraintTop_toBottomOf="@id/tv_subsequent_measures_count"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/c_fff"
+            android:text="提交" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

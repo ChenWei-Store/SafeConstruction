@@ -11,13 +11,11 @@ import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
-import com.shuangning.safeconstruction.bean.other.ContentSelectTypeBean
 import com.shuangning.safeconstruction.bean.response.RectificationAndReplyItem
 import com.shuangning.safeconstruction.databinding.ActivityRectificationAndReplyBinding
 import com.shuangning.safeconstruction.extension.newTab
 import com.shuangning.safeconstruction.ui.adapter.RectificationAndReplyAdapter
 import com.shuangning.safeconstruction.utils.UIUtils
-import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.RectificationAndReplyViewModel
 
 /**
@@ -47,10 +45,10 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
             adapter = replyAdapter
             layoutManager = LinearLayoutManager(this@RectificationAndReplyActivity)
         }
-
     }
 
     private fun initTab() {
+        binding?.tabLayout?.removeAllTabs()
         binding?.tabLayout?.apply {
             addTab(newTab(R.string.to_be_rectified, toBeRectifiedData.size), true)
             addTab(newTab(R.string.to_be_examine, toBeExamineData.size))
@@ -59,10 +57,14 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
     }
 
     override fun initData() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         LoadingManager.startLoading(this)
         viewModel.getData()
     }
-
     override fun doBeforeSetContentView() {
     }
 
@@ -73,9 +75,9 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
         replyAdapter?.setOnItemClickListener(object :
             OnItemClickListener<RectificationAndReplyItem> {
             override fun onItemClick(data: RectificationAndReplyItem, position: Int) {
-                QuestionOperatorActivity.startTo(
+                RectifucationAndReplyDetailActivity.startTo(
                     this@RectificationAndReplyActivity, selectedTab,
-                    "", QuestionOperatorActivity.FROM_RECTIFICATION_PEPLY
+                    data.id.toString(),data.flowInstanceId, data.taskInstanceId
                 )
             }
         })
@@ -102,18 +104,20 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
             }
 
         })
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun observeViewModel() {
         viewModel.result.observe(this) { it ->
+            toBeExamineData.clear()
+            toBeRectifiedData.clear()
+            completedData.clear()
             it.forEach {
-                when (it.status) {
-                    "审批" -> {
+                when (it.taskStatus) {
+                    "DAILY_CHECK_AUDIT" -> {
                         toBeExamineData.add(it)
                     }
-                    "整改" -> {
+                    "DAILY_CHECK_CORRECT" -> {
                         toBeRectifiedData.add(it)
                     }
                     else -> {

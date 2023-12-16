@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ConstructionTeamResp(
     @Json(name = "name") val name: String = "",
-    @Json(name = "id") val id: String = "",
+    @Json(name = "id") val id: Int = 0,
     @Json(name = "children") val children: MutableList<ConstructionTeamItem> = mutableListOf(),
 )
 

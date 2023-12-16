@@ -13,6 +13,10 @@ data class RectificationAndReplyListResp(
 
 @JsonClass(generateAdapter = true)
 data class RectificationAndReplyItem(
+    @Json(name = "id") val id: Int = 0,
+    @Json(name = "flowInstanceId") val flowInstanceId: Int = 0,
+    @Json(name = "taskInstanceId") val taskInstanceId: Int = 0,
+    @Json(name = "taskStatus") val taskStatus: String = "",
     @Json(name = "type") val type: String = "",
     @Json(name = "tenderCode") val tenderCode: String = "",
     @Json(name = "status") val status: String = "",
@@ -24,6 +28,7 @@ data class RectificationAndReplyItem(
 
 @JsonClass(generateAdapter = true)
 data class TaskInfo(
+    @Json(name = "id") val id: Int = 0,
     @Json(name = "createTime") val createTime: String = "",
     @Json(name = "updateTime") val updateTime: String = "",
     @Json(name = "type") val type: String = "",
