@@ -1,5 +1,7 @@
 package com.shuangning.safeconstruction.data.net
 
+import com.shuangning.safeconstruction.bean.request.AddFineItemReq
+import com.shuangning.safeconstruction.bean.request.AddFineReq
 import com.shuangning.safeconstruction.bean.response.CheckListItem
 import com.shuangning.safeconstruction.bean.request.AddGroupEducationReq
 import com.shuangning.safeconstruction.bean.request.AttendanceManagementListReq
@@ -165,4 +167,10 @@ interface ApiService {
     @FormUrlEncoded
     @POST(RECTIFUCATION_AND_REPLY_DETAIL)
     suspend fun getRectificationAndReplyDetail(@Field("id") id: String, @Field("flowInstanceId") flowInstanceId: Int, @Field("taskInstanceId") taskInstanceId: Int): HttpResult<RectificationAndReplyDetailResp>?
+    @POST(COMMIT_ADD_FINE_ITEM)
+    suspend fun commitAddFineItem(@Body data: AddFineItemReq): HttpResult<Any>?
+    @POST(COMMIT_ADD_FINE)
+    suspend fun commitAddFine(@Body data: AddFineReq): HttpResult<Any>?
+    @GET(GET_MAX_ID)
+    suspend fun getMaxId(): HttpResult<Int>?
 }

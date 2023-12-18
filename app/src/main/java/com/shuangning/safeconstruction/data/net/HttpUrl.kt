@@ -34,6 +34,9 @@ const val COMMIT_AUDIT = "shuangning-server/dailyCheck/commit/audit"
 const val COMMIT_APPROVAL = "shuangning-server/dailyCheck/commit/approval"
 const val COMMIT_REJECT = "shuangning-server/dailyCheck/commit/reject"
 const val RECTIFUCATION_AND_REPLY_DETAIL = "shuangning-server/gis/getTodoDetail"
+const val COMMIT_ADD_FINE = "shuangning-server/gis/createPenaltyBaseInfo"
+const val COMMIT_ADD_FINE_ITEM = "shuangning-server/gis/submitPenalty"
+const val GET_MAX_ID = "shuangning-server/gis/getMaxId"
 
 
 

@@ -2,26 +2,26 @@ package com.shuangning.safeconstruction.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.adapter.CommonBaseAdapter
+import com.shuangning.safeconstruction.base.adapter.CommonBaseMultiAdapter
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
+import com.shuangning.safeconstruction.databinding.ItemAddFineBinding
 import com.shuangning.safeconstruction.databinding.ItemFineBottomBinding
 import com.shuangning.safeconstruction.databinding.ItemFineDetailBinding
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
-import com.shuangning.safeconstruction.utils.UIUtils
+import com.shuangning.safeconstruction.ui.activity.AddFineItemActivity
 
 /**
  * Created by Chenwei on 2023/12/5.
  */
+const val ADD_FINE = 3
 const val FINE_DETAIL = 1
 const val FINE_BOTTOM = 2
 
 class AddFinesAdapter(data: MutableList<ItemViewType>) :
-    CommonBaseAdapter<ItemViewType, ViewBinding>(data) {
-    private var isVetting = true
+    CommonBaseMultiAdapter<ItemViewType, ViewBinding>(data) {
     private var fineUnit = ""
     private var vettingPerson = ""
     private var vettingUnit = ""
@@ -45,7 +45,7 @@ class AddFinesAdapter(data: MutableList<ItemViewType>) :
                 binding.tvFinesUnit.text = fineUnit
 
                 binding.viewAddFineItem.setOnClickListener {
-//                    StartActivityManager.startToAddFineItem(this@AddFinesActivity)
+                    AddFineItemActivity.startForResult(binding.root.context, 1)
                 }
 
                 binding.viewFinesUnit.setOnClickListener {
@@ -66,23 +66,6 @@ class AddFinesAdapter(data: MutableList<ItemViewType>) :
                         binding.tvVettingPerson.text = text
                     }
                 }
-                binding.tvVettingYes.setOnClickListener {
-                    val selectedText = binding.tvVettingYes
-                    val unSelectText = binding.tvVettingNo
-                    UIUtils.setTextLeftDrawable(selectedText, R.drawable.selected)
-                    UIUtils.setTextLeftDrawable(unSelectText, R.drawable.not_select)
-                    isVetting = true
-                    binding.group.visibility = View.VISIBLE
-                }
-
-                binding.tvVettingNo.setOnClickListener {
-                    val selectedText = binding.tvVettingNo
-                    val unSelectText = binding.tvVettingYes
-                    UIUtils.setTextLeftDrawable(selectedText, R.drawable.selected)
-                    UIUtils.setTextLeftDrawable(unSelectText, R.drawable.not_select)
-                    isVetting = false
-                    binding.group.visibility = View.GONE
-                }
             }
 
         }
@@ -94,12 +77,17 @@ class AddFinesAdapter(data: MutableList<ItemViewType>) :
         viewType: Int
     ): ViewBinding {
         return when (viewType) {
-            FINE_DETAIL -> {
+            ADD_FINE -> {
+                ItemAddFineBinding.inflate(inflater, parent, false)
+            }
+            FINE_DETAIL->{
                 ItemFineDetailBinding.inflate(inflater, parent, false)
             }
-
-            else -> {
+            FINE_BOTTOM->{
                 ItemFineBottomBinding.inflate(inflater, parent, false)
+            }
+            else -> {
+                throw Exception()
             }
         }
     }

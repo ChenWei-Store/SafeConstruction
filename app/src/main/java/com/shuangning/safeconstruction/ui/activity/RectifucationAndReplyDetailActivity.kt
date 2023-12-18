@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewbinding.ViewBinding
@@ -13,12 +14,15 @@ import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
 import com.shuangning.safeconstruction.bean.base.ShowPhoto
+import com.shuangning.safeconstruction.bean.request.CommitApprovalRejectReq
 import com.shuangning.safeconstruction.bean.response.RectificationAndReplyDetailResp
+import com.shuangning.safeconstruction.databinding.ActivityCommitAuditBinding
 import com.shuangning.safeconstruction.databinding.ActivityCompletedDetailBinding
 import com.shuangning.safeconstruction.databinding.ActivityToBeExamineDetailBinding
 import com.shuangning.safeconstruction.databinding.ActivityToBeRectifedDetailBinding
 import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.AddShowPhotoMultiAdapter
+import com.shuangning.safeconstruction.ui.viewmodel.CommitAuditViewModel
 import com.shuangning.safeconstruction.ui.viewmodel.RectifucationAndReplyDetailViewModel
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.UIUtils
@@ -29,12 +33,14 @@ import org.json.JSONObject
  * Created by Chenwei on 2023/10/11.
  */
 class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
-    private var status: Int = ERROR
+    private var status: String = ""
     private var photoData = mutableListOf<ItemViewType>()
     private var photoData2 = mutableListOf<ItemViewType>()
     private var photoAdapter: AddShowPhotoMultiAdapter? = null
     private var photoAdapter2: AddShowPhotoMultiAdapter? = null
     private val viewModel by viewModels<RectifucationAndReplyDetailViewModel>()
+    private val commitViewModel by viewModels<CommitAuditViewModel>()
+
     private var id = ""
     private var flowInstanceId = 0
     private var taskInstanceId = 0
@@ -49,15 +55,14 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
 
     private fun showDataToUi(resp: RectificationAndReplyDetailResp) {
         when (status) {
-            TO_BE_RECTIFIED -> {
+            "DAILY_CHECK_CORRECT" -> {
                 initToBeRectifed(resp)
             }
 
-            TO_BE_EXAMINE -> {
+            "DAILY_CHECK_AUDIT","DAILY_CHECK_REJECT","DAILY_CHECK_APPROVAL" -> {
                 initToBeExamine(resp)
             }
-
-            COMPLETED -> {
+            else ->{
                 initCompleted(resp)
             }
         }
@@ -74,7 +79,6 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
         (binding as? ActivityToBeRectifedDetailBinding)?.apply {
             setContentView(root)
             viewTitle.setTitle(UIUtils.getString(R.string.question_operator))
-//            tvProblemRight.text = getTime(questionOperatorResp.createTime)
             tvProblemContent.text = questionOperatorResp.xianchangmiaoshu
             tvCheckSort.text = questionOperatorResp.jianchafenlei
             tvCheckItem.text = questionOperatorResp.jianchaxiang
@@ -94,6 +98,8 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
                     adapter = photoAdapter
                 }
             }
+            floatingbutton.visibility = View.GONE
+            commit.visibility = View.VISIBLE
         }
         supportActionBar?.hide()
     }
@@ -125,9 +131,13 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
             viewTitle.setTitle(UIUtils.getString(R.string.question_operator))
             tvProblemContent.text = questionOperatorResp.xianchangmiaoshu
             tvNumber.text = questionOperatorResp.richangxunchabianhao
-//            tvType.text = questionOperatorResp.danweileixing
             tvCheckSort.text = questionOperatorResp.jianchafenlei
             tvCheckItem.text = questionOperatorResp.jianchaxiang
+            commit.text = if (status == "DAILY_CHECK_REJECT"|| status == "DAILY_CHECK_APPROVAL"){
+                "提交审批结果"
+            }else{
+                "提交审批"
+            }
 //            tvPartOfTender.text = questionOperatorResp.biaoduan
 //            tvCommitPerson.text = questionOperatorResp.xingming
             if (urls.size > 0){
@@ -205,6 +215,7 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
                     adapter = photoAdapter2
                 }
             }
+            floatingbutton.visibility = View.GONE
         }
 
         supportActionBar?.hide()
@@ -230,7 +241,7 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
     }
 
     override fun initData() {
-        status = intent?.getIntExtra(STATUS, ERROR) ?: ERROR
+        status = intent?.getStringExtra(STATUS) ?: ""
         id = intent?.getStringExtra(ID) ?: ""
         flowInstanceId = intent?.getIntExtra(FLOW_INSTANCE_ID, 0)?:0
         taskInstanceId = intent?.getIntExtra(TASK_INSTANCE_ID, 0)?:0
@@ -267,9 +278,22 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
                         StartActivityManager.startToQuestionOperatorDetail(this@RectifucationAndReplyDetailActivity)
                     }
                 }
-
+                is ActivityToBeExamineDetailBinding ->{
+                    it.commit.setOnClickListener {
+                        if (status == "DAILY_CHECK_AUDIT"){
+                            CommitAduitActivity.startTo(this@RectifucationAndReplyDetailActivity, flowInstanceId, taskInstanceId, 2)
+                        }else{
+                            LoadingManager.startLoading(this)
+                            val req = CommitApprovalRejectReq(flowInstanceId, taskInstanceId)
+                            if (status == "DAILY_CHECK_APPROVAL") {
+                                commitViewModel.commitApproval(req)
+                            } else {
+                                commitViewModel.commitReject(req)
+                            }
+                        }
+                    }
+                }
                 else -> {
-
                 }
             }
         }
@@ -282,6 +306,12 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
             }
             LoadingManager.stopLoading()
         }
+        commitViewModel.uploadResult.observe(this){
+            LoadingManager.stopLoading()
+            if (it){
+                finish()
+            }
+        }
 
     }
 
@@ -290,7 +320,7 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
         const val ID = "id"
         const val FLOW_INSTANCE_ID = "flowInstanceId"
         const val TASK_INSTANCE_ID = "taskInstanceId"
-        fun startTo(ctx: Context, status: Int, id: String, flowInstanceId: Int, taskInstanceId: Int) {
+        fun startTo(ctx: Context, status: String, id: String, flowInstanceId: Int, taskInstanceId: Int) {
             ActivityUtils.start(ctx, RectifucationAndReplyDetailActivity::class.java) {
                 putExtra(STATUS, status)
                 putExtra(ID, id)
@@ -302,7 +332,7 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1){
+        if (requestCode == 1 || requestCode == 2){
             if (resultCode == RESULT_OK){
                 finish()
             }

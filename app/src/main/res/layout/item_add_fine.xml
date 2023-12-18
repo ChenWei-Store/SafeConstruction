@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View
+        android:id="@+id/view_add_fine_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/c_fff" />
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="@id/view_add_fine_item"
+        app:layout_constraintEnd_toEndOf="@id/view_add_fine_item"
+        app:layout_constraintStart_toStartOf="@id/view_add_fine_item"
+        app:layout_constraintTop_toTopOf="@id/view_add_fine_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/plus"
+        android:drawablePadding="@dimen/horizontal_margin_8"
+        android:drawableTint="@color/main_color"
+        android:text="添加罚款项"
+        android:textColor="@color/c_555"
+        android:textSize="@dimen/sp_14" />
+
+    <View
+        android:id="@+id/view_fines_unit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_add_fine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/vertical_margin_8"
+        android:background="@color/c_fff" />
+</androidx.constraintlayout.widget.ConstraintLayout>

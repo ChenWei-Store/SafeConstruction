@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.base.AddPhoto
@@ -15,6 +17,7 @@ import com.shuangning.safeconstruction.databinding.ActivityCommitAuditBinding
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.CommitAuditViewModel
 import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
@@ -32,7 +35,7 @@ class CommitAduitActivity : BaseActivity<ActivityCommitAuditBinding>() {
     private val result by lazy {
         intent?.getStringExtra(RESULT) ?: ""
     }
-    private var selectStatus = ""
+    private var selectStatus = "通过"
     private val shenpiyijian by lazy {
         intent?.getStringExtra(SHEN_PI_YI_JIAN) ?: ""
     }
@@ -108,11 +111,20 @@ class CommitAduitActivity : BaseActivity<ActivityCommitAuditBinding>() {
             binding?.tvApproval?.isSelected = true
             binding?.tvReject?.isSelected = false
             selectStatus = "通过"
+            UIUtils.setTextLeftDrawable(it as TextView, R.drawable.selected)
+            binding?.tvReject?.let {
+                UIUtils.setTextLeftDrawable(it as TextView, R.drawable.not_select)
+            }
         }
 
         binding?.tvReject?.setOnClickListener {
             binding?.tvApproval?.isSelected = false
             binding?.tvReject?.isSelected = true
+            UIUtils.setTextLeftDrawable(it as TextView, R.drawable.selected)
+            binding?.tvApproval?.let {
+                UIUtils.setTextLeftDrawable(it as TextView, R.drawable.not_select)
+
+            }
             selectStatus = "不通过"
         }
     }
@@ -122,6 +134,7 @@ class CommitAduitActivity : BaseActivity<ActivityCommitAuditBinding>() {
             LoadingManager.stopLoading()
             if (it) {
                 ToastUtil.showCustomToast("提交成功")
+                setResult(RESULT_OK)
                 finish()
             }
         }
@@ -136,10 +149,11 @@ class CommitAduitActivity : BaseActivity<ActivityCommitAuditBinding>() {
             ctx: Context,
             flowInstanceId: Int,
             taskInstanceId: Int,
+            requestCode: Int,
             result: String = "",
             shenpiyijian: String = ""
         ) {
-            ActivityUtils.start(ctx, CommitRectifiedActivity::class.java) {
+            ActivityUtils.startForResult(ctx, CommitAduitActivity::class.java, requestCode) {
                 putExtra(FLOW_INSTANCE_ID, flowInstanceId)
                 putExtra(TASK_INSTANCE_ID, taskInstanceId)
                 putExtra(RESULT, result)

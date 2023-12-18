@@ -76,7 +76,7 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
             OnItemClickListener<RectificationAndReplyItem> {
             override fun onItemClick(data: RectificationAndReplyItem, position: Int) {
                 RectifucationAndReplyDetailActivity.startTo(
-                    this@RectificationAndReplyActivity, selectedTab,
+                    this@RectificationAndReplyActivity, data.taskStatus,
                     data.id.toString(),data.flowInstanceId, data.taskInstanceId
                 )
             }
@@ -114,7 +114,7 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
             completedData.clear()
             it.forEach {
                 when (it.taskStatus) {
-                    "DAILY_CHECK_AUDIT" -> {
+                    "DAILY_CHECK_AUDIT","DAILY_CHECK_REJECT","DAILY_CHECK_APPROVAL" -> {
                         toBeExamineData.add(it)
                     }
                     "DAILY_CHECK_CORRECT" -> {

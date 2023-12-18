@@ -1,13 +1,18 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import com.shuangning.safeconstruction.base.BaseActivity
+import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityAddFineItemBinding
 import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
+import com.shuangning.safeconstruction.ui.viewmodel.AddFineItemViewModel
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/14.
@@ -16,6 +21,8 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
     private var selectedPosition = 0
     private var views = mutableListOf<View>()
     private var tvs = mutableListOf<TextView>()
+    private val viewModel by viewModels<AddFineItemViewModel>()
+    private var id: Int = 0
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddFineItemBinding? {
         return ActivityAddFineItemBinding.inflate(layoutInflater)
     }
@@ -37,6 +44,8 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
     }
 
     override fun initData() {
+        LoadingManager.startLoading(this)
+        viewModel.getId()
     }
 
     override fun doBeforeSetContentView() {
@@ -72,6 +81,11 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
     }
 
     override fun observeViewModel() {
+        viewModel.id.observe(this){
+            it?.let {
+                id = it
+            }
+        }
     }
 
     private fun updateType(){
@@ -83,6 +97,12 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
                 views[idx].isSelected = false
                 tvs[idx].isSelected = false
             }
+        }
+    }
+
+    companion object{
+        fun startForResult(ctx: Context, requestCode: Int){
+            ActivityUtils.startForResult(ctx, AddFineItemActivity::class.java, requestCode)
         }
     }
 }

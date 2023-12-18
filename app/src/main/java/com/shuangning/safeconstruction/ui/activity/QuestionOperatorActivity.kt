@@ -93,6 +93,13 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
                     adapter = photoAdapter
                 }
             }
+            if (fromWhere == FROM_ROUTINE_INSPECTION){
+                floatingbutton.visibility = View.VISIBLE
+                commit.visibility = View.GONE
+            }else{
+                floatingbutton.visibility = View.GONE
+                commit.visibility = View.VISIBLE
+            }
         }
         supportActionBar?.hide()
     }
@@ -124,7 +131,6 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
             viewTitle.setTitle(UIUtils.getString(R.string.question_operator))
             tvProblemContent.text = questionOperatorResp.xianchangmiaoshu
             tvNumber.text = questionOperatorResp.richangxunchabianhao
-            tvType.text = questionOperatorResp.danweileixing
             tvCheckSort.text = questionOperatorResp.jianchafenlei
             tvCheckItem.text = questionOperatorResp.jianchaxiang
             tvPartOfTender.text = questionOperatorResp.biaoduan
@@ -142,6 +148,11 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
                     )
                     adapter = photoAdapter
                 }
+            }
+            if (fromWhere == FROM_ROUTINE_INSPECTION){
+                commit.visibility = View.GONE
+            }else{
+                commit.visibility = View.VISIBLE
             }
         }
 
@@ -203,6 +214,11 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
                     )
                     adapter = photoAdapter2
                 }
+            }
+            if (fromWhere == FROM_ROUTINE_INSPECTION){
+                floatingbutton.visibility = View.VISIBLE
+            }else{
+                floatingbutton.visibility = View.GONE
             }
         }
 
@@ -289,7 +305,6 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
             }
             LoadingManager.stopLoading()
         }
-
     }
 
     companion object {

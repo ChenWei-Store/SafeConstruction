@@ -3,13 +3,12 @@ package com.shuangning.safeconstruction.ui.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityMainBinding
 import com.shuangning.safeconstruction.manager.PermissionManager
-import com.shuangning.safeconstruction.manager.XPopCreateUtils
+import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.fragment.HomeFragment
 import com.shuangning.safeconstruction.ui.fragment.MineFragment
 import com.shuangning.safeconstruction.ui.viewmodel.MineViewModel
@@ -61,9 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         binding?.ivCenter?.setOnClickListener {
-            binding?.let {
-                XPopCreateUtils.showAttachAdd(this@MainActivity, it.viewTabBottom)
-            }
+            StartActivityManager.startToProblemReport(this)
         }
     }
 

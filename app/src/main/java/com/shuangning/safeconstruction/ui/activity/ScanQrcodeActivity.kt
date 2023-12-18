@@ -14,6 +14,7 @@ import com.shuangning.safeconstruction.databinding.ActivityScanQrcodeBinding
 import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils2.JsonUtils
+import com.shuangning.safeconstruction.utils2.MyLog
 
 
 /**
@@ -101,6 +102,7 @@ class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView
 
     override fun onScanQRCodeSuccess(result: String?) {
         result?.let {
+            MyLog.d("result: $it")
             val data = JsonUtils.fromJson<QRcodeResult>(result)
             data?.takeIf { it2 ->
                 it2.userId > -1 && it2.userId != userId

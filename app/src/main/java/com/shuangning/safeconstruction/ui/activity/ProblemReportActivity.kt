@@ -415,9 +415,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
                     binding?.tvCauseAnalysis?.text = person
                 }
             }
-
         }
-
     }
 
     override fun onActivityResult(result: ActivityResult) {
