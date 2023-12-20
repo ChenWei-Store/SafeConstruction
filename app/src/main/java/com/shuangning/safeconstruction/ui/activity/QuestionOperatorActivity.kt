@@ -252,15 +252,6 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
             LoadingManager.startLoading(this)
             viewModel.getData(id)
         }
-//        photoData.add(ShowPhoto("https://img2.baidu.com/it/u=2048195462,703560066&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333", false))
-//        photoData.add(ShowPhoto("https://img0.baidu.com/it/u=666517787,2620707380&fm=253&fmt=auto&app=120&f=JPEG?w=1140&h=641", false))
-//        photoData.add(ShowPhoto("https://img1.baidu.com/it/u=2559867097,3726275945&fm=253&fmt=auto&app=138&f=JPEG?w=1333&h=500", false))
-//        photoData.add(ShowPhoto("https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800", false))
-//        photoData.add(ShowPhoto("https://img2.baidu.com/it/u=2048195462,703560066&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333", false))
-//        photoData.add(ShowPhoto("https://img0.baidu.com/it/u=666517787,2620707380&fm=253&fmt=auto&app=120&f=JPEG?w=1140&h=641", false))
-//        photoData.add(ShowPhoto("https://img1.baidu.com/it/u=2559867097,3726275945&fm=253&fmt=auto&app=138&f=JPEG?w=1333&h=500", false))
-//        photoData.add(ShowPhoto("https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800", false))
-//        photoData.add(ShowPhoto("https://img2.baidu.com/it/u=2048195462,703560066&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333", false))
     }
 
     override fun doBeforeSetContentView() {

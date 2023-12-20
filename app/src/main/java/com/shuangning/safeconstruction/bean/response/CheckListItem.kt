@@ -11,4 +11,12 @@ data class CheckListItem(
     @Json(name = "parentId") val parentId: Int = 0,
     @Json(name = "id") val id: Int = 0,
     @Json(name = "name") val name: String = "",
+    @Json(name = "childCheckList") val childCheckList: MutableList<ChildCheckListItem> = mutableListOf(),
+)
+
+@JsonClass(generateAdapter=true)
+data class ChildCheckListItem(
+    @Json(name = "parentId") val parentId: Int = 0,
+    @Json(name = "id") val id: Int = 0,
+    @Json(name = "name") val name: String = "",
 )

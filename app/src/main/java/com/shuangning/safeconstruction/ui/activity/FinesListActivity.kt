@@ -41,10 +41,14 @@ class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
 
     override fun initData() {
         checkoutNo = intent?.getStringExtra(CHECK_OUT_NUM)?:""
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         LoadingManager.startLoading(this)
         viewModel.getData(checkoutNo)
     }
-
     override fun doBeforeSetContentView() {
     }
 
@@ -59,12 +63,13 @@ class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
         })
 
         binding?.llBottom?.setOnClickListener {
-            StartActivityManager.startToAddFine(this@FinesListActivity)
+            AddFinesActivity.startTo(this@FinesListActivity, checkoutNo)
         }
     }
 
     override fun observeViewModel() {
         viewModel.data.observe(this){
+            data.clear()
             it?.let {
                 data.addAll(it)
             }

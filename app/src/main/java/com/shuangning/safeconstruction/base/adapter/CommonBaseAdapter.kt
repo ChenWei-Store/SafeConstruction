@@ -87,5 +87,7 @@ abstract class CommonBaseAdapter<T, V: ViewBinding>(var data: MutableList<T>): R
         notifyDataSetChanged()
     }
 
-
+    fun getItem(position: Int): T{
+        return data[position]
+    }
 }

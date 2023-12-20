@@ -178,7 +178,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_yuan"
         app:layout_constraintEnd_toStartOf="@id/tv_yuan"
         android:textColorHint="@color/c_999"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_555"
         android:hint="请输入金额"

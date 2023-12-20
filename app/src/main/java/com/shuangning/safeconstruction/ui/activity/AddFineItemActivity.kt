@@ -1,6 +1,7 @@
 package com.shuangning.safeconstruction.ui.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,9 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
+import com.shuangning.safeconstruction.bean.other.FineItem
+import com.shuangning.safeconstruction.bean.request.AddFineItemReq
 import com.shuangning.safeconstruction.databinding.ActivityAddFineItemBinding
-import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.AddFineItemViewModel
 import com.shuangning.safeconstruction.utils2.ActivityUtils
@@ -23,6 +25,8 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
     private var tvs = mutableListOf<TextView>()
     private val viewModel by viewModels<AddFineItemViewModel>()
     private var id: Int = 0
+    private val types = arrayOf("安全", "质量", "环保", "日常管理")
+    private val fineItem = FineItem()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddFineItemBinding? {
         return ActivityAddFineItemBinding.inflate(layoutInflater)
     }
@@ -77,6 +81,13 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
                 XPopCreateUtils.showTipDialog(this, "提示", "请输入处罚说明")
                 return@setOnClickListener
             }
+            val type = types[selectedPosition]
+            fineItem.dealType = type
+            fineItem.money = price.toString().toFloat()
+            fineItem.desc = desc.toString()
+            val req = AddFineItemReq(desc.toString(), price.toString(), type, id)
+            LoadingManager.startLoading(this)
+            viewModel.commit(req)
         }
     }
 
@@ -84,6 +95,20 @@ class AddFineItemActivity: BaseActivity<ActivityAddFineItemBinding>() {
         viewModel.id.observe(this){
             it?.let {
                 id = it
+            }
+            LoadingManager.stopLoading()
+        }
+
+        viewModel.result.observe(this){
+            it?.let {
+                if (it){
+                    val intent = Intent()
+                    intent.putExtra("money", fineItem.money)
+                    intent.putExtra("dealType", fineItem.dealType)
+                    intent.putExtra("desc", fineItem.desc)
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
             }
         }
     }

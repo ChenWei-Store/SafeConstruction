@@ -25,8 +25,8 @@ data class CommitRoutineInspectionReq(
 
 @JsonClass(generateAdapter = true)
 data class JianChaXiang(
-    @Json(name = "id") val id: Int = 0,
-    @Json(name = "referent") val referent: String = "",
+    @Json(name = "id") var id: Int = 0,
+    @Json(name = "referent") var referent: String = "",
 )
 
 @JsonClass(generateAdapter = true)

@@ -8,7 +8,7 @@ import com.shuangning.safeconstruction.base.adapter.LevelType
 /**
  * Created by Chenwei on 2023/10/18.
  */
-data class SelectCheckLevelTwo(val title: String): ItemViewType(){
+data class SelectCheckLevelTwo(val title: String, val id: Int): ItemViewType(){
     override fun getItemType(): Int {
         return LEVEL_TWO
     }

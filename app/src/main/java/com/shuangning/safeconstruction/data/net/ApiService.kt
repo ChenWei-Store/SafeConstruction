@@ -168,9 +168,9 @@ interface ApiService {
     @POST(RECTIFUCATION_AND_REPLY_DETAIL)
     suspend fun getRectificationAndReplyDetail(@Field("id") id: String, @Field("flowInstanceId") flowInstanceId: Int, @Field("taskInstanceId") taskInstanceId: Int): HttpResult<RectificationAndReplyDetailResp>?
     @POST(COMMIT_ADD_FINE_ITEM)
-    suspend fun commitAddFineItem(@Body data: AddFineItemReq): HttpResult<Any>?
+    suspend fun commitAddFineItem(@Body data: AddFineItemReq): Boolean?
     @POST(COMMIT_ADD_FINE)
-    suspend fun commitAddFine(@Body data: AddFineReq): HttpResult<Any>?
+    suspend fun commitAddFine(@Body data: AddFineReq): Int?
     @GET(GET_MAX_ID)
-    suspend fun getMaxId(): HttpResult<Int>?
+    suspend fun getMaxId(): Int?
 }

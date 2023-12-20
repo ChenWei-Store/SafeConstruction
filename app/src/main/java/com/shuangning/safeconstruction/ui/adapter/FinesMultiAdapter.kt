@@ -10,6 +10,7 @@ import com.shuangning.safeconstruction.bean.response.FinesListItem
 import com.shuangning.safeconstruction.databinding.ItemFineBinding
 import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils2.ImageLoader
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/10/12.
@@ -22,11 +23,10 @@ class FinesMultiAdapter(data: MutableList<FinesListItem>):
         position: Int,
         ctx: Context
     ) {
-        ImageLoader.loadUrlWithRound(ctx, "", binding.ivIcon, ScreenUtil.dp2px(16f))
-        binding.tvTitle.text = "[${item.biaoduan}] ${item.wentibianhao}"
-        binding.tvContent1.text = "工地形象"
-        binding.tvContent2.text = "测试测试测试测试测试"
-        binding.tvPrice.text = "共100.0元"
+        binding.tvTitle.text = "[${item.beichufadanwei}] ${item.wentibianhao}"
+        binding.tvContent1.text = item.jianchadanwei
+        binding.tvContent2.text = getJianChaRen(item.jiancharen)
+        binding.tvPrice.text = "共${item.leijijine}元"
     }
 
     override fun getViewBinding(
@@ -35,5 +35,20 @@ class FinesMultiAdapter(data: MutableList<FinesListItem>):
         viewType: Int
     ): ItemFineBinding {
         return ItemFineBinding.inflate(inflater)
+    }
+
+    fun getJianChaRen(str: String): String{
+        if (str.isEmpty()){
+            return ""
+        }
+        try {
+            val jsonObject = JSONObject(str)
+            val ja = jsonObject.optJSONArray("user")
+            val result = ja.optJSONObject(0)
+            val data = result.optString("fullName")
+            return data
+        }catch (e: Exception){
+            return ""
+        }
     }
 }

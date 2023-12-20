@@ -10,6 +10,7 @@ import com.shuangning.safeconstruction.bean.response.FinesDetailResp
 import com.shuangning.safeconstruction.databinding.ActivityFinesDetailBinding
 import com.shuangning.safeconstruction.ui.viewmodel.FinesDetailViewModel
 import com.shuangning.safeconstruction.utils2.ActivityUtils
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/10/12.
@@ -26,26 +27,42 @@ class FinesDetailActivity: BaseActivity<ActivityFinesDetailBinding>() {
     }
 
     private fun showDataToUi(finesDetailResp: FinesDetailResp) {
-        val statusStr = when(finesDetailResp.status) {
-            0 -> "已完成"
-            1 ->"待审核"
-            2-> "待整改"
-            else -> {
-                "待审核"
-            }
-        }
+
         binding?.apply {
-            tvTitle.text = "$statusStr 处理人：${finesDetailResp.jiancharen}"
-            tvSafe.text = "安全"
+            tvSafe.text = getfakuanleibie(finesDetailResp)
             tvPrice.text = finesDetailResp.leijijine.toString()
             tvCompany.text = finesDetailResp.beichufadanwei
             tvMoney.text = finesDetailResp.leijijine.toString()
             tvVetting.text = finesDetailResp.shifoushenpi
-            tvCheckPerson.text = finesDetailResp.jiancharen
+            tvCheckPerson.text = getJianChaRen(finesDetailResp.jiancharen)
             tvCheckUnit.text = finesDetailResp.jianchadanwei
         }
     }
 
+    private fun getfakuanleibie(finesDetailResp: FinesDetailResp):String{
+        val sb = StringBuilder()
+        finesDetailResp.subVOS.forEach {
+            sb.append(
+                it.fakuanleibie
+            ).append(",")
+        }
+        if (sb.length > 0){
+            sb.delete(sb.length -1, sb.length)
+        }
+        return sb.toString()
+    }
+    private fun getJianChaRen(json: String?): String{
+        if (json.isNullOrEmpty()){
+            return ""
+        }
+        return try {
+            val jsonObject = JSONObject(json)
+            jsonObject.optJSONArray("user").optJSONObject(0).optString("fullName")
+        }catch (e: Exception){
+            ""
+        }
+
+    }
     override fun initData() {
         id = intent?.getStringExtra(ID)?:""
         LoadingManager.startLoading(this)
@@ -65,6 +82,7 @@ class FinesDetailActivity: BaseActivity<ActivityFinesDetailBinding>() {
         viewModel.data.observe(this){
             it?.let {
                 showDataToUi(it)
+                LoadingManager.stopLoading()
             }
         }
     }

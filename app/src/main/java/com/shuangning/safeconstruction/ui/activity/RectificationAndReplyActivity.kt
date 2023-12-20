@@ -52,7 +52,7 @@ class RectificationAndReplyActivity : BaseActivity<ActivityRectificationAndReply
         binding?.tabLayout?.apply {
             addTab(newTab(R.string.to_be_rectified, toBeRectifiedData.size), true)
             addTab(newTab(R.string.to_be_examine, toBeExamineData.size))
-            addTab(newTab(R.string.completed, -1))
+//            addTab(newTab(R.string.completed, -1))
         }
     }
 

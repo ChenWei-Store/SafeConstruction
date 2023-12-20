@@ -15,4 +15,12 @@ data class FinesDetailResp(
     @Json(name = "leijijine") val leijijine: Double = 0.0,
     @Json(name = "tijiaozhi") val tijiaozhi: String = "",
     @Json(name = "status") val status: Int = 0,
+    @Json(name = "subVOS") val subVOS: MutableList<FinesDetailItem> = mutableListOf(),
+)
+
+@JsonClass(generateAdapter = true)
+data class FinesDetailItem(
+    @Json(name = "fakuanleibie") val fakuanleibie: String = "",
+    @Json(name = "chufashuoming") val chufashuoming: String = "",
+    @Json(name = "fakuanjine") val fakuanjine: String = "",
 )

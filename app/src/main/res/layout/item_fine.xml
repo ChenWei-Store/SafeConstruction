@@ -9,7 +9,7 @@
     <View
         android:id="@+id/view_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/view_line1"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -35,23 +35,8 @@
         android:ellipsize="end"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/c_222"
-        android:text=""/>
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/c_ff3e3d"
-        android:textSize="@dimen/sp_16"
-        android:text="审批中"
-        android:paddingTop="@dimen/vertical_margin_4"
-        android:paddingBottom="@dimen/vertical_margin_4"
-        android:paddingStart="@dimen/horizontal_margin_12"
-        android:paddingEnd="@dimen/horizontal_margin_12"
-        android:layout_marginEnd="@dimen/horizontal_margin_16"
-        app:layout_constraintTop_toTopOf="@id/view_title"
-        app:layout_constraintBottom_toBottomOf="@id/view_title"
-        app:layout_constraintEnd_toEndOf="@id/view_title"
-        android:background="@drawable/common_16_ffe7e3_bg"/>
+        android:text="111"/>
+
     <View
         android:id="@+id/view_line1"
         android:layout_width="match_parent"
@@ -59,47 +44,48 @@
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_title"/>
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="50dp"
+    <View
+        android:id="@+id/view_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="@dimen/vertical_margin_12"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        app:layout_constraintTop_toBottomOf="@id/view_line1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_line1"/>
     <TextView
         android:id="@+id/tv_content1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_icon"
-        app:layout_constraintTop_toTopOf="@id/iv_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view_content"
+        android:layout_marginTop="@dimen/vertical_margin_4"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text=""/>
+        android:text="222"/>
 
     <TextView
         android:id="@+id/tv_content2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_icon"
-        app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/view_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:layout_marginBottom="@dimen/vertical_margin_4"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999"
-        android:text=""/>
+        android:text="111"/>
 
     <TextView
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_icon"
+        app:layout_constraintTop_toTopOf="@id/view_content"
+        app:layout_constraintBottom_toBottomOf="@id/view_content"
         android:layout_marginTop="@dimen/vertical_margin_4"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999"
-        android:text=""/>
+        android:text="123元"/>
     <View
         android:id="@+id/view_line2"
         android:layout_width="match_parent"

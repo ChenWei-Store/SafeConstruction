@@ -1,5 +1,6 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,30 +9,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
+import com.shuangning.safeconstruction.bean.other.FineBottom
+import com.shuangning.safeconstruction.bean.other.FineItem
+import com.shuangning.safeconstruction.bean.request.AddFineReq
 import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
 import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
-import com.shuangning.safeconstruction.manager.XPopCreateUtils
-import com.shuangning.safeconstruction.ui.adapter.ADD_FINE
 import com.shuangning.safeconstruction.ui.adapter.AddFinesAdapter
-import com.shuangning.safeconstruction.ui.adapter.FINE_BOTTOM
-import com.shuangning.safeconstruction.ui.viewmodel.AddFineItemViewModel
 import com.shuangning.safeconstruction.ui.viewmodel.AddFineViewModel
 import com.shuangning.safeconstruction.utils.ToastUtil
+import com.shuangning.safeconstruction.utils2.ActivityUtils
 
 /**
  * Created by Chenwei on 2023/10/14.
  */
-class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
+class AddFinesActivity : BaseActivity<ActivityAddFinesBinding>() {
     private val data: MutableList<ItemViewType> = mutableListOf()
-    private var addFinesAdapter: AddFinesAdapter?= null
+    private var addFinesAdapter: AddFinesAdapter? = null
     private val viewModel by viewModels<AddFineViewModel>()
     private var section: Array<String>? = null
-    private val personConstructionTeams = mutableListOf<ConstructionTeamResp>()
-    private var personResp: PersonResp?= null
-    private var person = ""
     private var partOfTender: String = "" //标段
 
+    private val id: String by lazy {
+        intent?.getStringExtra(ID) ?: ""
+    }
+    private val fineBottom = FineBottom()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAddFinesBinding? {
         return ActivityAddFinesBinding.inflate(layoutInflater)
     }
@@ -43,11 +45,9 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
             adapter = addFinesAdapter
             layoutManager = LinearLayoutManager(this@AddFinesActivity)
         }
-
     }
 
     override fun initData() {
-        data.add(ItemViewType(FINE_BOTTOM))
         LoadingManager.startLoading(this)
         viewModel.getData()
     }
@@ -60,6 +60,15 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
 
     override fun initListener() {
         binding?.viewBottom?.setOnClickListener {
+            addFinesAdapter?.let {
+                if (it.itemCount <= 1){
+                    ToastUtil.showCustomToast("请添加罚款项")
+                    return@setOnClickListener
+                }
+                LoadingManager.startLoading(this)
+                val req = AddFineReq(fineBottom.beifakuandanwei, fineBottom.jianchadanwei, id, fineBottom.totalMoney)
+                viewModel.commit(req)
+            }
 
         }
 
@@ -70,48 +79,49 @@ class AddFinesActivity: BaseActivity<ActivityAddFinesBinding>() {
             section = it?.toTypedArray()
             section?.let {
                 partOfTender = it[0]
-//                binding??.text = partOfTender
+                fineBottom.beifakuandanwei = partOfTender
+                fineBottom.jianchadanwei = partOfTender
+                data.add(fineBottom)
+                addFinesAdapter?.setSelection(it)
+                addFinesAdapter?.notifyDataSetChanged()
+                LoadingManager.stopLoading()
             }
         }
-        viewModel.constructionTeamResult.observe(this) {
-            LoadingManager.stopLoading()
-            it?.let {
-                personConstructionTeams.addAll(it)
+        viewModel.result.observe(this){
+            if (it){
+                finish()
             }
+            LoadingManager.stopLoading()
         }
 
-        viewModel.personResult.observe(this) {
-            LoadingManager.stopLoading()
-            if (it == null || it.children.isNullOrEmpty()){
-                ToastUtil.showCustomToast("当前施工队下没有整改处理人数据")
-                return@observe
-            }
-            personResp = it
-            personResp?.children?.let {
-//                val data = arrayOfNulls<String>(it.size)
-//                it.forEachIndexed { index, personItem ->
-//                    data[index] = personItem.name
-//                }
-//                XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data as Array<String>) { index, text ->
-//                    person = text
-//                    binding?.tvCauseAnalysis?.text = person
-//                }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                val money = intent?.getFloatExtra("money", 0.0f) ?: 0.0f
+                val dealType = intent?.getStringExtra("dealType") ?: ""
+                val desc = intent?.getStringExtra("desc") ?: ""
+                val fineItem = FineItem(dealType, money, desc)
+                this.data.add(0, fineItem)
+                fineBottom.totalMoney += money
+                addFinesAdapter?.notifyDataSetChanged()
             }
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1){
-            if (resultCode == RESULT_OK){
-
-            }
-        }
-    }
-
 
     override fun receiveEvent(code: Int, obj: Any?) {
         super.receiveEvent(code, obj)
+    }
 
+    companion object {
+        const val ID = "id"
+        fun startTo(ctx: Context, id: String) {
+            ActivityUtils.start(ctx, AddFinesActivity::class.java) {
+                putExtra(ID, id)
+            }
+        }
     }
 }

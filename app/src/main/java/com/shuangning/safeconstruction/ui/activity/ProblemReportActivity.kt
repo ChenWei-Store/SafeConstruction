@@ -65,6 +65,8 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     private var longitude: Double = 0.0 //精度
     private var personResp: PersonResp?= null
     private var person = ""
+    private val jianchaxiang = JianChaXiang()
+
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityProblemReportBinding? {
         return ActivityProblemReportBinding.inflate(layoutInflater)
     }
@@ -357,7 +359,6 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             it?.let {
                 data.addAll(it)
             }
-            val jianchaxiang = JianChaXiang(2, "测试管理员")
             val chuliren = ZhengGaiChuLiRen(getPersonId())
             val desc = binding?.etContent?.text?.toString() ?: ""
             val rectificationRequirements =
@@ -433,7 +434,10 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     }
 
     private fun onCheckListResult(data: Intent?) {
-        checkList = data?.getStringExtra("data") ?: ""
+        checkList = data?.getStringExtra("title") ?: ""
+        val id = data?.getIntExtra("id", -1)?: -1
+        jianchaxiang.id = id
+        jianchaxiang.referent = checkList
         binding?.tvCheckList?.text = checkList
     }
 

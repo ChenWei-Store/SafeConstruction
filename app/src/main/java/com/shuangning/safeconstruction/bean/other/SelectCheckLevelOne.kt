@@ -9,8 +9,10 @@ import com.shuangning.safeconstruction.base.adapter.LevelType
  * Created by Chenwei on 2023/10/18.
  */
 data class SelectCheckLevelOne(
-    val title: String, val subData: MutableList<SelectCheckLevelTwo>)
-    : LevelType<SelectCheckLevelTwo>(LEVEL_ONE, subData), IItemViewType{
+    val title: String = "",
+    val id: Int = 0,
+    val subData: MutableList<SelectCheckLevelTwo> = mutableListOf()
+) : LevelType<SelectCheckLevelTwo>(LEVEL_ONE, subData), IItemViewType {
     override fun getItemType(): Int {
         return LEVEL_ONE
     }

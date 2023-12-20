@@ -5,156 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <View
-        android:id="@+id/view_add_fine_item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/c_fff" />
-
-    <TextView
-        app:layout_constraintBottom_toBottomOf="@id/view_add_fine_item"
-        app:layout_constraintEnd_toEndOf="@id/view_add_fine_item"
-        app:layout_constraintStart_toStartOf="@id/view_add_fine_item"
-        app:layout_constraintTop_toTopOf="@id/view_add_fine_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/plus"
-        android:drawablePadding="@dimen/horizontal_margin_8"
-        android:drawableTint="@color/main_color"
-        android:text="添加罚款项"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-    <View
         android:id="@+id/view_fines_unit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_add_fine_item"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/vertical_margin_8"
         android:background="@color/c_fff" />
     <TextView
+        android:id="@+id/tv_type"
         app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
         app:layout_constraintStart_toStartOf="@id/view_fines_unit"
         app:layout_constraintTop_toTopOf="@id/view_fines_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_12"
-        android:text="被罚款单位"
+        android:text="处理类别"
         android:textColor="@color/c_555"
         android:textSize="@dimen/sp_14" />
 
     <TextView
-        android:id="@+id/tv_fines_unit"
-        app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
+        android:id="@+id/tv_price"
         app:layout_constraintEnd_toEndOf="@id/view_fines_unit"
         app:layout_constraintTop_toTopOf="@id/view_fines_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:drawableRight="@drawable/right_arrow_icon"
         android:drawablePadding="@dimen/horizontal_margin_8"
         android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-    <View
-        android:id="@+id/view_vetting_unit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_fines_unit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/vertical_margin_1"
-        android:background="@color/c_fff" />
+        android:textSize="@dimen/sp_14"
+        android:text="金额"/>
 
     <TextView
-        android:id="@+id/tv_vetting_unit_title"
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
-        app:layout_constraintStart_toStartOf="@id/view_vetting_unit"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_12"
-        android:text="检查单位"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-    <TextView
-        android:id="@+id/tv_vetting_unit"
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_unit"
-        app:layout_constraintEnd_toEndOf="@id/view_vetting_unit"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_40"
-        android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:drawableRight="@drawable/right_arrow_icon"
-        android:drawablePadding="@dimen/horizontal_margin_8"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-    <View
-        android:id="@+id/view_vetting_person"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_vetting_unit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/vertical_margin_1"
-        android:background="@color/c_fff" />
-    <TextView
-        android:id="@+id/tv_vetting_person_title"
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
-        app:layout_constraintStart_toStartOf="@id/view_vetting_person"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_12"
-        android:text="检查人"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-
-    <TextView
-        android:id="@+id/tv_vetting_person"
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
-        app:layout_constraintEnd_toEndOf="@id/view_vetting_person"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
+        android:id="@+id/tv_desc"
+        app:layout_constraintEnd_toEndOf="@id/view_fines_unit"
+        app:layout_constraintBottom_toBottomOf="@id/view_fines_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:drawableRight="@drawable/right_arrow_icon"
         android:drawablePadding="@dimen/horizontal_margin_8"
         android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
-
-    <View
-        android:id="@+id/view_price"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_vetting_unit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/vertical_margin_1"
-        android:background="@color/c_fff" />
-    <TextView
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
-        app:layout_constraintStart_toStartOf="@id/view_vetting_person"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_12"
-        android:text="累积金额"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_14"
+        android:text="说明"/>
 
 
-    <TextView
-        android:id="@+id/tv_price"
-        app:layout_constraintBottom_toBottomOf="@id/view_vetting_person"
-        app:layout_constraintEnd_toEndOf="@id/view_vetting_person"
-        app:layout_constraintTop_toTopOf="@id/view_vetting_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:textColor="@color/c_555"
-        android:textSize="@dimen/sp_14" />
 </androidx.constraintlayout.widget.ConstraintLayout>

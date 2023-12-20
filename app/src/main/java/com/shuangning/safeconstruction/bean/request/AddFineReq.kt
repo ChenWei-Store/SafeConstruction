@@ -11,4 +11,6 @@ data class AddFineReq(
     @Json(name = "beichufadanwei") val beichufadanwei: String = "",
     @Json(name = "jianchadanwei") val jianchadanwei: String = "",
     @Json(name = "richangxunchabianhao") val richangxunchabianhao: String = "",
+    @Json(name = "leijijine") val leijijine: Float = 0f,
+
 )
