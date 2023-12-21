@@ -32,6 +32,7 @@ import com.shuangning.safeconstruction.utils.TimeUtils
 import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
+import com.shuangning.safeconstruction.utils2.MyLog
 import java.util.Calendar
 import java.util.Date
 
@@ -53,6 +54,7 @@ class AttendanceManagementDetailActivity :
     private val personType: Int by lazy {
         intent?.getIntExtra(PERSON_TYPE, 1) ?: 1
     }
+    private var nowDay = 0
     private val viewModel by viewModels<AttendanceManagementDetailViewModel>()
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityAttendanceManagementDetailBinding? {
         return ActivityAttendanceManagementDetailBinding.inflate(layoutInflater)
@@ -99,12 +101,10 @@ class AttendanceManagementDetailActivity :
                 }
             }
         }
-//        setTableData()
     }
 
     private fun setTableData() {
         var tableData = annotationParser.parse(data)
-        val nowDay = DateUtil.getDay(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
         tableData?.let {
             it.columns = tableData.columns.subList(0, 3 + nowDay)
             binding?.table?.setTableData(it)
@@ -138,14 +138,10 @@ class AttendanceManagementDetailActivity :
         selectedMonth = DateUtil.getMonth(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
         selectedYear = DateUtil.getYears(TimeUtils.getCurrentDate(TimeUtils.yyyy_MM_dd))
         selectedDay = TimeUtils.getCurrentDate(yyyy_MM)
+        nowDay = selectedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
         LoadingManager.startLoading(this)
         viewModel.getSectionAndList(personType, selectedDay)
-
-//        data.add(AttendanceData("徐华盛", "试验检测工程师", 0))
-//        data.add(AttendanceData("欧阳丽华", "试验检测工程师", 5))
-//        data.add(AttendanceData("陈云飞", "安全员", 8))
-//        data.add(AttendanceData("杨洋", "技术负责人", 8))
-
+        MyLog.d("nowDay:$nowDay")
     }
 
 
@@ -173,6 +169,8 @@ class AttendanceManagementDetailActivity :
                             selectedDay = TimeUtils.parseTime(date, yyyy_MM)
                             binding?.tvDate?.text = "$selectedMonth 月"
                             selectedCalendar.time = date
+                            val lastDayDate = DateUtil.getSupportEndDayofMonth(selectedYear, selectedMonth)
+                            nowDay = selectedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
                             refreshData()
                         }
                     }
