@@ -169,7 +169,6 @@ class AttendanceManagementDetailActivity :
                             selectedDay = TimeUtils.parseTime(date, yyyy_MM)
                             binding?.tvDate?.text = "$selectedMonth 月"
                             selectedCalendar.time = date
-                            val lastDayDate = DateUtil.getSupportEndDayofMonth(selectedYear, selectedMonth)
                             nowDay = selectedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
                             refreshData()
                         }
