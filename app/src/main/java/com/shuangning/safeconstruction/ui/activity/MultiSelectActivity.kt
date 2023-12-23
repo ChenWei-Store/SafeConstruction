@@ -3,7 +3,6 @@ package com.shuangning.safeconstruction.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity

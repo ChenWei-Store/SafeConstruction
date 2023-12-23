@@ -10,7 +10,6 @@ import androidx.core.widget.doAfterTextChanged
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
-import com.shuangning.safeconstruction.bean.base.AddPhoto
 import com.shuangning.safeconstruction.bean.request.CommitApprovalRejectReq
 import com.shuangning.safeconstruction.bean.request.CommitAuditReq
 import com.shuangning.safeconstruction.databinding.ActivityCommitAuditBinding

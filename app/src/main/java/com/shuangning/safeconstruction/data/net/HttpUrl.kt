@@ -37,6 +37,10 @@ const val RECTIFUCATION_AND_REPLY_DETAIL = "shuangning-server/gis/getTodoDetail"
 const val COMMIT_ADD_FINE = "shuangning-server/gis/createPenaltyBaseInfo"
 const val COMMIT_ADD_FINE_ITEM = "shuangning-server/gis/submitPenalty"
 const val GET_MAX_ID = "shuangning-server/gis/getMaxId"
+const val GET_DEVICE = "shuangning-server/device/queryDetail"
+const val COMMIT_SENSING = "shuangning-server/device/saveInspection"
+const val COMMIT_REPAIR = "shuangning-server/device/saveDeviceMaintenance"
+
 
 
 

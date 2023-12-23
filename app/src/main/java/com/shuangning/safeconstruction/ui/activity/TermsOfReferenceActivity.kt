@@ -9,7 +9,6 @@ import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.IExpandable
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
 import com.shuangning.safeconstruction.base.adapter.LEVEL_ONE
-import com.shuangning.safeconstruction.base.adapter.LEVEL_THREE
 import com.shuangning.safeconstruction.base.adapter.LEVEL_TWO
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.bean.other.TermsOfReferenceHeader

@@ -9,4 +9,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class QRcodeResult(
     @Json(name = "userId") val userId: Int = -1,
+    @Json(name = "deviceId") val deviceId: Int = -1,
 )

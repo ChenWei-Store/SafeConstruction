@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
@@ -21,7 +18,6 @@ import com.shuangning.safeconstruction.bean.response.Participant
 import com.shuangning.safeconstruction.bean.response.ParticipantItem
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.databinding.ActivityAddGroupEducationBinding
-import com.shuangning.safeconstruction.extension.prepareStartForResult
 import com.shuangning.safeconstruction.manager.FROM_GROUP_EDUCATION
 import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.UserInfoManager

@@ -12,7 +12,6 @@ import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.LoginViewModel
 import com.shuangning.safeconstruction.utils.APPUtils
 import com.shuangning.safeconstruction.utils.ToastUtil
-import com.shuangning.safeconstruction.utils2.MyLog
 
 /**
  * Created by Chenwei on 2023/10/7.

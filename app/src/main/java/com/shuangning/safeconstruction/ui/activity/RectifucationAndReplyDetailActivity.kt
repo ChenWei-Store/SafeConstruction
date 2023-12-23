@@ -16,7 +16,6 @@ import com.shuangning.safeconstruction.base.widget.GridSpaceItemDecoration
 import com.shuangning.safeconstruction.bean.base.ShowPhoto
 import com.shuangning.safeconstruction.bean.request.CommitApprovalRejectReq
 import com.shuangning.safeconstruction.bean.response.RectificationAndReplyDetailResp
-import com.shuangning.safeconstruction.databinding.ActivityCommitAuditBinding
 import com.shuangning.safeconstruction.databinding.ActivityCompletedDetailBinding
 import com.shuangning.safeconstruction.databinding.ActivityToBeExamineDetailBinding
 import com.shuangning.safeconstruction.databinding.ActivityToBeRectifedDetailBinding

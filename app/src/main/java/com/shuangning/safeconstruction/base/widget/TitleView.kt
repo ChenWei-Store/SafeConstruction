@@ -28,7 +28,7 @@ class TitleView @JvmOverloads constructor(
             height = actionbarHeight
         }
 
-        binding?.back?.setOnClickListener {
+        binding?.llBack?.setOnClickListener {
             ActivityUtils.removeActivity()
         }
     }

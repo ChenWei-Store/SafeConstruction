@@ -9,7 +9,9 @@ import com.shuangning.safeconstruction.bean.request.AttendancePunchReq
 import com.shuangning.safeconstruction.bean.request.CommitApprovalRejectReq
 import com.shuangning.safeconstruction.bean.request.CommitAuditReq
 import com.shuangning.safeconstruction.bean.request.CommitRectifiedReq
+import com.shuangning.safeconstruction.bean.request.CommitRepairReq
 import com.shuangning.safeconstruction.bean.request.CommitRoutineInspectionReq
+import com.shuangning.safeconstruction.bean.request.CommitSensingReq
 import com.shuangning.safeconstruction.bean.request.GroupEducationListReq
 import com.shuangning.safeconstruction.bean.request.JoinParticipantReq
 import com.shuangning.safeconstruction.bean.request.LoginReq
@@ -27,6 +29,7 @@ import com.shuangning.safeconstruction.bean.response.JoinParticipantResp
 import com.shuangning.safeconstruction.bean.response.LoginResp
 import com.shuangning.safeconstruction.bean.response.NewsListResp
 import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
+import com.shuangning.safeconstruction.bean.response.DeviceResp
 import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.bean.response.QuestionOperatorResp
 import com.shuangning.safeconstruction.bean.response.RectificationAndReplyDetailResp
@@ -173,4 +176,12 @@ interface ApiService {
     suspend fun commitAddFine(@Body data: AddFineReq): Int?
     @GET(GET_MAX_ID)
     suspend fun getMaxId(): Int?
+    @FormUrlEncoded
+    @POST(GET_DEVICE)
+    suspend fun getDevice(@Field("id") id: Int): HttpResult<DeviceResp>?
+    @POST(COMMIT_SENSING)
+    suspend fun commitSensing(@Body data: CommitSensingReq): Boolean?
+
+    @POST(COMMIT_REPAIR)
+    suspend fun commitRepair(@Body data: CommitRepairReq): Boolean?
 }

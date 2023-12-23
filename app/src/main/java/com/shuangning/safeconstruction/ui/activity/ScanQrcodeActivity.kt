@@ -12,7 +12,6 @@ import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.bean.other.QRcodeResult
 import com.shuangning.safeconstruction.databinding.ActivityScanQrcodeBinding
 import com.shuangning.safeconstruction.utils.GlideEngine
-import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils2.JsonUtils
 import com.shuangning.safeconstruction.utils2.MyLog
 
@@ -23,6 +22,7 @@ import com.shuangning.safeconstruction.utils2.MyLog
 class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView.Delegate {
     private var isOpenFlashLight = false
     private var userId: Int = -1
+    private var deviceId: Int = -1
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityScanQrcodeBinding? {
         return ActivityScanQrcodeBinding.inflate(layoutInflater)
     }
@@ -104,12 +104,37 @@ class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView
         result?.let {
             MyLog.d("result: $it")
             val data = JsonUtils.fromJson<QRcodeResult>(result)
-            data?.takeIf { it2 ->
-                it2.userId > -1 && it2.userId != userId
-            }?.let {
-                userId = it.userId
-                QrcodeResultActivity.startTo(this@ScanQrcodeActivity, userId)
+
+            data?.let {
+                if (it.userId > -1 ){
+                    if (userId == it.userId){
+                        return@let
+                    }
+                    userId = it.userId
+                    deviceId = -1
+                    QrcodeResultActivity.startTo(this@ScanQrcodeActivity, userId)
+                }
+                if (it.deviceId > -1){
+                    if (deviceId == it.deviceId){
+                        return@let
+                    }
+                    userId = -1
+                    deviceId = it.deviceId
+                    DeviceActivity.startTo(this@ScanQrcodeActivity, deviceId)
+                }
+
             }
+//            data?.takeIf { it2 ->
+//                !(it2.id == id && it2.type == type)
+//            }?.let {
+//                id = it.id
+//                type = it.type
+//                if (type == "user") {
+//                    QrcodeResultActivity.startTo(this@ScanQrcodeActivity, id)
+//                } else {
+//                    DeviceActivity.startTo(this@ScanQrcodeActivity, id)
+//                }
+//            }
         }
         binding?.zxingview?.startSpot()
 

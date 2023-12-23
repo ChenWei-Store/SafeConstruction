@@ -7,15 +7,11 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
-import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.FallbackStrategy
 import androidx.camera.video.MediaStoreOutputOptions
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
@@ -27,16 +23,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.core.view.updateLayoutParams
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenCreated
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityRecordVideoBinding
 import com.shuangning.safeconstruction.extension.getAspectRatio
 import com.shuangning.safeconstruction.extension.getAspectRatioString
-import com.shuangning.safeconstruction.utils.ScreenUtil
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils2.MyLog
-import kotlinx.coroutines.async
 
 /**
  * Created by Chenwei on 2023/11/27.

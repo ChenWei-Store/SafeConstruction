@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.databinding.ActivityAttendanceManagementBinding
-import com.shuangning.safeconstruction.manager.StartActivityManager
 
 /**
  * Created by Chenwei on 2023/10/15.

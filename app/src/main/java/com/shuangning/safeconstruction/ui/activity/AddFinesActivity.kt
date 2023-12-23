@@ -12,8 +12,6 @@ import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.other.FineBottom
 import com.shuangning.safeconstruction.bean.other.FineItem
 import com.shuangning.safeconstruction.bean.request.AddFineReq
-import com.shuangning.safeconstruction.bean.response.ConstructionTeamResp
-import com.shuangning.safeconstruction.bean.response.PersonResp
 import com.shuangning.safeconstruction.databinding.ActivityAddFinesBinding
 import com.shuangning.safeconstruction.ui.adapter.AddFinesAdapter
 import com.shuangning.safeconstruction.ui.viewmodel.AddFineViewModel

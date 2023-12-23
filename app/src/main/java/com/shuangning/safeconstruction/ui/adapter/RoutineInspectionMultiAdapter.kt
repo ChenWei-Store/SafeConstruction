@@ -74,6 +74,7 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
                             binding.tvStatus.text = "待整改"
                         }
                     }
+                    binding.tvStatus.visibility = View.GONE
                     binding.content.setOnClickListener {
                         it2->
                         QuestionOperatorActivity.startTo(ctx, selectedTab, it.id.toString(), QuestionOperatorActivity.FROM_ROUTINE_INSPECTION)

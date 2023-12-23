@@ -12,6 +12,7 @@ import com.shuangning.safeconstruction.databinding.ActivityQrcodeResultBinding
 import com.shuangning.safeconstruction.ui.viewmodel.QrcodeResultViewModel
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 import com.shuangning.safeconstruction.utils2.ImageLoader
+import org.json.JSONObject
 
 /**
  * Created by Chenwei on 2023/12/2.
@@ -56,7 +57,7 @@ class QrcodeResultActivity: BaseActivity<ActivityQrcodeResultBinding>() {
         binding?.tvName?.text = data.userName
         binding?.tvSex?.text = data.sex
         binding?.tvNum?.text = data.idCardNo
-        binding?.tvNativePlace?.text = data.nativePlace
+        binding?.tvPerson?.text = getNativePlace(data.nativePlace)
         binding?.tvCompanyName?.text = data.companyName
         binding?.tvPersonNum?.text = data.userNo
         binding?.tvDepartmentName?.text = data.departmentName
@@ -71,6 +72,22 @@ class QrcodeResultActivity: BaseActivity<ActivityQrcodeResultBinding>() {
             binding?.ivHeader?.visibility = View.VISIBLE
             binding?.ivHeader?.let { ImageLoader.loadUrl(this, data.imageUrl, it) }
         }
+    }
+
+    private fun getNativePlace(json: String): String{
+        if (json.isEmpty()){
+            return ""
+        }
+        return try {
+            val jsonObject = JSONObject(json)
+            val province = jsonObject.optString("province")
+            val city = jsonObject.optString("city")
+            val country = jsonObject.optString("country")
+            province + city + country
+        }catch (e: Exception){
+            ""
+        }
+
     }
     companion object{
         const val USER_ID = "userId"

@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.HEADER
 import com.shuangning.safeconstruction.base.adapter.IItemViewType
-import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.databinding.ActivityGroupEducationDetailBinding
 import com.shuangning.safeconstruction.ui.adapter.GroupEducationDetailAdapter
 import com.shuangning.safeconstruction.ui.viewmodel.GroupEducationDetailViewModel
 import com.shuangning.safeconstruction.utils2.ActivityUtils
-import retrofit2.http.HEAD
 
 /**
  * Created by Chenwei on 2023/11/5.

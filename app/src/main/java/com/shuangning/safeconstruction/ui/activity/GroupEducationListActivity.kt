@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lxj.xpopup.enums.PopupPosition
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.adapter.CONTENT
 import com.shuangning.safeconstruction.base.adapter.HEADER
@@ -20,13 +18,11 @@ import com.shuangning.safeconstruction.bean.response.GroupEducationItem
 import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
 import com.shuangning.safeconstruction.databinding.ActivityGroupEducationListBinding
-import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.adapter.GroupEducationMulAdapter
 import com.shuangning.safeconstruction.ui.dialog.GroupEducationTipDialog
 import com.shuangning.safeconstruction.ui.dialog.SelectGroupEducationOptionDialog
 import com.shuangning.safeconstruction.ui.viewmodel.GroupEducationListViewModel
-import com.shuangning.safeconstruction.utils.DateUtil
 import com.shuangning.safeconstruction.utils.TimeUtils
 import com.shuangning.safeconstruction.utils.TimeUtils.yyyy_MM_dd
 import com.shuangning.safeconstruction.utils2.ActivityUtils

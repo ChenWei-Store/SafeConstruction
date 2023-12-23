@@ -1,82 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
+
     <com.shuangning.safeconstruction.base.widget.TitleView
         android:id="@+id/view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_title"/>
+        app:layout_constraintTop_toBottomOf="@id/view_title" />
+
     <ImageView
         android:id="@+id/iv_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/view1"
         app:layout_constraintStart_toStartOf="@id/view1"
-        app:layout_constraintTop_toTopOf="@id/view1"
-        app:layout_constraintBottom_toBottomOf="@id/view1"/>
+        app:layout_constraintTop_toTopOf="@id/view1" />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_16"
-        app:layout_goneMarginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/iv_header"
-        app:layout_constraintTop_toTopOf="@id/view1"
-        app:layout_constraintBottom_toBottomOf="@id/view1"
+        android:textColor="@color/c_222"
         android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222"/>
+        app:layout_constraintStart_toEndOf="@id/iv_header"
+        app:layout_constraintTop_toTopOf="@id/iv_header"
+        tools:text="123"/>
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_margin_16"
+        android:textColor="@color/c_222"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/iv_header"
+        app:layout_constraintStart_toEndOf="@id/iv_header"
+        app:layout_goneMarginStart="8dp"
+        tools:text="456"/>
+
     <View
         android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1"/>
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider1" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
-        app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toTopOf="@id/view2"
-        app:layout_constraintBottom_toBottomOf="@id/view2"
-        android:textSize="@dimen/sp_14"
+        android:text="设备分类"
         android:textColor="@color/c_222"
-        android:text="性别"/>
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/view2"
+        app:layout_constraintStart_toStartOf="@id/view2"
+        app:layout_constraintTop_toTopOf="@id/view2" />
+
     <TextView
-        android:id="@+id/tv_sex"
+        android:id="@+id/tv_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        app:layout_constraintEnd_toEndOf="@id/view2"
-        app:layout_constraintTop_toTopOf="@id/view2"
-        app:layout_constraintBottom_toBottomOf="@id/view2"
+        android:textColor="@color/c_222"
         android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
+        app:layout_constraintBottom_toBottomOf="@id/view2"
+        app:layout_constraintEnd_toEndOf="@id/view2"
+        app:layout_constraintTop_toTopOf="@id/view2" />
+
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view2"/>
+        app:layout_constraintTop_toBottomOf="@id/view2" />
 
     <View
         android:id="@+id/view3"
@@ -93,9 +113,9 @@
         app:layout_constraintBottom_toBottomOf="@id/view3"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="身份证号"/>
+        android:text="使用地点"/>
     <TextView
-        android:id="@+id/tv_num"
+        android:id="@+id/tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
@@ -130,7 +150,7 @@
         app:layout_constraintEnd_toStartOf="@id/tv_person"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="籍贯"/>
+        android:text="操作负责人"/>
     <TextView
         android:id="@+id/tv_person"
         android:layout_width="0dp"
@@ -160,7 +180,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider4" />
     <TextView
-        android:id="@+id/tv_company_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin_8"
@@ -168,16 +187,14 @@
         app:layout_constraintStart_toStartOf="@id/view5"
         app:layout_constraintTop_toTopOf="@id/view5"
         app:layout_constraintBottom_toBottomOf="@id/view5"
-        app:layout_constraintEnd_toStartOf="@id/tv_company_name"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="单位名称"/>
+        android:text="是否租赁"/>
     <TextView
-        android:id="@+id/tv_company_name"
-        android:layout_width="0dp"
+        android:id="@+id/tv_rent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        app:layout_constraintStart_toEndOf="@id/tv_company_name_title"
         app:layout_constraintEnd_toEndOf="@id/view5"
         app:layout_constraintTop_toTopOf="@id/view5"
         app:layout_constraintBottom_toBottomOf="@id/view5"
@@ -210,9 +227,9 @@
         app:layout_constraintBottom_toBottomOf="@id/view6"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="人员编号"/>
+        android:text="进场时间"/>
     <TextView
-        android:id="@+id/tv_person_num"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
@@ -244,9 +261,9 @@
         app:layout_constraintBottom_toBottomOf="@id/view7"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="部门名称"/>
+        android:text="检测(验收)"/>
     <TextView
-        android:id="@+id/tv_department_name"
+        android:id="@+id/tv_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
@@ -278,17 +295,15 @@
         app:layout_constraintBottom_toBottomOf="@id/view8"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="岗位名称"/>
-    <TextView
-        android:id="@+id/tv_work_name"
+        android:text="检验检测记录"/>
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         app:layout_constraintEnd_toEndOf="@id/view8"
         app:layout_constraintTop_toTopOf="@id/view8"
         app:layout_constraintBottom_toBottomOf="@id/view8"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
+        android:src="@drawable/right_arrow_icon" />
     <View
         android:id="@+id/divider8"
         android:layout_width="match_parent"
@@ -296,6 +311,7 @@
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view8"/>
+
     <View
         android:id="@+id/view9"
         android:layout_width="match_parent"
@@ -311,123 +327,20 @@
         app:layout_constraintBottom_toBottomOf="@id/view9"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222"
-        android:text="班组"/>
-    <TextView
-        android:id="@+id/tv_teams_group"
+        android:text="维修保养记录"/>
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
         app:layout_constraintEnd_toEndOf="@id/view9"
         app:layout_constraintTop_toTopOf="@id/view9"
         app:layout_constraintBottom_toBottomOf="@id/view9"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
+        android:src="@drawable/right_arrow_icon" />
     <View
         android:id="@+id/divider9"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view9"/>
-    <View
-        android:id="@+id/view10"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider9" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        app:layout_constraintStart_toStartOf="@id/view10"
-        app:layout_constraintTop_toTopOf="@id/view10"
-        app:layout_constraintBottom_toBottomOf="@id/view10"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222"
-        android:text="人员种类"/>
-    <TextView
-        android:id="@+id/tv_person_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_margin_8"
-        app:layout_constraintEnd_toEndOf="@id/view10"
-        app:layout_constraintTop_toTopOf="@id/view10"
-        app:layout_constraintBottom_toBottomOf="@id/view10"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
-    <View
-        android:id="@+id/divider10"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view10"/>
-
-    <View
-        android:id="@+id/view11"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider10" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        app:layout_constraintStart_toStartOf="@id/view11"
-        app:layout_constraintTop_toTopOf="@id/view11"
-        app:layout_constraintBottom_toBottomOf="@id/view11"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222"
-        android:text="进出场状态"/>
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_margin_8"
-        app:layout_constraintEnd_toEndOf="@id/view11"
-        app:layout_constraintTop_toTopOf="@id/view11"
-        app:layout_constraintBottom_toBottomOf="@id/view11"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
-    <View
-        android:id="@+id/divider11"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view11"/>
-
-    <View
-        android:id="@+id/view12"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider11" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_8"
-        app:layout_constraintStart_toStartOf="@id/view12"
-        app:layout_constraintTop_toTopOf="@id/view12"
-        app:layout_constraintBottom_toBottomOf="@id/view12"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222"
-        android:text="进场时间"/>
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_margin_8"
-        app:layout_constraintEnd_toEndOf="@id/view12"
-        app:layout_constraintTop_toTopOf="@id/view12"
-        app:layout_constraintBottom_toBottomOf="@id/view12"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/c_222" />
-    <View
-        android:id="@+id/divider12"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view12"/>
+        app:layout_constraintTop_toBottomOf="@id/view8"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

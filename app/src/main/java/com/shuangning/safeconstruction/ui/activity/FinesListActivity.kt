@@ -7,12 +7,10 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
-import com.shuangning.safeconstruction.base.adapter.ItemViewType
 import com.shuangning.safeconstruction.base.adapter.OnItemClickListener
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
 import com.shuangning.safeconstruction.bean.response.FinesListItem
 import com.shuangning.safeconstruction.databinding.ActivityFinesBinding
-import com.shuangning.safeconstruction.manager.StartActivityManager
 import com.shuangning.safeconstruction.ui.adapter.FinesMultiAdapter
 import com.shuangning.safeconstruction.ui.viewmodel.FinesListViewModel
 import com.shuangning.safeconstruction.utils.UIUtils
@@ -41,7 +39,6 @@ class FinesListActivity: BaseActivity<ActivityFinesBinding>() {
 
     override fun initData() {
         checkoutNo = intent?.getStringExtra(CHECK_OUT_NUM)?:""
-
     }
 
     override fun onResume() {
