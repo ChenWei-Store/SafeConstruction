@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -120,6 +120,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/view_check_list"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:drawableLeft="@drawable/checklist"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:text="检查项"
@@ -135,11 +136,14 @@
                 app:layout_constraintBottom_toBottomOf="@id/view_check_list"
                 app:layout_constraintStart_toEndOf="@id/tv_check_list_title"
                 android:gravity="end"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
+                android:textColor="@color/c_555"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
 
             <View
                 android:id="@+id/view3"
@@ -155,11 +159,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view3"/>
             <TextView
+                android:id="@+id/tv_part_of_tender_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/view_part_of_tender"
                 app:layout_constraintTop_toTopOf="@id/view_part_of_tender"
                 app:layout_constraintBottom_toBottomOf="@id/view_part_of_tender"
+                app:layout_constraintEnd_toStartOf="@id/tv_part_of_tender"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:drawableLeft="@drawable/part_of_tender"
                 android:drawablePadding="@dimen/horizontal_margin_4"
@@ -169,16 +175,21 @@
 
             <TextView
                 android:id="@+id/tv_part_of_tender"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintStart_toEndOf="@id/tv_part_of_tender_title"
                 app:layout_constraintEnd_toEndOf="@id/view_part_of_tender"
                 app:layout_constraintTop_toTopOf="@id/view_part_of_tender"
                 app:layout_constraintBottom_toBottomOf="@id/view_part_of_tender"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
+                android:textColor="@color/c_555"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
 
             <View
                 android:id="@+id/view5"
@@ -194,12 +205,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view5"/>
             <TextView
+                android:id="@+id/tv_construction_team_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/view_construction_team"
                 app:layout_constraintTop_toTopOf="@id/view_construction_team"
                 app:layout_constraintBottom_toBottomOf="@id/view_construction_team"
+                app:layout_constraintEnd_toStartOf="@id/tv_construction_team"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:drawableLeft="@drawable/construction_team"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:text="施工队"
@@ -208,17 +222,22 @@
 
             <TextView
                 android:id="@+id/tv_construction_team"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_construction_team_title"
                 app:layout_constraintEnd_toEndOf="@id/view_construction_team"
                 app:layout_constraintTop_toTopOf="@id/view_construction_team"
                 app:layout_constraintBottom_toBottomOf="@id/view_construction_team"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:gravity="end"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555"
-                android:text=""/>
+                android:text=""
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
 
             <View
                 android:id="@+id/view6"
@@ -332,11 +351,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view8"/>
             <TextView
+                android:id="@+id/tv_cause_analysis_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/view_cause_analysis"
                 app:layout_constraintTop_toTopOf="@id/view_cause_analysis"
                 app:layout_constraintBottom_toBottomOf="@id/view_cause_analysis"
+                app:layout_constraintEnd_toStartOf="@id/tv_cause_analysis"
+                android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:drawableLeft="@drawable/cause_analysis"
                 android:drawablePadding="@dimen/horizontal_margin_4"
@@ -346,12 +368,16 @@
 
             <TextView
                 android:id="@+id/tv_cause_analysis"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_cause_analysis_title"
                 app:layout_constraintEnd_toEndOf="@id/view_cause_analysis"
                 app:layout_constraintTop_toTopOf="@id/view_cause_analysis"
                 app:layout_constraintBottom_toBottomOf="@id/view_cause_analysis"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
+                android:gravity="end"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:drawableRight="@drawable/right_arrow_icon"
                 android:drawablePadding="@dimen/horizontal_margin_4"
                 android:textSize="@dimen/sp_14"

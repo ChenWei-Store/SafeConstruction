@@ -62,7 +62,7 @@ class RectifucationAndReplyDetailActivity : BaseActivity<ViewBinding>() {
                 initToBeExamine(resp)
             }
             else ->{
-                initCompleted(resp)
+//                initCompleted(resp)
             }
         }
         initListener()

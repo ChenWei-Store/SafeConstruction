@@ -46,42 +46,39 @@ class RoutineInspectionMultiAdapter(data: MutableList<IItemViewType>): CommonBas
                     binding.tvTitle.text = "[${it.biaoduan}标] ${it.jianchaxiang}"
                     if (urls.size > 0){
                         ImageLoader.loadUrlWithRound(ctx, urls[0], binding.ivIcon, ScreenUtil.dp2px(16f))
-                        binding.ivIcon.visibility = View.VISIBLE
+//                        binding.ivIcon.visibility = View.VISIBLE
                     }else{
-                        binding.ivIcon.visibility = View.GONE
+//                        binding.ivIcon.visibility = View.GONE
                     }
 
                     binding.tvContent1.text = it.jianchaxiang
                     binding.tvContent2.text = it.xianchangmiaoshu0
-                    val selectedTab = it.status.toInt()
                     when (it.status) {
-                        "0" -> {
+                        "审核通过" -> {
                             binding.groupBottom.visibility = View.GONE
                             binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_c8ebff_bg)
                             binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_0A8DE5))
                             binding.tvStatus.text = "已完成"
                         }
-                        "1" -> {
+                        "待整改" -> {
+                            binding.groupBottom.visibility = View.GONE
+                            binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_ffe7e3_bg)
+                            binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_ff3e3d))
+                            binding.tvStatus.text = "待整改"
+                        }
+                        else -> {
                             binding.groupBottom.visibility = View.GONE
                             binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_67e667_bg)
                             binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_008500))
                             binding.tvStatus.text = "待审核"
                         }
-                        else -> {
-                            binding.groupBottom.visibility = View.VISIBLE
-                            binding.tvStatus.background = UIUtils.getDrawable(R.drawable.common_16_ffe7e3_bg)
-                            binding.tvStatus.setTextColor(UIUtils.getColor(R.color.c_ff3e3d))
-                            binding.tvStatus.text = "待整改"
-                        }
                     }
-                    binding.tvStatus.visibility = View.GONE
+//                    binding.tvStatus.visibility = View.GONE
                     binding.content.setOnClickListener {
                         it2->
-                        QuestionOperatorActivity.startTo(ctx, selectedTab, it.id.toString(), QuestionOperatorActivity.FROM_ROUTINE_INSPECTION)
+                        QuestionOperatorActivity.startTo(ctx, it.status, it.id.toString(), QuestionOperatorActivity.FROM_ROUTINE_INSPECTION)
                     }
                 }
-
-
             }
         }
     }

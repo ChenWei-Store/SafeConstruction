@@ -27,22 +27,13 @@
         android:hint="请输入维保内容"
         android:paddingStart="@dimen/horizontal_margin_16"
         android:paddingEnd="@dimen/horizontal_margin_16"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_16"
-        android:layout_marginTop="@dimen/vertical_margin_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_content" />
-
     <View
         android:id="@+id/view_divider"
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_marginTop="@dimen/vertical_margin_16"
         android:background="@color/divider"
-        app:layout_constraintTop_toBottomOf="@id/rv_pic" />
+        app:layout_constraintTop_toBottomOf="@id/et_content" />
 
     <View
         android:id="@+id/view1"

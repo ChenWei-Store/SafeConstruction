@@ -39,9 +39,6 @@ import java.util.Date
  * Created by Chenwei on 2023/12/23.
  */
 class CommitSensingActivity : BaseActivity<ActivityCommitSensingBinding>() {
-    private val data: MutableList<ItemViewType> = mutableListOf()
-    private var addShowPhotoAdapter: AddShowPhotoMultiAdapter? = null
-    private val maxPhotoNum = 9
     private var selectedCalendar: Calendar = Calendar.getInstance()
     private var selectedNextCalendar: Calendar = Calendar.getInstance()
     private var selectedTime = ""
@@ -57,21 +54,9 @@ class CommitSensingActivity : BaseActivity<ActivityCommitSensingBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.viewTitle?.setTitle("检测登记")
-        addShowPhotoAdapter = AddShowPhotoMultiAdapter(data)
-        binding?.rvPic?.apply {
-            layoutManager = GridLayoutManager(this@CommitSensingActivity, 4)
-            addItemDecoration(
-                GridSpaceItemDecoration(
-                    4, ScreenUtil.dp2px(16f),
-                    ScreenUtil.dp2px(8f), false
-                )
-            )
-            adapter = addShowPhotoAdapter
-        }
     }
 
     override fun initData() {
-        data.add(AddPhoto())
     }
 
     override fun doBeforeSetContentView() {
@@ -81,45 +66,6 @@ class CommitSensingActivity : BaseActivity<ActivityCommitSensingBinding>() {
     }
 
     override fun initListener() {
-        addShowPhotoAdapter?.setListener(object :
-            AddShowPhotoMultiAdapter.OnPhotoActionClickListener {
-            override fun onAdd() {
-                PictureSelector.create(this@CommitSensingActivity)
-                    .openGallery(SelectMimeType.ofImage())
-                    .setMaxSelectNum(maxPhotoNum)
-                    .setImageEngine(GlideEngine.createGlideEngine())
-                    .forResult(object : OnResultCallbackListener<LocalMedia> {
-                        override fun onResult(result: ArrayList<LocalMedia>?) {
-                            result.takeIf {
-                                !it.isNullOrEmpty()
-                            }?.let {
-                                if (it.isNotEmpty()) {
-                                    data.clear()
-                                    it.forEach {
-                                        val path = it.realPath
-                                        val item = ShowPhoto(path, true)
-                                        data.add(item)
-                                    }
-                                }
-                                if (data.size < 9) {
-                                    data.add(AddPhoto())
-                                }
-                                addShowPhotoAdapter?.notifyDataSetChanged()
-                            }
-                        }
-
-                        override fun onCancel() {
-                        }
-
-                    })
-            }
-
-            override fun onDelete(position: Int) {
-            }
-
-            override fun onImageClick() {
-            }
-        })
         binding?.view1?.setOnClickListener {
             XPopCreateUtils.showYearMonthDialog(
                 this@CommitSensingActivity,

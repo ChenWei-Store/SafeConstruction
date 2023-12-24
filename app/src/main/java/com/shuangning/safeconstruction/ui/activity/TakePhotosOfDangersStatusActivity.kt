@@ -44,7 +44,7 @@ class TakePhotosOfDangersStatusActivity: BaseActivity<ActivityTakePhotosOfDanger
         binding?.tabLayout?.apply {
             addTab(newTab(R.string.to_be_received, toBeReceivedData.size), true)
             addTab(newTab( R.string.to_be_processed, toBeProcessedData.size))
-//            addTab(newTab( R.string.processed, processedData.size))
+            addTab(newTab( R.string.processed, processedData.size))
         }
     }
 

@@ -84,14 +84,14 @@ class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView
     override fun observeViewModel() {
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         binding?.zxingview?.startCamera()
         binding?.zxingview?.startSpotAndShowRect()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         binding?.zxingview?.stopCamera()
     }
 
@@ -103,38 +103,30 @@ class ScanQrcodeActivity : BaseActivity<ActivityScanQrcodeBinding>(), QRCodeView
     override fun onScanQRCodeSuccess(result: String?) {
         result?.let {
             MyLog.d("result: $it")
-            val data = JsonUtils.fromJson<QRcodeResult>(result)
-
-            data?.let {
-                if (it.userId > -1 ){
-                    if (userId == it.userId){
-                        return@let
+            try{
+                val data = JsonUtils.fromJson<QRcodeResult>(result)
+                data?.let {
+                    if (it.userId > -1 ){
+                        if (userId == it.userId){
+                            return@let
+                        }
+                        userId = it.userId
+                        deviceId = -1
+                        QrcodeResultActivity.startTo(this@ScanQrcodeActivity, userId)
                     }
-                    userId = it.userId
-                    deviceId = -1
-                    QrcodeResultActivity.startTo(this@ScanQrcodeActivity, userId)
-                }
-                if (it.deviceId > -1){
-                    if (deviceId == it.deviceId){
-                        return@let
+                    if (it.deviceId > -1){
+                        if (deviceId == it.deviceId){
+                            return@let
+                        }
+                        userId = -1
+                        deviceId = it.deviceId
+                        DeviceActivity.startTo(this@ScanQrcodeActivity, deviceId)
                     }
-                    userId = -1
-                    deviceId = it.deviceId
-                    DeviceActivity.startTo(this@ScanQrcodeActivity, deviceId)
-                }
 
+                }
+            }catch (e: Exception){
+                MyLog.e(e.message.toString())
             }
-//            data?.takeIf { it2 ->
-//                !(it2.id == id && it2.type == type)
-//            }?.let {
-//                id = it.id
-//                type = it.type
-//                if (type == "user") {
-//                    QrcodeResultActivity.startTo(this@ScanQrcodeActivity, id)
-//                } else {
-//                    DeviceActivity.startTo(this@ScanQrcodeActivity, id)
-//                }
-//            }
         }
         binding?.zxingview?.startSpot()
 

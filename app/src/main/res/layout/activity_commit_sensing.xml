@@ -12,28 +12,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_title"
-        android:layout_marginStart="@dimen/horizontal_margin_16"
-        android:layout_marginTop="@dimen/vertical_margin_16" />
 
-    <View
-        android:id="@+id/view_divider"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@color/divider"
-        android:layout_marginTop="@dimen/vertical_margin_16"
-        app:layout_constraintTop_toBottomOf="@id/rv_pic"/>
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_divider" />
+        app:layout_constraintTop_toBottomOf="@id/view_title" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -228,7 +228,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
         binding?.etRectificationRequirements?.doAfterTextChanged {
             val length = it.toString().length
-            binding?.tvRectificationRequirements?.text = (maxLength - length).toString()
+            binding?.tvRectificationRequirementsCount?.text = (maxLength - length).toString()
         }
         binding?.viewCauseAnalysis?.setOnClickListener {
             //整改处理人

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -112,6 +112,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/view_line3"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_check_item"
+            android:layout_marginEnd="@dimen/horizontal_margin_4"
             android:layout_marginTop="@dimen/vertical_margin_8"
             android:layout_marginStart="@dimen/horizontal_margin_8"
             android:textSize="@dimen/sp_14"
@@ -120,20 +122,25 @@
 
         <TextView
             android:id="@+id/tv_check_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_check_item_title"
             app:layout_constraintTop_toTopOf="@id/tv_check_item_title"
             app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="end"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_marginEnd="@dimen/horizontal_margin_8"
             android:textSize="@dimen/sp_14"
-            android:textColor="@color/c_555" />
+            android:textColor="@color/c_555"
+            tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
         <View
             android:id="@+id/view_line4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider"
             android:layout_marginTop="@dimen/vertical_margin_8"
-            app:layout_constraintTop_toBottomOf="@id/tv_check_item_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_check_item"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView

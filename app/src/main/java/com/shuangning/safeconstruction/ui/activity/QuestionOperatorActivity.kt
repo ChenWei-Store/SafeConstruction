@@ -29,7 +29,7 @@ import org.json.JSONObject
  * Created by Chenwei on 2023/10/11.
  */
 class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
-    private var status: Int = ERROR
+    private var status: String = ""
     private var photoData = mutableListOf<ItemViewType>()
     private var photoData2 = mutableListOf<ItemViewType>()
     private var photoAdapter: AddShowPhotoMultiAdapter? = null
@@ -48,16 +48,15 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
 
     private fun showDataToUi(questionOperatorResp: QuestionOperatorResp) {
         when (status) {
-            TO_BE_RECTIFIED -> {
+            "待整改" -> {
                 initToBeRectifed(questionOperatorResp)
             }
-
-            TO_BE_EXAMINE -> {
-                initToBeExamine(questionOperatorResp)
-            }
-
-            COMPLETED -> {
+            "审核通过"->{
                 initCompleted(questionOperatorResp)
+
+            }
+            else -> {
+                initToBeExamine(questionOperatorResp)
             }
         }
         initListener()
@@ -231,7 +230,7 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
         }
         val array1 = str.split("T")
         val array2 = array1[1].split(".")
-        val time = array1[0] + array2[0]
+        val time = array1[0] + " " + array2[0]
         return time
     }
 
@@ -246,7 +245,7 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
 
     override fun initData() {
         fromWhere = intent?.getIntExtra(FROM_WHERE, FROM_ROUTINE_INSPECTION)?: FROM_ROUTINE_INSPECTION
-        status = intent?.getIntExtra(STATUS, ERROR) ?: ERROR
+        status = intent?.getStringExtra(STATUS) ?: ""
         id = intent?.getStringExtra(ID) ?: ""
         if (fromWhere == FROM_ROUTINE_INSPECTION){
             LoadingManager.startLoading(this)
@@ -267,18 +266,18 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
                     it.floatingbutton.setOnClickListener {
                         FinesListActivity.startTo(this@QuestionOperatorActivity,checkoutNum)
                     }
-                    it.viewProblemTitle.setOnClickListener {
-                        StartActivityManager.startToQuestionOperatorDetail(this@QuestionOperatorActivity)
-                    }
+//                    it.viewProblemTitle.setOnClickListener {
+//                        StartActivityManager.startToQuestionOperatorDetail(this@QuestionOperatorActivity)
+//                    }
                 }
 
                 is ActivityCompletedDetailBinding -> {
                     it.floatingbutton.setOnClickListener {
                         FinesListActivity.startTo(this@QuestionOperatorActivity, checkoutNum)
                     }
-                    it.viewProblemTitle.setOnClickListener {
-                        StartActivityManager.startToQuestionOperatorDetail(this@QuestionOperatorActivity)
-                    }
+//                    it.viewProblemTitle.setOnClickListener {
+//                        StartActivityManager.startToQuestionOperatorDetail(this@QuestionOperatorActivity)
+//                    }
                 }
 
                 else -> {
@@ -304,7 +303,7 @@ class QuestionOperatorActivity : BaseActivity<ViewBinding>() {
         const val FROM_WHERE = "fromWhere"
         const val FROM_ROUTINE_INSPECTION = 0
         const val FROM_RECTIFICATION_PEPLY = 1
-        fun startTo(ctx: Context, status: Int, id: String, fromWhere: Int) {
+        fun startTo(ctx: Context, status: String, id: String, fromWhere: Int) {
             ActivityUtils.start(ctx, QuestionOperatorActivity::class.java) {
                 putExtra(STATUS, status)
                 putExtra(ID, id)

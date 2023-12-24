@@ -69,18 +69,26 @@
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/vertical_margin_12"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintTop_toBottomOf="@id/view_line1"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/test_round_bg"
-         />
-    <TextView
-        android:id="@+id/tv_content1"
+        app:layout_constraintEnd_toStartOf="@id/barrier"/>
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="tv_content1,tv_content2" />
+    <TextView
+        android:id="@+id/tv_content1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_icon"
-        app:layout_goneMarginStart="@dimen/horizontal_margin_8"
         android:layout_marginStart="@dimen/horizontal_margin_8"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_222" />
 
@@ -88,14 +96,12 @@
         android:id="@+id/tv_content2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/iv_icon"
-        app:layout_goneMarginStart="@dimen/horizontal_margin_8"
         android:layout_marginStart="@dimen/horizontal_margin_8"
         android:layout_marginEnd="@dimen/horizontal_margin_8"
-        android:maxLines="2"
+        android:maxLines="1"
         android:ellipsize="end"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/c_999" />

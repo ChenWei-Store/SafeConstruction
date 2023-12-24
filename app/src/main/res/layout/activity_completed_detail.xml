@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -47,7 +47,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:drawablePadding="@dimen/horizontal_margin_8"
-                android:drawableRight="@drawable/right_arrow_icon"
                 android:drawableTint="@color/main_color"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/main_color"/>
@@ -123,8 +122,8 @@
                 app:layout_constraintTop_toBottomOf="@id/view_line3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_check_item"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_marginTop="@dimen/vertical_margin_8"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/c_555"
@@ -137,18 +136,20 @@
                 app:layout_constraintTop_toTopOf="@id/tv_check_item_title"
                 app:layout_constraintStart_toEndOf="@id/tv_check_item_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
+                android:textColor="@color/c_555"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
+
             <View
                 android:id="@+id/view_line4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_check_item_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_item"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
@@ -187,6 +188,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/view_line6"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_rectification_person"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
@@ -195,20 +198,26 @@
 
             <TextView
                 android:id="@+id/tv_rectification_person"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_rectification_person_title"
                 app:layout_constraintTop_toTopOf="@id/tv_rectification_person_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="end"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_ff3e3d" />
+                android:textColor="@color/c_ff3e3d"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>
+
             <View
                 android:id="@+id/view_linex"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_rectification_person_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_rectification_person"
                 app:layout_constraintStart_toStartOf="parent"/>
             <TextView
                 android:id="@+id/tv_commit_person_title"
@@ -231,18 +240,20 @@
                 app:layout_constraintTop_toTopOf="@id/tv_commit_person_title"
                 app:layout_constraintStart_toEndOf="@id/tv_commit_person_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:maxLines="1"
+                android:gravity="end"
+                android:maxLines="2"
                 android:ellipsize="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_555" />
+                android:textColor="@color/c_555"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>/>
             <View
                 android:id="@+id/view_line7"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_commit_person_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_commit_person"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
@@ -251,6 +262,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/view_line7"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_rectification_condition_date"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
@@ -259,20 +272,26 @@
 
             <TextView
                 android:id="@+id/tv_rectification_condition_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_rectification_condition_title"
                 app:layout_constraintTop_toTopOf="@id/tv_rectification_condition_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:gravity="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/main_color" />
+                android:textColor="@color/main_color"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>/>
+
             <View
                 android:id="@+id/view_line9"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_rectification_condition_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_rectification_condition_date"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
@@ -379,6 +398,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/view_line13"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_audit_result"
+                android:layout_marginEnd="@dimen/horizontal_margin_4"
                 android:layout_marginTop="@dimen/vertical_margin_8"
                 android:layout_marginStart="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
@@ -387,20 +408,25 @@
 
             <TextView
                 android:id="@+id/tv_audit_result"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_audit_result_title"
                 app:layout_constraintTop_toTopOf="@id/tv_audit_result_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:gravity="end"
                 android:layout_marginEnd="@dimen/horizontal_margin_8"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/c_13ce7f" />
+                android:textColor="@color/c_13ce7f"
+                tools:text="测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度测试长度"/>/> />
             <View
                 android:id="@+id/view_line14"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_marginTop="@dimen/vertical_margin_8"
-                app:layout_constraintTop_toBottomOf="@id/tv_audit_result_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_audit_result"
                 app:layout_constraintStart_toStartOf="parent"/>
             <View
                 android:layout_width="match_parent"
