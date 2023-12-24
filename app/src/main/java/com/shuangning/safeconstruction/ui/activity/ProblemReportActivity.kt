@@ -294,12 +294,19 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     private fun getConstructionTeamId(): Int {
         var item: ConstructionTeamResp? = null
         personConstructionTeams.forEach {
-            if (it.name.contains(partOfTender)) {
-                item = it
-                return@forEach
+//            if (it.name.contains(partOfTender)) {
+//                item = it
+//                return@forEach
+//            }
+            val index = it.name.indexOf("（")
+            if (index >= 0){
+                val data = it.name.substring(0, index)
+                if (data == partOfTender) {
+                    item = it
+                    return@forEach
+                }
             }
         }
-
         val id = item?.let { it ->
             var id = 0
             if (it.name == constructionTeam){
@@ -334,10 +341,15 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
         var item: ConstructionTeamResp? = null
         personConstructionTeams.forEach {
-            if (it.name.contains(partOfTender)) {
-                item = it
-                return@forEach
+            val index = it.name.indexOf("（")
+            if (index >= 0){
+                val data = it.name.substring(0, index)
+                if (data == partOfTender) {
+                    item = it
+                    return@forEach
+                }
             }
+
         }
         val data = item?.let {
             val array = arrayOfNulls<String>(it.children.size + 1)
