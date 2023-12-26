@@ -58,5 +58,7 @@ object UserInfoManager {
 
     fun clear(){
         userInfo = null
+        token = ""
+        isLogin = false
     }
 }

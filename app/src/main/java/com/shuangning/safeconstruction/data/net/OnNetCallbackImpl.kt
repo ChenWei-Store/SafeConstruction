@@ -17,9 +17,9 @@ class OnNetCallbackImpl: NetworkClient.OnNetCallback {
         MyLog.e("OnNetCallbackImpl onCodeError:$code-$msg")
         if (code == 500 || code == -1){
             showToast("请求失败")
-        }else if (code == 400){
+        }else if (code == 1001){
             showToast("非法请求参数")
-        }else if (code == 401){
+        }else if (code == 1005){
             showToast("token失效，请重新登录")
             EventbusUtils.post(EventCode.LOGIN)
         }else{
