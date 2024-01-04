@@ -47,13 +47,13 @@ class MMKVResp {
     }
 
     fun putToken(token: String){
-        keyValueUtils.putAllWithId(APP_CONFIG) {
+        keyValueUtils.putAllWithId(TOKEN) {
             putString(TOKEN, token)
         }
     }
 
     fun getToken(): String{
-        return keyValueUtils.getWithId(APP_CONFIG, key = TOKEN, valueType = "")
+        return keyValueUtils.getWithId(TOKEN, key = TOKEN, valueType = "")
     }
     fun putGroupEducationTipStatus(isHide: Boolean){
         keyValueUtils.putAllWithId(APP_CONFIG) {

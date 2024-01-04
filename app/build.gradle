@@ -22,6 +22,15 @@ android {
         }
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'com.shuangning.safeconstruction'
+            keyPassword '1qaz2wsx'
+            storeFile file(project.rootDir.absolutePath+'/keystore/keystore.jks')
+            storePassword '1qaz2wsx'
+        }
+    }
+
     buildTypes {
         debug{
             buildConfigField("Integer","DESIGN_WIDTH_DP","-1")
@@ -29,10 +38,13 @@ android {
             buildConfigField("String","BASE_URL","\"http://47.122.10.106/\"")
         }
         release {
+            buildConfigField("Integer","DESIGN_WIDTH_DP","-1")
             buildConfigField("String","BAIDU_LBS_AK","\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
-            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
+            buildConfigField("String","BASE_URL","\"http://47.122.10.106/\"")
+//            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {

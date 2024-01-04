@@ -8,10 +8,14 @@ import androidx.core.graphics.drawable.toDrawable
 import com.lxj.xpopup.core.BottomPopupView
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.widget.DrawableTextView
+import com.shuangning.safeconstruction.constants.EventCode
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
 import com.shuangning.safeconstruction.databinding.DialogGroupEducationTipBinding
 import com.shuangning.safeconstruction.extension.onClick
+import com.shuangning.safeconstruction.ui.activity.AddGroupEducationActivity
 import com.shuangning.safeconstruction.utils.UIUtils
+import com.shuangning.safeconstruction.utils2.EventbusUtils
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Chenwei on 2023/11/5.
@@ -26,6 +30,7 @@ class GroupEducationTipDialog(ctx: Context): BottomPopupView(ctx) {
                 MMKVResp.resp.putGroupEducationTipStatus(true)
             }
             dismiss()
+            EventbusUtils.post(EventCode.START_ADD_GROUP_EDUCATION)
         }
         val tvSelect = findViewById<DrawableTextView>(R.id.tv_select)
         tvSelect.setOnDrawableClickListener(object: DrawableTextView.OnDrawableClickListener{

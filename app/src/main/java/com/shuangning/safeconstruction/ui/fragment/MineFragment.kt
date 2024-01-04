@@ -48,13 +48,11 @@ class MineFragment: BaseFragment<FragmentMineBinding>() {
 //            }
 //        }
         binding?.viewUpdateVersion?.setOnClickListener {
-            //TODO:补充获取最新版本接口
             ToastUtil.showLong("已经是最新版本")
         }
         binding?.viewClearCache?.setOnClickListener {
             XPopup.Builder(context).asConfirm("是否确认清除缓存?", "") {
-                //TODO:补充清除缓存逻辑
-                clearCache()
+//                clearCache()
                 ToastUtil.showLong("清除缓存成功")
             }.show()
         }

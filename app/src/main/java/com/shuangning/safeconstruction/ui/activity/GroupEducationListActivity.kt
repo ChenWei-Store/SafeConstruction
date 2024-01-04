@@ -149,6 +149,10 @@ class GroupEducationListActivity: BaseActivity<ActivityGroupEducationListBinding
             EventCode.GROUP_EDUCATION_SCREENING -> {
                 showScreeningDialog()
             }
+
+            EventCode.START_ADD_GROUP_EDUCATION->{
+                AddGroupEducationActivity.startTo(this, selection)
+            }
             EventCode.GROUP_EDUCATION_STATUS -> {
                 val data = obj as? GroupEducationOption
                 data?.let {
