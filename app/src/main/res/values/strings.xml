@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SafeConstruction</string>
+    <string name="app_name">双宁安全管控</string>
     <string name="loading">加载中。。。</string>
     <string name="version">v%1$s</string>
     <string name="login_title">平安施工&#160;智慧工程</string>

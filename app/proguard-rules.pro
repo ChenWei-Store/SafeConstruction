@@ -67,6 +67,7 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 -dontwarn javax.lang.model.element.Element
+-dontwarn javax.lang.model.element.Modifier
 #############################################
 #
 # Android开发中一些需要保留的公共部分
@@ -400,11 +401,11 @@
 
 #SmartTable
 -keepattributes *Annotation*
--keepclassmembers class ** {
-    @com.bin.david.form.annotation.SmartTable<fields>;
-}
--keep enum com.bin.david.form.annotation.ColumnType { *; }
-
+#-keepclassmembers class ** {
+#    @com.bin.david.form.annotation.SmartTable<fields>;
+#}
+#-keep enum com.bin.david.form.annotation.ColumnType { *; }
+-keep class com.bin.david.form.** { *; }
 #app混淆标记
 -keep class com.github.mmin18.** {*;}
 

@@ -184,4 +184,7 @@ interface ApiService {
 
     @POST(COMMIT_REPAIR)
     suspend fun commitRepair(@Body data: CommitRepairReq): Boolean?
+
+    @GET(GET_PROJECT_NAME)
+    suspend fun getProjectName(): String?
 }

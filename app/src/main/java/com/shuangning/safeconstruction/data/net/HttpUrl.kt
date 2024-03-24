@@ -40,6 +40,7 @@ const val GET_MAX_ID = "shuangning-server/gis/getMaxId"
 const val GET_DEVICE = "shuangning-server/device/queryDetail"
 const val COMMIT_SENSING = "shuangning-server/device/saveInspection"
 const val COMMIT_REPAIR = "shuangning-server/device/saveDeviceMaintenance"
+const val GET_PROJECT_NAME = "shuangning-server/company/getProjectName"
 
 
 
