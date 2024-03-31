@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction
 import com.shuangning.safeconstruction.base.BaseApplication
 import com.shuangning.safeconstruction.data.net.OnNetCallbackImpl
 import com.shuangning.safeconstruction.manager.UserInfoManager
+import com.shuangning.safeconstruction.utils.CrashHandler
 import com.shuangning.safeconstruction.utils2.BaiduLocation
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
 import com.videogo.openapi.EZOpenSDK
@@ -13,6 +14,7 @@ import com.videogo.openapi.EZOpenSDK
 class MainApplication: BaseApplication() {
     override fun onCreate() {
         super.onCreate()
+        CrashHandler.getInstance().init(this)
         UserInfoManager.init()
         NetworkClient.client.init(BuildConfig.BASE_URL, OnNetCallbackImpl())
         BaiduLocation.init()

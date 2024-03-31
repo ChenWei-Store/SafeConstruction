@@ -26,7 +26,8 @@ import java.util.Map;
 /**
  * 全局异常捕捉类
  * 保存错误信息和设备信息
- * Created by Administrator o n 2016/1/30.
+ * Created by Administrator o n 2016/1/30
+ * crash路径:Android/data/packageName/crash/
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     String TAG = CrashHandler.class.getCanonicalName();

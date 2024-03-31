@@ -109,14 +109,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             it?.let {
                 data.add(
                     HomeHeaderBean(
-                        projectName = "宁国市S104港口至高铁站段安全管控项目",
-                        bannerUrls = it
+                        projectName = it.projectName,
+                        bannerUrls = it.urls
                     )
                 )
             }?:let {
                 data.add(
                     HomeHeaderBean(
-                        projectName = "宁国市S104港口至高铁站段安全管控项目",
+                        projectName = "",
                     )
                 )
             }

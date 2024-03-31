@@ -110,8 +110,16 @@ class String2ResultCall(
             val dataJsonObject = JSONArray(data)
             jsonObject.put("data", dataJsonObject)
         }else{
-            val dataJsonObject = JSONObject(data)
-            jsonObject.put("data", dataJsonObject)
+            val result = kotlin.runCatching {
+                val dataJsonObject = JSONObject(data)
+                jsonObject.put("data", dataJsonObject)
+                jsonObject
+            }.getOrNull()
+            if (result == null){
+                //处理data不是json，只是字符串值的场景
+                jsonObject.put("data", data)
+            }
+
         }
         return jsonObject.toString()
     }
