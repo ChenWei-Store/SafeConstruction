@@ -59,15 +59,15 @@ object BaiduLocation: BDLocationListener{
         location?.apply {
             val latitude = latitude //获取纬度信息
             val longitude = longitude //获取经度信息
-            val addr: String = addrStr //获取详细地址信息
-            val country: String = country //获取国家
-            val province: String = province //获取省份
-            val city: String = city //获取城市
-            val district: String = district //获取区县
-            val street: String = street //获取街道信息
-            val town: String = town //获取乡镇信息
-            val locationDescribe = locationDescribe
-            val isSuccess = latitude > 0 && longitude > 0 && !addr.isNullOrBlank()
+            val addr: String = addrStr ?: ""//获取详细地址信息
+            val country: String = country ?: "" //获取国家
+            val province: String = province ?: ""//获取省份
+            val city: String = city ?: ""//获取城市
+            val district: String = district ?: ""//获取区县
+            val street: String = street ?: ""//获取街道信息
+            val town: String = town ?: ""//获取乡镇信息
+            val locationDescribe = locationDescribe ?: ""
+            val isSuccess = latitude > 0 && longitude > 0 && addr.isNotEmpty()
             locationCallback?.onLocationResult(isSuccess,
                 LocationResult(latitude, longitude, addr, country,
                     province, city, district, street, town, locationDescribe))

@@ -495,3 +495,7 @@
 # 必须额外加的，否则编译无法通过
 -dontwarn okio.**
 #========以上是第三方开源库=======#
+
+# bugly混淆
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

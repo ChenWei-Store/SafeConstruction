@@ -8,6 +8,10 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
@@ -23,12 +27,14 @@ import com.shuangning.safeconstruction.manager.PermissionManager
 import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.manager.XPopCreateUtils
 import com.shuangning.safeconstruction.ui.viewmodel.AddGroupEducationViewModel
+import com.shuangning.safeconstruction.utils.GlideEngine
 import com.shuangning.safeconstruction.utils.ToastUtil
 import com.shuangning.safeconstruction.utils.UIUtils
 import com.shuangning.safeconstruction.utils2.ActivityUtils
 import com.shuangning.safeconstruction.utils2.JsonUtils
 import com.shuangning.safeconstruction.utils2.MyLog
 import java.io.File
+import java.util.ArrayList
 
 /**
  * Created by Chenwei on 2023/11/4.
@@ -102,7 +108,35 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
 
         binding?.ivAdd?.setOnClickListener {
             //录屏
-            reqCameraPermissionAndStart()
+//            reqCameraPermissionAndStart()
+            PictureSelector.create(this@AddGroupEducationActivity)
+                .openGallery(SelectMimeType.ofVideo())
+                .setMaxSelectNum(1)
+                .setImageEngine(GlideEngine.createGlideEngine())
+                .isDisplayCamera(false)
+                .forResult(object : OnResultCallbackListener<LocalMedia> {
+                    override fun onResult(result: ArrayList<LocalMedia>?) {
+                        result.takeIf {
+                            !it.isNullOrEmpty()
+                        }?.let {
+                            if (it.isNotEmpty()) {
+                                data.clear()
+                                it.forEach {
+                                    val path = it.realPath
+//                                    binding?.player?.visibility = View.VISIBLE
+//                                    binding?.player?.setUp(path, true, "")
+                                    val file = File(path)
+                                    LoadingManager.startLoading(this@AddGroupEducationActivity)
+                                    viewModel.uploadVideo(file)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancel() {
+                    }
+
+                })
         }
 
         binding?.tvNotWorks?.setOnDrawableClickListener(object :
@@ -234,10 +268,7 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         viewModel.video.observe(this) {
             it?.let { it2 ->
                 if (it2.size > 0) {
-                    videos.clear()
-                    videos.add(it2[0])
-                    binding?.player?.visibility = View.VISIBLE
-                    binding?.player?.setUp(it2[0].url, true, "")
+                    initVideo(it2)
                 }
             }
             LoadingManager.stopLoading()
@@ -251,11 +282,19 @@ class AddGroupEducationActivity : BaseActivity<ActivityAddGroupEducationBinding>
         }
     }
 
+    private fun initVideo(it2: MutableList<UploadVideoItem>) {
+        videos.clear()
+        videos.add(it2[0])
+        binding?.player?.visibility = View.VISIBLE
+        binding?.player?.setUp(it2[0].url, true, "")
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 1 -> {
+                    //TODO:
                     val uri = data?.getStringExtra("uri") ?: ""
                     MyLog.d("uri2:$uri")
                     val path = getFilePathFromContentUri(Uri.parse(uri))

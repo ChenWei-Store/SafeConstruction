@@ -6,6 +6,7 @@ import com.shuangning.safeconstruction.manager.UserInfoManager
 import com.shuangning.safeconstruction.utils.CrashHandler
 import com.shuangning.safeconstruction.utils2.BaiduLocation
 import com.shuangning.safeconstruction.utils2.net.NetworkClient
+import com.tencent.bugly.crashreport.CrashReport
 import com.videogo.openapi.EZOpenSDK
 
 /**
@@ -21,5 +22,6 @@ class MainApplication: BaseApplication() {
         /** * sdk日志开关，正式发布需要去掉 */
         EZOpenSDK.showSDKLog(true)
         EZOpenSDK.initLib(this, "7e261fa8fc0d4112a8b32ad06b484a29")
+        CrashReport.initCrashReport(this, "2366f612ba", BuildConfig.DEBUG)
     }
 }
