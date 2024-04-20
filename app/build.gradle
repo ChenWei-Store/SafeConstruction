@@ -13,8 +13,8 @@ android {
         applicationId "com.shuangning.safeconstruction"
         minSdk 24
         targetSdk 33
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
         buildConfigField("Integer", "DESIGN_WIDTH_DP", "-1")
         ndk {
             // 设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -36,6 +36,7 @@ android {
             buildConfigField("Integer", "DESIGN_WIDTH_DP", "-1")
             buildConfigField("String", "BAIDU_LBS_AK", "\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
             buildConfigField("String", "BASE_URL", "\"http://47.122.10.106:8082/\"")
+            project.gradle.startParameter.excludedTaskNames.add('lint')  // 屏蔽lint耗时检查
         }
         release {
             buildConfigField("Integer", "DESIGN_WIDTH_DP", "-1")
@@ -45,6 +46,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+            project.gradle.startParameter.excludedTaskNames.add('lint')  // 屏蔽lint耗时检查
         }
     }
     compileOptions {
@@ -98,6 +100,8 @@ dependencies {
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.5.0-release-jitpack'
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.5.0-release-jitpack'
     implementation 'com.tencent.bugly:crashreport:4.1.9.3'
+    implementation 'io.github.azhon:appupdate:4.3.2'
+
     //ui库
     implementation("com.ogaclejapan.smarttablayout:library:2.0.0@aar")
     implementation 'com.jaeger.statusbarutil:library:1.5.1'

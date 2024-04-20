@@ -39,6 +39,7 @@ import com.shuangning.safeconstruction.bean.response.UploadPhotoItem
 import com.shuangning.safeconstruction.bean.response.UploadVideoItem
 import com.shuangning.safeconstruction.bean.response.UserBaseInfoResp
 import com.shuangning.safeconstruction.bean.response.UserInfoResp
+import com.shuangning.safeconstruction.bean.response.VersionResp
 import com.shuangning.safeconstruction.utils2.net.HttpResult
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -187,4 +188,7 @@ interface ApiService {
 
     @POST(GET_PROJECT_NAME)
     suspend fun getProjectName(): HttpResult<String>?
+
+    @GET(GET_VERSION)
+    suspend fun getVersion(): HttpResult<VersionResp>?
 }

@@ -3,6 +3,7 @@ package com.shuangning.safeconstruction.ui.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import com.azhon.appupdate.manager.DownloadManager
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initData() {
         LoadingManager.startLoading(this)
         mineViewModel.getUserInfo()
+        mineViewModel.getVersion()
     }
 
     override fun doBeforeSetContentView() {
@@ -71,6 +73,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 companyName = it.extend.company.realCompany.companyName
             }
             LoadingManager.stopLoading()
+        }
+        mineViewModel.version.observe(this){
+            it?.let {
+                if (it.url.isEmpty()){
+                    return@let
+                }
+                DownloadManager.Builder(this).run {
+                    apkUrl(it.url)
+                    apkName("双宁安全管控.apk")
+                    smallIcon(R.mipmap.ic_launcher)
+                    apkVersionCode(it.versionCode.toInt())
+                    apkVersionName(it.versionName)
+                    apkSize(it.capacity.toString())
+                    apkDescription(it.content)
+                    forcedUpgrade(true)
+                    showNotification(true)
+                    //省略一些非必须参数...
+                    build()
+                }.download()
+            }
         }
     }
 
