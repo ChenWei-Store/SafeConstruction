@@ -27,3 +27,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "SafeConstruction"
 include ':app'
+include ':appupdate'

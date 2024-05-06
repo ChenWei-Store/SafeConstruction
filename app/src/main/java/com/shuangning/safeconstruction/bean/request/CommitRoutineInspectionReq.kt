@@ -20,7 +20,7 @@ data class CommitRoutineInspectionReq(
     @Json(name = "zhenggaiqixian") val zhenggaiqixian: String = "",
     @Json(name = "xianchangmiaoshu") val xianchangmiaoshu: String = "",
     @Json(name = "zhenggaiyaoqiu") val zhenggaiyaoqiu: String = "",
-    @Json(name = "zhenggaichuliren") val zhenggaichuliren: ZhengGaiChuLiRen = ZhengGaiChuLiRen(),
+    @Json(name = "zhenggaichuliren") val zhenggaichuliren: MutableList<ZhengGaiChuLiRen> = mutableListOf(),
 )
 
 @JsonClass(generateAdapter = true)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.azhon.appupdate.manager.DownloadManager
+import com.shuangning.safeconstruction.BuildConfig
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseActivity
 import com.shuangning.safeconstruction.base.dialog.LoadingManager
@@ -87,8 +88,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     apkVersionName(it.versionName)
                     apkSize(it.capacity.toString())
                     apkDescription(it.content)
+                    enableLog(BuildConfig.DEBUG)
+                    showNewerToast(true)
                     forcedUpgrade(true)
-                    showNotification(true)
+                    showNotification(false)
                     //省略一些非必须参数...
                     build()
                 }.download()

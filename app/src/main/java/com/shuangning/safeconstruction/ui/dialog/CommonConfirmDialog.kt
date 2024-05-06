@@ -22,7 +22,7 @@ class CommonConfirmDialog(ctx: Context, val title: String, val content: String?)
             R.id.tv_content.setText(this, content)
         }
 
-        R.id.tv_confirm.onClick(this){
+        R.id.ll_confirm.onClick(this){
             dismiss()
         }
     }

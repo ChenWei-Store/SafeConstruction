@@ -9,7 +9,7 @@ import com.shuangning.safeconstruction.BuildConfig
 const val DEFAULT_TAG = "MyLog"
 const val MAX_LENGTH = 4000
 object MyLog {
-    private var isLog = true
+    private var isLog = BuildConfig.DEBUG
     private var tag = DEFAULT_TAG
     fun init(tag: String = DEFAULT_TAG){
         this.tag = tag
@@ -70,6 +70,6 @@ object MyLog {
         }
 
     }
-    fun isPrintLog(): Boolean = isLog
+    private fun isPrintLog(): Boolean = isLog
 
 }

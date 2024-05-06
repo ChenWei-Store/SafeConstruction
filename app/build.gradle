@@ -35,13 +35,13 @@ android {
         debug {
             buildConfigField("Integer", "DESIGN_WIDTH_DP", "-1")
             buildConfigField("String", "BAIDU_LBS_AK", "\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
-            buildConfigField("String", "BASE_URL", "\"http://47.122.10.106:8082/\"")
+            buildConfigField("String", "BASE_URL", "\"http://47.122.10.106:8084/\"")
             project.gradle.startParameter.excludedTaskNames.add('lint')  // 屏蔽lint耗时检查
         }
         release {
             buildConfigField("Integer", "DESIGN_WIDTH_DP", "-1")
             buildConfigField("String", "BAIDU_LBS_AK", "\"6iOG2PxQeFkrMZsDLurb8bmyczzi7ciH\"")
-            buildConfigField("String", "BASE_URL", "\"http://47.122.10.106:8082/\"")
+            buildConfigField("String", "BASE_URL", "\"http://47.122.10.106:8084/\"")
 //            buildConfigField("String","BASE_URL","\"https://metacode.wetech.tech/api/\"")
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -100,8 +100,7 @@ dependencies {
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.5.0-release-jitpack'
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.5.0-release-jitpack'
     implementation 'com.tencent.bugly:crashreport:4.1.9.3'
-    implementation 'io.github.azhon:appupdate:4.3.2'
-
+    implementation project(":appupdate")
     //ui库
     implementation("com.ogaclejapan.smarttablayout:library:2.0.0@aar")
     implementation 'com.jaeger.statusbarutil:library:1.5.1'

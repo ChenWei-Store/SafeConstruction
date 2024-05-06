@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.azhon.appupdate.manager.DownloadManager
 import com.lxj.xpopup.XPopup
+import com.shuangning.safeconstruction.BuildConfig
 import com.shuangning.safeconstruction.R
 import com.shuangning.safeconstruction.base.BaseFragment
 import com.shuangning.safeconstruction.data.mmkv.MMKVResp
@@ -94,9 +95,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
                         apkVersionName(it.versionName)
                         apkSize(it.capacity.toString())
                         apkDescription(it.content)
-                        forcedUpgrade(true)
+                        enableLog(BuildConfig.DEBUG)
                         showNewerToast(true)
-                        showNotification(true)
+                        forcedUpgrade(true)
+                        showNotification(false)
                         //省略一些非必须参数...
                         build()
                     }.download()

@@ -1,5 +1,7 @@
 package com.shuangning.safeconstruction.ui.activity
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
@@ -63,9 +65,10 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
     private val personConstructionTeams = mutableListOf<ConstructionTeamResp>()
     private var latitude: Double = 0.0 //纬度
     private var longitude: Double = 0.0 //精度
-    private var personResp: PersonResp?= null
+    private var personResp: PersonResp? = null
     private var person = ""
     private val jianchaxiang = JianChaXiang()
+    private val persons = mutableListOf<String>()
 
     override fun getViewBinding(layoutInflater: LayoutInflater): ActivityProblemReportBinding? {
         return ActivityProblemReportBinding.inflate(layoutInflater)
@@ -299,7 +302,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 //                return@forEach
 //            }
             val index = it.name.indexOf("（")
-            if (index >= 0){
+            if (index >= 0) {
                 val data = it.name.substring(0, index)
                 if (data == partOfTender) {
                     item = it
@@ -309,9 +312,9 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         }
         val id = item?.let { it ->
             var id = 0
-            if (it.name == constructionTeam){
+            if (it.name == constructionTeam) {
                 id = it.id
-            }else{
+            } else {
                 val result = it.children.find {
                     it.name == constructionTeam
                 }
@@ -324,10 +327,10 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         return id
     }
 
-    fun getPersonId(): Int{
+    fun getPersonId(personName: String): Int {
         var id = 0
         personResp?.children?.forEach {
-            if (it.name == person) {
+            if (it.name == personName) {
                 id = it.id
                 return@forEach
             }
@@ -342,7 +345,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
         var item: ConstructionTeamResp? = null
         personConstructionTeams.forEach {
             val index = it.name.indexOf("（")
-            if (index >= 0){
+            if (index >= 0) {
                 val data = it.name.substring(0, index)
                 if (data == partOfTender) {
                     item = it
@@ -371,7 +374,12 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
             it?.let {
                 data.addAll(it)
             }
-            val chuliren = ZhengGaiChuLiRen(getPersonId())
+            val users = mutableListOf<ZhengGaiChuLiRen>()
+            persons.forEach {
+                val id = getPersonId(it)
+                val user = ZhengGaiChuLiRen(id)
+                users.add(user)
+            }
             val desc = binding?.etContent?.text?.toString() ?: ""
             val rectificationRequirements =
                 binding?.etRectificationRequirements?.text?.toString() ?: ""
@@ -386,7 +394,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
                 selectedTime,
                 desc,
                 rectificationRequirements,
-                chuliren
+                users
             )
             viewModel.commit(req)
         }
@@ -413,20 +421,40 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 
         viewModel.personResult.observe(this) {
             LoadingManager.stopLoading()
-            if (it == null || it.children.isNullOrEmpty()){
+            if (it == null || it.children.isNullOrEmpty()) {
                 ToastUtil.showCustomToast("当前施工队下没有整改处理人数据")
                 return@observe
             }
             personResp = it
-            personResp?.children?.let {
-                val data = arrayOfNulls<String>(it.size)
-                it.forEachIndexed { index, personItem ->
-                    data[index] = personItem.name
+            personResp?.children?.let { it2 ->
+                val data = mutableListOf<String>()
+                it2.forEachIndexed { idx, personItem ->
+                    data.add(personItem.name)
                 }
-                XPopCreateUtils.showListCenterDialog(this@ProblemReportActivity, data as Array<String>) { index, text ->
-                    person = text
-                    binding?.tvCauseAnalysis?.text = person
-                }
+                persons.clear()
+                AlertDialog.Builder(this@ProblemReportActivity)
+                    .setTitle("请选择")
+                    .setMultiChoiceItems(data.toTypedArray(), null) { dialog, i, isChecked ->
+                        val item = data[i]
+                        if (isChecked) {
+                            persons.add(item)
+                        } else {
+                            if (persons.contains(item)) {
+                                persons.remove(item)
+                            }
+                        }
+                    }.setPositiveButton("确认"){
+                        dialog, which ->
+                        dialog.dismiss()
+                        var personsText = ""
+                        persons.forEach { personName ->
+                            personsText += personName
+                            personsText += ","
+                        }
+                        personsText = personsText.substring(0, personsText.length -1)
+                        binding?.tvCauseAnalysis?.text = personsText
+                    }.create()
+                    .show()
             }
         }
     }
@@ -447,7 +475,7 @@ class ProblemReportActivity : BaseActivity<ActivityProblemReportBinding>(),
 
     private fun onCheckListResult(data: Intent?) {
         checkList = data?.getStringExtra("title") ?: ""
-        val id = data?.getIntExtra("id", -1)?: -1
+        val id = data?.getIntExtra("id", -1) ?: -1
         jianchaxiang.id = id
         jianchaxiang.referent = checkList
         binding?.tvCheckList?.text = checkList
